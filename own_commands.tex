@@ -1,0 +1,73 @@
+% own macros
+
+\newcommand{\acronymContainer}[1]{
+	\begin{flushleft}
+		\begin{longtable}{p{0.2\textwidth} p{0.8\textwidth}}
+		#1
+		\end{longtable}
+	\end{flushleft}
+}
+
+\newcommand{\acronymEntry}[2]{
+	\textbf{#1} & #2
+}
+
+\newcommand{\acronymEntryNewline}[0]{
+	\vspace*{0.631em} \\ %0.631em
+}
+
+\newcommand{\todayWithoutDay}{\DTMlangsetup[german]{showdayofmonth=false}\today\DTMlangsetup[german]{showdayofmonth=true}}
+
+\newcommand{\quoteMark}[1]{
+	\glqq#1\grqq
+}
+
+\newcommand{\setCSharpListing}{
+	\lstset{language=[Sharp]C,
+		extendedchars=\true,
+		escapeinside=``,
+		inputencoding={utf8},
+		showspaces=false,
+		showtabs=false,
+		breaklines=true,
+		showstringspaces=false,
+		breakatwhitespace=true,
+		escapeinside={(*@}{@*)},
+		commentstyle=\color{greencomments},
+		keywordstyle=\color{bluekeywords}\bfseries,
+		stringstyle=\color{redstrings},
+		basicstyle=\ttfamily,
+		captionpos=t
+	}
+}
+
+\newcommand{\setBashListing}{
+	\lstset{language=bash,caption={bash version},
+		extendedchars=\true,
+		escapeinside=``,
+		inputencoding={utf8},
+		basicstyle=\ttfamily,
+		showstringspaces=false,
+		commentstyle=\color{red},
+		keywordstyle=\color{blue},
+		captionpos=t
+	}
+}
+
+\newcommand{\setJavaScriptListing}{
+	\lstset{language=JavaScript,
+		extendedchars=\true,  
+		escapeinside=``,
+		inputencoding={utf8},
+		extendedchars=true,
+		basicstyle=\footnotesize\ttfamily,
+		showstringspaces=false,
+		showspaces=false,
+		numberstyle=\footnotesize,
+		numbersep=9pt,
+		tabsize=2,
+		breaklines=true,
+		showtabs=false,
+		captionpos=t
+	}
+}

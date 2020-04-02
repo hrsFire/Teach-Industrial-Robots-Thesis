@@ -1,0 +1,199 @@
+\documentclass[a4paper,12pt, twoside]{scrreprt}
+% Autor der Vorlage: Klaus Rheinberger, FH Vorarlberg
+% 2017-02-20
+
+%% Hilfe: z.B.
+% empfohlener Einstieg: http://latex.tugraz.at/  
+% https://de.wikibooks.org/wiki/LaTeX-Kompendium:_Schnellkurs:_Erste_Schritte
+% https://de.wikibooks.org/wiki/LaTeX-Kompendium:_Schnellkurs
+% https://de.wikibooks.org/wiki/LaTeX-Kompendium
+
+%% Pakete:
+% Der Befehl \usepackage[latin9]{inputenc} ermöglicht die direkte Angabe von Umlauten. Übrigens lässt sich so auch das Euro-Zeichen direkt eingeben. Auf Betriebssystemen, wie zum Beispiel allen neueren Linux-Distributionen, verwendet man statt \usepackage[latin9]{inputenc} besser \usepackage[utf8]{inputenc}, auf Applesystemen verwendet man \usepackage[macce]{inputenc} (oder das für ältere Modelle gültige \usepackage[applemac]{inputenc}).
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}    % Silbentrennung bei Sonderzeichen
+\usepackage{graphicx}       % Bilder einbinden
+\usepackage[ngerman]{babel} % Deutsche Sprachanpassungen
+\usepackage{csquotes}       % When using babel or polyglossia with biblatex, loading csquotes is recommended to ensure that quoted texts are typeset according to the rules of your main language.
+\usepackage{acronym}  % für optionales Abkürzungsverzeichnis
+\usepackage{eurosym}  % z. B. \EUR{12345,68}
+\usepackage[linktocpage=true]{hyperref} % Links z. B. \href{https://www.wikibooks.org}{Wikibooks home}
+\usepackage{caption} % Abbildungslegenden
+\captionsetup{format=hang, justification=raggedright}
+%\usepackage[style=alphabetic,citestyle=alphabetic,backend=bibtex]{biblatex}   % Literaturverweise
+% biblatex comes with a variety of built-in bibliography/citation style families (numeric, alphabetic, authoryear, authortitle, verbose), and there's a growing number of custom styles:
+% https://de.sharelatex.com/learn/Biblatex_citation_styles
+% https://de.sharelatex.com/learn/Biblatex_bibliography_styles
+%\addbibresource{bibresource.bib}    % Zotero-Beispiele.bib ist die verwendete Bibtex-Datei 
+% Anstatt die Bibtex-Datei selber zu erstellen, kann sie z. B. aus einer Zotero-Sammlung zu BibTeX exportiert werden.
+
+\input{own_packages}
+\input{settings}
+
+%% Einstellungen:
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}   % Tiefe der Gliederung im In haltsverzeichnis
+
+\input{own_commands}
+\input{gender}
+
+%% ERSETZEN VON ECKIGEN KLAMMERN:
+% Ersetzen Sie den Text in den eckigen Klammern!
+
+\begin{document}
+\input{document_settings}
+
+% evtl. Sperrvermerkseite
+%\thispagestyle{empty}
+%[Achtung: Verwenden Sie einen Sperrvermerk nur in sehr gut begründeten Fällen!] 
+
+%\section*{Sperrvermerk}   % evtl. ersetzen durch \section*{Sperrvermerk}
+%Auf Wunsch der Firma Creasoft AG ist die vorliegende Arbeit bis zum [DATUM] für die öffentliche Nutzung zu sperren. 
+
+%Veröffentlichung, Vervielfältigung und Einsichtnahme sind ohne ausdrückliche Genehmigung der oben genannten Firma und der/dem %Verfasser/in nicht gestattet. Der Titel der Arbeit sowie das Kurzreferat/Abstract dürfen jedoch veröffentlicht werden.
+
+%\vspace{3cm}
+
+%\noindent Dornbirn, \todayWithoutDay \hfill Helmut Rhomberg
+
+%\vspace{2cm}
+
+%\hfill Firmenstempel\hspace{2cm}
+
+
+% Titelblatt:
+% \newpage\mbox{}\newpage
+\cleardoublepage   % force output to a right page
+\thispagestyle{empty}
+\begin{titlepage}
+  \begin{flushright}
+  \includegraphics[width=0.4\linewidth]{Logo-A3}
+  \end{flushright}
+  \begin{flushleft}
+  \section*{Masterarbeit} %[Titel der Arbeit]
+  \subsection*{@TODO: Titel der Arbeit}
+  \vspace{1cm}
+  
+  Masterarbeit\\
+  zur Erlangung des akademischen Grades
+  \vspace{0.5cm}
+  
+  \textbf{Master of Science in Engineering (MSc)} %[z. B. Master of Science in Engineering (MSc)]
+
+  \vspace{1cm}
+  Fachhochschule Vorarlberg\newline
+  Informatik %[z. B. Energietechnik und Energiewirtschaft]
+
+  \vspace{0.5cm}
+  
+  Betreut von\newline
+  Dipl.-Ing. Robert Amann %[Name(n) der betreuenden Lehrperson(en)]
+  
+  \vspace{0.5cm}
+  
+  Vorgelegt von\newline
+  Helmut Rhomberg\newline
+  1810249003\newline\newline %[Name(n) der Verfasser/innen]\newline
+  Dornbirn, \todayWithoutDay %[Monat Jahr]
+  \end{flushleft}
+\end{titlepage}
+
+\newpage
+\section*{Gender-Erklärung}
+\input{kapitel/gender_erklaerung/gender_erklaerung}
+
+% evtl. Widmung:
+%\newpage
+%\section*{Widmung}   % evtl. ersetzen durch \section*{Widmung}
+%
+%Nachfolgend möchte ich mich bei allen bedanken, welche mich während der Anfertigung %dieser Bachelorarbeit unterstützt haben.\\
+%
+%Ganz speziell bedanke ich mich bei:
+%\begin{itemize}
+%	\item Prof. Thomas Feilhauer für die Betreuung dieser Bachelorarbeit vonseiten der FH Vorarlberg und seine hilfreichen Verbesserungsvorschläge
+%	\item Lukas Prutsch für dessen hilfreiche Ideen, um diese Arbeit zu verbessern
+%	\item Paul Diem, welcher mich immer wieder dazu ermunterte an dieser Arbeit weiterzuschreiben
+%	\item und allen anderen, ohne die diese Arbeit nicht so erfolgreich hätte sein können.
+%\end{itemize}
+
+% Kurzreferat:
+\newpage
+\section*{Kurzreferat}
+
+\subsection*{@TODO: Titel der Arbeit}
+\input{kapitel/kurzreferat/de/kurzreferat}
+
+% Abstract:
+\newpage
+\section*{Abstract}
+\subsection*{@TODO: Titel der Arbeit}
+\input{kapitel/kurzreferat/en/abstract}
+
+% Inhaltsverzeichnis:
+\cleardoublepage   % force output to a right page
+\tableofcontents
+
+\chapter{Einleitung}
+\input{kapitel/einleitung/einleitung}
+
+\chapter{Stand der Technik} % Ausgangslage, Anforderungsanalyse
+\input{kapitel/stand_der_technik/stand_der_technik}
+
+\chapter{Umsetzung} % Vorgehensweise
+\input{kapitel/loesungsweg/loesungsweg}
+
+\chapter{Ergebnisse}
+\input{kapitel/ergebnisse/ergebnisse}
+
+\chapter{Zusammenfassung \& Ausblick}
+\input{kapitel/zusammenfassung_ausblick/zusammenfassung_ausblick}
+
+%\begin{minipage}{\textwidth} % on same page
+%	\clearpage
+%	\phantomsection
+%	\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+%	\listoffigures
+	
+	%\clearpage
+	%\phantomsection
+	%\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+	%\listoftables
+	
+%	\clearpage
+%	\phantomsection
+%	\addcontentsline{toc}{chapter}{Listings}
+%	\lstlistoflistings
+%\end{minipage}
+
+% evtl. Abkürzungsverzeichnis:
+%\clearpage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}%\addcontentsline{toc}{chapter}{[evtl. Abkürzungsverzeichnis]}  % evtl. ersetzen durch \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+%\chapter*{Abkürzungsverzeichnis}
+%\input{kapitel/abkuerzungsverzeichnis/abkuerzungsverzeichnis}
+%% Die Kapitelstruktur ist mit der Betreuungsperson abzustimmen!
+
+
+\appendix
+\chapter{Anhang}  % evtl. ersetzen mit \chapter*{Anhang}
+\addcontentsline{toc}{chapter}{Anhang}
+\input{kapitel/anhang/anhang}
+
+% Literaturverzeichnis:
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\printbibliography
+
+
+\chapter*{Eidesstattliche Erklärung}
+\addcontentsline{toc}{chapter}{Eidesstattliche Erklärung}
+Ich erkläre hiermit an Eides statt, dass ich die vorliegende Masterarbeit selbstständig und ohne Benutzung anderer als der angegebenen Hilfsmittel angefertigt habe. Die aus fremden Quellen direkt oder indirekt übernommenen Stellen sind als solche kenntlich gemacht. Die Arbeit wurde bisher weder in gleicher noch in ähnlicher Form einer anderen Prüfungsbehörde vorgelegt und auch noch nicht veröffentlicht.
+
+\vspace{3cm}
+\noindent
+Dornbirn, am \today %[Tag. Monat Jahr anführen]
+\hfill Helmut Rhomberg %[Vor- und Nachname Verfasser/in]
+
+
+\end{document}
