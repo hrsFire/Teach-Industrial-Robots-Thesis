@@ -13,5 +13,8 @@ sudo apt install kile
 
 ## Create the pdf
 ```console
-pdflatex Masterarbeit.tex
+pdflatex Masterarbeit
+bibtex Masterarbeit
+pdflatex Masterarbeit
+pdflatex Masterarbeit
 ```
