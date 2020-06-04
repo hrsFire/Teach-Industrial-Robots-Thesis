@@ -14,7 +14,7 @@ Ein Industrieroboter ist ein universell einsetzbarer Bewegungsautomat, welcher i
 \end{figure}
 \FloatBarrier
 
-Wie in Abbildung \ref{fig:struktur_eines_industrieroboters} zu sehen ist, besteht ein Industrieroboter grundlegend aus einem Roboterarm, welcher auch Manipulator genannt wird, einer Steuerungseinheit, welche für die Überwachungung und Übersetzung der Aktionen auf den spezifischen Industrieroboter zuständig ist und einem Effektor, welcher über ein Greifsystem befestigt wird. Über den Manipulator, welcher Gelenke und Antriebe aufweist, wird die Kinematik realisiert, welche es ermöglicht den Manipulator im Raum zu bewegen. Um jeden Punkt im 3D-Raum ansteuern zu können sind mindestens 3 DOF erforderlich, welche über Gelenke realisiert werden. Um jeden Punkt im Raum mit jeder beliebigen Orientierung ansteuern zu können benötigt es jedoch 6 DOF, wobei 3 Gelenke für translatorische und weitere 3 Gelenke für rotatorische Bewegungsabläufe zuständig sind. Der Effektor kann auf verschiedene Arten realisiert werden. Zumeist ist es jedoch ein Werkzeug, welches z.B. für Schweiß-, Bohr-, Beschichtungs-, Klebe-, Montage- und Schneidearbeiten eingesetzt werden kann. Da der Effektor austauschbar ist, besteht jedoch aber auch die Möglichkeit einen Greifer oder einen anderen spezifisch für eine Aufgabe konzipierten Effektor zu montieren und zu verwenden. Damit die Steuerungseinheit die Gelenkpositionen und Antriebsgeschwindigkeiten ermitteln kann sind zudem Messsysteme erforderlich, welche als interne Sensoren bezeichnet werden. Als optionale Komponente können zudem externe Sensoren beim Industrieroboter verbaut sein, welche unter anderem zur Ermittlung von Objektposition im 3D-Raum und deren Größe verwendet werden können. Je nach Arbeitsumfeld kann es auch erforderlich sein, dass ein System zum Wechseln der Effektoren eingesetzt wird um mehrere Arbeitsschritte mit einem einzigen Industrieroboter durchführen zu können \cite{hagele_aufbau_2006}.
+Wie in Abbildung \ref{fig:struktur_eines_industrieroboters} zu sehen ist, besteht ein Industrieroboter grundlegend aus einem Roboterarm, welcher auch Manipulator genannt wird, einer Steuerungseinheit, welche für die Überwachungung und Übersetzung der Aktionen auf den spezifischen Industrieroboter zuständig ist und einem Endeffektor, welcher über ein Greifsystem befestigt wird. Über den Manipulator, welcher Gelenke und Antriebe aufweist, wird die Kinematik realisiert, welche es ermöglicht den Manipulator im Raum zu bewegen. Um jeden Punkt im 3D-Raum ansteuern zu können sind mindestens 3 DOF erforderlich, welche über Gelenke realisiert werden. Um jeden Punkt im Raum mit jeder beliebigen Orientierung ansteuern zu können benötigt es jedoch 6 DOF, wobei 3 Gelenke für translatorische und weitere 3 Gelenke für rotatorische Bewegungsabläufe zuständig sind. Der Endeffektor kann auf verschiedene Arten realisiert werden. Zumeist ist es jedoch ein Werkzeug, welches z.B. für Schweiß-, Bohr-, Beschichtungs-, Klebe-, Montage- und Schneidearbeiten eingesetzt werden kann. Da der Endeffektor austauschbar ist, besteht jedoch aber auch die Möglichkeit einen Greifer oder einen anderen spezifisch für eine Aufgabe konzipierten Endeffektor zu montieren und zu verwenden. Damit die Steuerungseinheit die Gelenkpositionen und Antriebsgeschwindigkeiten ermitteln kann sind zudem Messsysteme erforderlich, welche als interne Sensoren bezeichnet werden. Als optionale Komponente können zudem externe Sensoren beim Industrieroboter verbaut sein, welche unter anderem zur Ermittlung von Objektposition im 3D-Raum und deren Größe verwendet werden können. Je nach Arbeitsumfeld kann es auch erforderlich sein, dass ein System zum Wechseln der Endeffektoren eingesetzt wird um mehrere Arbeitsschritte mit einem einzigen Industrieroboter durchführen zu können \cite{hagele_aufbau_2006}.
 
 \subsection{Bauformen}
 Industrieroboter können entweder zur seriellen oder parallelen Kinematik zugeordnet werden. Der Unterschied besteht darin, dass die Achsen bei der seriellen Kinematik seriell angeordnet sind, wohingegen bei der paralleln Kinematik die Achsen parallel angeordnet werden.
@@ -42,7 +42,7 @@ Um Genauigkeitsmessungen an einem Industrieroboter durchzuführen ist es erforde
 \end{figure}
 \FloatBarrier
 
-In der Abbildung \ref{fig:absolutgenauigkeit_und_wiederholgenauigkeit} ist der Zusammenhang zwischen der Absolut- und Wiederholgenauigkeit zu erkennen. Die Wiederholgenauigkeit wird ermittelt indem der Industrieroboter über mehrere Zyklen hinweg immer wieder die gleiche Pose anfährt. Hierbei beeinflussen systematische Gegebenheiten, wie z.B. termische Ausdehnung durch Umgebungstemperatur, sowie aber auch durch die Motorwärme, Justagefehler der Achsen oder sogar Kollisionen die Genauigkeit des Gesamtsystems um die Zielpose exakt ansteuern zu können. Aus diesen Gründen ist es empfehlenswert den Industrieroboter jährlich auf die Genauigkeit zu prüfen und gegebenenfalls zu justieren. Im Gegensatz zur Wiederholgenauigkeit beschreibt die Absolutgenauigkeit wie genau der Industrieroboter eine theretisch programmierte Zielpose, z.B. mittels CAD-Software erlernt, im Bezug zum Roboterkoordinatensystem ansteuern kann. Standardmäßig beträgt die Wiederholgenauigkeit bei Industrierobotern \num{0,1} mm wohingegen die Absolutgenauigkeit standardmäßig eine maximale Abweichung von 1 mm aufweist \cite[28\psqq]{pott_industrielle_2019}.
+In der Abbildung \ref{fig:absolutgenauigkeit_und_wiederholgenauigkeit} ist der Zusammenhang zwischen der Absolut- und Wiederholgenauigkeit zu erkennen. Die Wiederholgenauigkeit wird ermittelt indem der Industrieroboter über mehrere Zyklen hinweg immer wieder die gleiche Pose anfährt. Hierbei beeinflussen systematische Gegebenheiten, wie z.B. termische Ausdehnung durch Umgebungstemperatur, sowie aber auch durch die Motorwärme, Justagefehler der Achsen, Fertigungstoleranzen oder sogar Kollisionen die Genauigkeit des Gesamtsystems um die Zielpose exakt ansteuern zu können. Aus diesen Gründen ist es empfehlenswert den Industrieroboter jährlich auf die Genauigkeit zu prüfen und gegebenenfalls zu justieren. Im Gegensatz zur Wiederholgenauigkeit beschreibt die Absolutgenauigkeit wie genau der Industrieroboter eine theretisch programmierte Zielpose, z.B. mittels CAD-Software erlernt, im Bezug zum Roboterkoordinatensystem ansteuern kann. Standardmäßig beträgt die Wiederholgenauigkeit bei Industrierobotern \num{0,1} mm wohingegen die Absolutgenauigkeit standardmäßig eine maximale Abweichung von 1 mm aufweist \cite[28\psqq]{pott_industrielle_2019}.
 
 \begin{figure}[htb]
 	\centering
@@ -65,29 +65,7 @@ Bei einer großen Abweichung der Absolutgenauigkeit führt dies jedoch zu einem 
 Wie in Abbildung \ref{fig:wiederholgenauigkeit} zu sehen ist, kann daraus geschlossen werden, dass keine hohe Präzision durch eine schlechte Wiederholgenauigkeit möglich ist. Aus diesem Grund kann auch gesagt werden, dass die Wiederholgenauigkeit entscheidenter als die Absolutgenauigkeit zum erreichen der Zielposition ist, da umgekehrt nicht gesagt werden kann, dass eine hohe Präzision durch eine gute Wiederholgenauigkeit erreicht wird \cite{noauthor_genauigkeit_nodate}.
 
 
-% S. 29 pott_industrielle_2019
-
-
-
-
-
-% https://books.google.at/books?id=ajERH2hUuqYC&pg=RA4-PA2&lpg=RA4-PA2&dq=wiederholgenauigkeit+vs+%22absolutgenauigkeit%22+erkl%C3%A4rt&source=bl&ots=xG5j5lzFUK&sig=ACfU3U1u5fA3eDaQ6OjY5r5YH58DLxhdQg&hl=de&sa=X&ved=2ahUKEwizm-PP9uHpAhWJCOwKHdQgCS0Q6AEwCXoECAgQAQ#v=onepage&q=wiederholgenauigkeit%20vs%20%22absolutgenauigkeit%22%20erkl%C3%A4rt&f=false
-
-% schönes bild & formel: https://www.vision-doctor.com/wiederholgenauigkeit.html
-% https://www.fachwissen-technik.de/messtechnik/praezision-genauigkeit.html
-% Die Stärke von Robotern ist also die Wiederhol- und weniger die Absolutgenauigkeit. (https://automationspraxis.industrie.de/robotik/hochgenaue-roboter/)
-% Robotergenauigkeit ist, definiert die ISO 9283
-% Die Wiederholgenauigkeit beschreibt, wie genau ein Robotersystem eine einmal angefahrene Position beim erneuten Anfahren erreicht. 
-% Die Absolutgenauigkeit hingegen beschreibt, wie genau ein Robotersystem eine theoretisch programmierte Position in der Realität anfährt. Typischerweise sollten Robotersysteme standardmäßig auf 0,1 mm wiederhol- und auf 1 mm absolutgenau sein.
-% Verschiedene Ursachen können dazu führen, dass ein Robotersystem ungenau arbeitet. Großen Einfluss haben hierbei die Getriebesteifigkeit unter Eigenlast und auch im Prozess, Justagefehler der Achsen, die Umgebungstemperatur und die thermische Ausdehnung durch die Motorwärme. Ganz simpel können auch Kollisionen die Genauigkeit reduzieren und einen Justagefehler verursachen, weil die Nullstellung der Winkelgeber in den Antrieben dabei verschoben wird. 
-% oboter noch im Werk kalibriert, um Fertigungstoleranzen auszugleichen. Hinzu kommen jährliche Überprüfungen.
-% Der wichtigste Vorteil eines ausreichend genauen Robotersystems ist die erwähnte Übereinstimmung zwischen theoretisch programmierter und tatsächlich erreichter Pose, weil dann das Nachteachen entfällt bzw. nur geringen Aufwand erfordert. 
-
-
-% "Die Wiederholgenauigkeit beschreibt einfach ausgedrückt die Fähigkeit eines Roboters einen einmal geteachten Punkt immer wieder durch anfahren zu erreichen. Die ist bei den meisten IR sehr gut und liegt üblicherweise um 0,02 mm. Je nach Größe des IR.
-% Die Absolutgenauigkeit ist die Fähigkeit bestimmte Punkte ausgehend vom Roboterkoordinatensystem zu erreichen ohne diese zu teachen. Hierbei stinken die meisten IR ab, das spiegelt sich bspw. in einem schlechten Bahnverhalten wieder, etc.
-% oberallgeier hat natürlich recht! Die Absolutgenauigkeit hat Ihre Grenzen beim ca. dreifachen der Wiederholgenauigkeit.
-%Die genaue Definition findest Du in der EN ISO 29283 (ehemals ISO 9283). Dort wird auch beschrieben, wie man die Genauigkeiten ermittelt." (https://www.roboternetz.de/community/threads/35643-absolutgenauigkeit)
+%"Die genaue Definition findest Du in der EN ISO 29283 (ehemals ISO 9283). Dort wird auch beschrieben, wie man die Genauigkeiten ermittelt." (https://www.roboternetz.de/community/threads/35643-absolutgenauigkeit)
 
 
 
@@ -108,31 +86,50 @@ Wie in Abbildung \ref{fig:wiederholgenauigkeit} zu sehen ist, kann daraus geschl
 
 % https://www.youtube.com/watch?v=wKiJaK-RDKI
 % https://www.youtube.com/watch?v=GNrU2zviRpc
+% https://www.youtube.com/watch?v=A9M1zX3GzX0
+% https://www.youtube.com/watch?v=9iCLK__7ymY
 
 
 
 % https://de.wikipedia.org/wiki/Industrieroboter
 % https://link.springer.com/chapter/10.1007%2F3-540-34823-9_27
 
-
-% nach Kinematik unterschieden
-% bestehen aus mehreren Gelenken
-% serielle Roboter 95% & parallele 5% Roboter
-
-% Arten & Vergleiche
-% Genauigkeit
 % Wie schnell können diese reagieren? (Zeitverhalten) je nach Roboterarm verschieden
 
 
-\section{Arten von Teach Pendants}
-% Arten von Handprogrammiergeräten
-% Aufzählen
-% Arten & Vergleiche
+\section{Teachen von Industrierobotern}
+Teachen, welches auch als Teach-In bezeichnet wird, ist eine von mehreren möglichen Varianten einem Industrieroboter gewünschte Posen beizubringen, damit dieser seine Arbeitsaufgabe autonom durchführen kann. Unterschieden wird bei den Lernmethoden zwischen Offline- und Online-Programmierverfahren. Die am weitest verbreitesten Offline-Methoden sind die textuelle Programmierung und das Erlernen mit einer CAD-Software. Bei der textuellen Programmierung ist es notwendig über ausreichend Programmierkenntnisse in der Programmiersprache des Industieroboter-Herstellers oder einer kompatiblen Programmiersprache zu verfügen, wohingegen bei einer CAD-Software einem virtuellen Industrieroboter in einer virtuellen Umgebung die Posen beigebracht werden können. Beide Methoden benötigen im Vergleich zum Teachen sehr viel mehr Vorwissen und sind daher nur nach erheblichem Lernaufwand nutzbar. Das Teachen zählt neben der Playback-Methode, welches ein direktes Führen des Roboterarms ermöglicht, zu den Online-Programmierverfahren. Beim Teachen kommt eine Steuerkonsole zum Einsatz mit deren Hilfe es möglich ist dem Industieroboter Posen beizubringen. Zuerst wird eine Pose mit mehreren aufeinander folgenden Steuerungsbefehlen angefahren. Anschließend, wenn eine gewünschte Pose erreicht wurde, kann diese einzelne Pose per Steuerungsbefehl in der Steuerungseinheit gespeichert werden. Das Anfahren und Speichern der Posen wird solange wiederholt bis die gesamte Arbeitsaufgabe dem Industrieroboter beigebracht wurde. Wenn notwendig, können im Nachhinein die gespeicherten Posen korrigiert werden um eine höhere Genauigkeit zu erzielen oder um Fehler zu korrigieren. Im Gegensatz zum Teachen wird beim Playback-Verfahren genau die Bewegung gespeichert, welche durch das direkte Führen des Roboterarms entsteht, und beim Ausführen der Arbeitsaufgabe auf die gleiche Weise wiederholt \cite{noauthor_industrieroboter_2020}. Beim Teachen hingegen kann zwischen den Punkten die Geschwindigkeit, Beschleunigung und sogar die Art des Pfades eingestellt werden. Bei der Art des Pfades kann frei zwischen Point-to-Point und Continuous Path gewählt werden. Point-to-Point erzwingt den für den Industrieroboter geometrisch günstigsten Pfad zwischen den Punkten zu wählen, welcher normalerweise keine gerade lineare Bahnbewegung darstellt und daher zu einem unbekannten Pfad führt. Bei Continuous Path wird hingegen von einem Punkt direkt zum nächsten Punkt entlang eines vordefinierten Pfades gefahren, welcher z.B. eine gerade lineare oder eine durch einen Hilfspunkt erzeugte kreisförmige Bahnbewegung sein kann. Durch diese Einstellungsmöglichkeiten ist es beim Teachen möglich noch höhere Genauigkeiten als bei der Playback-Methode zu erzielen. Im Gegenzug steigt durch die höhere Genauigkeit, aber auch der Programmieraufwand, da für eine hohe Genauigkeit viele Zwischenpunkte gelernt werden müssen \cite{noauthor_teach-technik_2020}.\\
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/stand_der_technik/teach_pendant}
+	\caption[Teach Pendant im Querformat von ABB]{Teach Pendant im Querformat von ABB \\Quelle: \cite{noauthor_programengif_nodate}}
+	\label{fig:teach_pendant}
+\end{figure}
+\FloatBarrier
+
+Zur Programmierung mit dem Teach-In-Verfahren werden Teach Pendants, wie in Abbildung \ref{fig:teach_pendant} zu sehen, eingesetzt, welche im Gegensatz zu früheren Modellen je nach Hoch- oder Querformat im oberen oder im linken Bereich des Teach Pendants über ein Display mit oder ohne Touch-Funktionalität verfügen \cite{nof_handbook_1999}. Unterschieden wird bei den herstellerspezifischen Teach Pendants zwischen dem Hoch- und Querformat. Beim Hochformat wird das Teachpendant mit beiden Händen gehalten und mithilfe der Daumen werden die Knöpfe betätigt. Im Gegensatz zum Hochformat ist in einem Teach Pendant mit Querformat ein größeres Display verbaut und das Teach Pendant kann im Querformat mit beiden Händen oder nur mit der linken Hand gehalten werden. Die rechte Hand kann dazu verwendet werden Eingaben auf dem Teach Pendant zu tätigen oder mittels des verfügbaren 3 DOF Joysticks oder 6 DOF 3D-Maus zum Steuern des Industrieroboters verwendet werden. Beim Betätigen des Joysticks oder der 3D-Maus reagiert der Industrieroboter bereits bei sehr feinen Bewegung des Eingabegerätes mit einer entsprechenden Bewegung in die jeweilige vorgegebene Richtung. Je weiter der Joystick oder die 3D-Maus in eine Richtung bewegt wird, desto schneller bewegt sich auch der Industrieroboter in die ensprechende Richtung \cite{prassler_advances_2004}. Jedes Teach Pendant muss einen Notstop-Schalter aufweisen um die Maschine und das Teach Pendant jederzeit außer Betrieb setzen zu können. Dieser Notstop-Schalter ist zumeist rechts oben oder rechts unten, wie in Abbildung \ref{fig:teach_pendant} zu sehen ist, als große rote Taste realisiert. Als weitere Schutzvorkehrung muss das Teach Pendant einen \quoteMark{Enable device}-Schalter aufweisen. Der \quoteMark{Enable device}-Schalter wird Umgangssprachlich Dead man's switch genannt und muss während die Maschine bedient wird ununterbrochen gehalten werden. Dabei ist zu beachten, dass wenn der Notstop-Schalter losgelassen oder zu fest gedrückt wird, der Industrieroboter zum Anhalten gebracht wird. Das Teach Pendant geht davon aus, dass wenn dieser Schalter zu fest gedrückt oder losgelassen wird, dass die Person, welche die Kontrolle über das Teach Pendant hat bewusstlos, Tod oder sogar nicht mehr an der Maschine ist. Durch das Auslösen dieses Sicherheitsschalters wird der Industrieroboter zum Anhalten gebracht und weiterer Schaden und gefährliche Situationen werden verhindert \cite{noauthor_dead_man_switch_2020}.\\
+
+Weitere Tasten wie z.B. Menü, Funktionen, Bewegung und Navigation, wie in Abbildung \ref{fig:teach_pendant} zu sehen ist, sind herstellerspezifisch und daher optional. Aus diesem Grund kann ein Teach Pendant je nach Hersteller unterschiedliche herstellerspezifischen Funktionstasten aufweisen, welche zumeist Zugriff auf die am häufigsten verwendeten Funktionalitäten des Teach Pendants bieten \cite{dinwiddie_basic_2015}. Neben diesen Sicherheitsfeatures gibt es auch herstellerübergreifende Features um den Industrieroboter zu steuern. Eines dieser Features ist das Wechseln zwischen unterschiedlichen Bewegungsmodi. Zu diesen Bewegungsmodi zählen der Gelenk-, Welt-Koordinatensystem- und Tool-Koordinatensystem-Modus. Der Gelenk-Modus erlaubt es die Position der Gelenke mithilfe des Teach Pendants jeweils einzeln oder alle Gelenke zusammen zu bewegen. Dieser Modus ermöglicht es daher die volle Kontrolle über alle Gelenke des Industrieroboters zu erlangen und diese an die jeweiligen Gegebenheiten der Umgebung anzupassen. Der Gelenk-Modus wird daher häufig zum Erreichen von schwer zugänglichen Stellen eingesetzt. Im Gegensatz zum Gelenk-Modus erlaubt es der Welt-Koordinatensystem-Modus den Mittelpunkt des Endeffektors (TCP) in der x-, y- oder z-Achse zu bewegen und Rotationen um die x-, y- oder z-Achse im Weltkoordinatensystem durchzuführen. Der Sockel des Industrieroboters stellt den Mittelpunkt des Weltkoordinatensystems dar. Für diesen Modus werden die Positionen der Gelenke über die inverse Kinematik, ermittelt und automatisch vom Teach Pendant eingestellt \cite{noauthor_jogging_2017}. Wenn bei Knickarmrobotern die Pose des Endeffektors bei der Berechnung der inversen Kinematik berücksichtigt wird, kann es je nach gewählter Pose des Endeffektors bis zu acht mögliche Gelenksstellungen für den Knickarmroboter geben, wordurch die inverse Kinematik für diesen Fall nicht mehr eindeutig für die gewählte Pose ist \cite[25]{pott_industrielle_2019}. Die letzte Möglichkeit den Industrieroboter einzustellen besteht darin, den TCP des Industrieroboters im Tool-Koordinatensystem-Modus einzustellen. Der Tool-Koordinatensystem-Modus besitzt die gleichen Möglichkeiten, wie der Welt-Koordinatensystem-Modus, verwendet jedoch aber als Referenzkoordinatensystem den TCP \cite{noauthor_jogging_2017}.
+
+\textcolor{red}{TODO: Teach Pendant genauer erklären}\\
 % Genauigkeit
-% Wie funktioniert ein Teach Pendant
-% Notaus stopp
-% Welche Modies gibt es?
-% Dead man's switch (https://de.wikipedia.org/wiki/Totmanneinrichtung)  (https://en.wikipedia.org/wiki/Dead_man%27s_switch)
+
+
+% Überschleifen: https://www.xplore-dna.net/mod/page/view.php?id=451
+
+% Robotersteuerung (Bewegungsbahn): https://wiki.induux.de/Robotersteuerung
+
+Für alle Programmierverfahren, ob Offline- oder Online-Programmierverfahren, welche zur Programmierung von Industrierobotern eingesetzt werden, kann gesagt werden, dass sie einen gewissen Lernaufwand bei der Einarbeitung benötigen. Der Lernaufwand um ein Programmierverfahren zu erlernen sinkt jedoch erheblich für untrainierte Personen, wenn eine visuelle Lernmethode eingesetzt wird. In Zukunft besteht daher ein sehr großes Potenzial zur Erforschung und Verbesserung von Gesten, Sprach und visuellen Systemen, da diese Systeme eine für den Menschen vertrauliche Interaktionsmöglichkeit bieten \cite{biggs_survey_nodate}.
+
+% Point-to-point: https://www.youtube.com/watch?v=Fd7wjZDoh7g
+
+% https://www.computerwoche.de/a/mikroprozessoren-machen-programmierung-erst-effektiv,1160823
+
+
+%https://books.google.at/books?id=vGcyKPlZPFEC&pg=PA48&lpg=PA48&dq=teach+pendants+vergleich&source=bl&ots=TPRtrhQPrs&sig=ACfU3U3eokMCgDvbYBbX4ki4KU9tF6B6Jg&hl=de&sa=X&ved=2ahUKEwiyvrqhzOfpAhVlShUIHTCwBu4Q6AEwAXoECAsQAQ#v=onepage&q=teach%20pendants%20vergleich&f=false
+% saftey requirements: S. 55
+% 50 ms bei WLAN erforderlich
 
 
 \section{Arten von Zeitverhalten}
