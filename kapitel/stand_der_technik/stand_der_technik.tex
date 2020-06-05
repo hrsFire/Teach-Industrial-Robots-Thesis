@@ -98,11 +98,17 @@ Wie in Abbildung \ref{fig:wiederholgenauigkeit} zu sehen ist, kann daraus geschl
 
 
 \section{Teachen von Industrierobotern}
-Teachen, welches auch als Teach-In bezeichnet wird, ist eine von mehreren möglichen Varianten einem Industrieroboter gewünschte Posen beizubringen, damit dieser seine Arbeitsaufgabe autonom durchführen kann. Unterschieden wird bei den Lernmethoden zwischen Offline- und Online-Programmierverfahren. Die am weitest verbreitesten Offline-Methoden sind die textuelle Programmierung und das Erlernen mit einer CAD-Software. Bei der textuellen Programmierung ist es notwendig über ausreichend Programmierkenntnisse in der Programmiersprache des Industieroboter-Herstellers oder einer kompatiblen Programmiersprache zu verfügen, wohingegen bei einer CAD-Software einem virtuellen Industrieroboter in einer virtuellen Umgebung die Posen beigebracht werden können. Beide Methoden benötigen im Vergleich zum Teachen sehr viel mehr Vorwissen und sind daher nur nach erheblichem Lernaufwand nutzbar. Das Teachen zählt neben der Playback-Methode, welches ein direktes Führen des Roboterarms ermöglicht, zu den Online-Programmierverfahren. Beim Teachen kommt eine Steuerkonsole zum Einsatz mit deren Hilfe es möglich ist dem Industieroboter Posen beizubringen. Zuerst wird eine Pose mit mehreren aufeinander folgenden Steuerungsbefehlen angefahren. Anschließend, wenn eine gewünschte Pose erreicht wurde, kann diese einzelne Pose per Steuerungsbefehl in der Steuerungseinheit gespeichert werden. Das Anfahren und Speichern der Posen wird solange wiederholt bis die gesamte Arbeitsaufgabe dem Industrieroboter beigebracht wurde. Wenn notwendig, können im Nachhinein die gespeicherten Posen korrigiert werden um eine höhere Genauigkeit zu erzielen oder um Fehler zu korrigieren. Im Gegensatz zum Teachen wird beim Playback-Verfahren genau die Bewegung gespeichert, welche durch das direkte Führen des Roboterarms entsteht, und beim Ausführen der Arbeitsaufgabe auf die gleiche Weise wiederholt \cite{noauthor_industrieroboter_2020}. Beim Teachen hingegen kann zwischen den Punkten die Geschwindigkeit, Beschleunigung und sogar die Art des Pfades eingestellt werden. Bei der Art des Pfades kann frei zwischen Point-to-Point und Continuous Path gewählt werden. Point-to-Point erzwingt den für den Industrieroboter geometrisch günstigsten Pfad zwischen den Punkten zu wählen, welcher normalerweise keine gerade lineare Bahnbewegung darstellt und daher zu einem unbekannten Pfad führt. Bei Continuous Path wird hingegen von einem Punkt direkt zum nächsten Punkt entlang eines vordefinierten Pfades gefahren, welcher z.B. eine gerade lineare oder eine durch einen Hilfspunkt erzeugte kreisförmige Bahnbewegung sein kann. Durch diese Einstellungsmöglichkeiten ist es beim Teachen möglich noch höhere Genauigkeiten als bei der Playback-Methode zu erzielen. Im Gegenzug steigt durch die höhere Genauigkeit, aber auch der Programmieraufwand, da für eine hohe Genauigkeit viele Zwischenpunkte gelernt werden müssen \cite{noauthor_teach-technik_2020}.\\
+Teachen, welches auch als Teach-In bezeichnet wird, ist eine von mehreren möglichen Varianten einem Industrieroboter gewünschte Posen beizubringen, damit dieser seine Arbeitsaufgabe autonom durchführen kann.
 
+\subsection{Offline- und Online-Programmierverfahren}
+Unterschieden wird bei den Lernmethoden zwischen Offline- und Online-Programmierverfahren. Die am weitest verbreitesten Offline-Methoden sind die textuelle Programmierung und das Erlernen mit einer CAD-Software. Bei der textuellen Programmierung ist es notwendig über ausreichend Programmierkenntnisse in der Programmiersprache des Industieroboter-Herstellers oder einer kompatiblen Programmiersprache zu verfügen, wohingegen bei einer CAD-Software einem virtuellen Industrieroboter in einer virtuellen Umgebung die Posen beigebracht werden können. Beide Methoden benötigen im Vergleich zum Teachen sehr viel mehr Vorwissen und sind daher nur nach erheblichem Lernaufwand nutzbar. Das Teachen zählt neben der Playback-Methode, welches ein direktes Führen des Roboterarms ermöglicht, zu den Online-Programmierverfahren. Beim Teachen kommt eine Steuerkonsole zum Einsatz mit deren Hilfe es möglich ist dem Industieroboter Posen beizubringen. Zuerst wird eine Pose mit mehreren aufeinander folgenden Steuerungsbefehlen angefahren. Anschließend, wenn eine gewünschte Pose erreicht wurde, kann diese einzelne Pose per Steuerungsbefehl in der Steuerungseinheit gespeichert werden. Das Anfahren und Speichern der Posen wird solange wiederholt bis die gesamte Arbeitsaufgabe dem Industrieroboter beigebracht wurde. Wenn notwendig, können im Nachhinein die gespeicherten Posen korrigiert werden um eine höhere Genauigkeit zu erzielen oder um Fehler zu korrigieren. Im Gegensatz zum Teachen wird beim Playback-Verfahren genau die Bewegung gespeichert, welche durch das direkte Führen des Roboterarms entsteht, und beim Ausführen der Arbeitsaufgabe auf die gleiche Weise wiederholt \cite{noauthor_industrieroboter_2020}. Beim Teachen hingegen kann zwischen den Punkten die Geschwindigkeit, Beschleunigung und sogar die Art des Pfades eingestellt werden. Bei der Art des Pfades kann frei zwischen Point-to-Point und Continuous Path gewählt werden. Point-to-Point erzwingt den für den Industrieroboter geometrisch günstigsten Pfad zwischen den Punkten zu wählen, welcher normalerweise keine gerade lineare Bahnbewegung darstellt und daher zu einem unbekannten Pfad führt. Bei Continuous Path wird hingegen von einem Punkt direkt zum nächsten Punkt entlang eines vordefinierten Pfades gefahren, welcher z.B. eine gerade lineare oder eine durch einen Hilfspunkt erzeugte kreisförmige Bahnbewegung sein kann. Durch diese Einstellungsmöglichkeiten ist es beim Teachen möglich noch höhere Genauigkeiten als bei der Playback-Methode zu erzielen. Im Gegenzug steigt durch die höhere Genauigkeit, aber auch der Programmieraufwand, da für eine hohe Genauigkeit viele Zwischenpunkte gelernt werden müssen \cite{noauthor_teach-technik_2020}.\\
+
+Für alle Programmierverfahren, ob Offline- oder Online-Programmierverfahren, welche zur Programmierung von Industrierobotern eingesetzt werden, kann gesagt werden, dass sie einen gewissen Lernaufwand bei der Einarbeitung benötigen. Der Lernaufwand um ein Programmierverfahren zu erlernen sinkt jedoch erheblich für untrainierte Personen, wenn eine visuelle Lernmethode eingesetzt wird. In Zukunft besteht daher ein sehr großes Potenzial zur Erforschung und Verbesserung von Gesten, Sprach und visuellen Systemen, da diese Systeme eine für den Menschen vertrauliche Interaktionsmöglichkeit bieten \cite{biggs_survey_nodate}.
+
+\subsection{Teach Pendant}
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.8\textwidth]{images/stand_der_technik/teach_pendant}
+	\includegraphics[width=0.715\textwidth]{images/stand_der_technik/teach_pendant}
 	\caption[Teach Pendant im Querformat von ABB]{Teach Pendant im Querformat von ABB \\Quelle: \cite{noauthor_programengif_nodate}}
 	\label{fig:teach_pendant}
 \end{figure}
@@ -112,38 +118,101 @@ Zur Programmierung mit dem Teach-In-Verfahren werden Teach Pendants, wie in Abbi
 
 Weitere Tasten wie z.B. Menü, Funktionen, Bewegung und Navigation, wie in Abbildung \ref{fig:teach_pendant} zu sehen ist, sind herstellerspezifisch und daher optional. Aus diesem Grund kann ein Teach Pendant je nach Hersteller unterschiedliche herstellerspezifischen Funktionstasten aufweisen, welche zumeist Zugriff auf die am häufigsten verwendeten Funktionalitäten des Teach Pendants bieten \cite{dinwiddie_basic_2015}. Neben diesen Sicherheitsfeatures gibt es auch herstellerübergreifende Features um den Industrieroboter zu steuern. Eines dieser Features ist das Wechseln zwischen unterschiedlichen Bewegungsmodi. Zu diesen Bewegungsmodi zählen der Gelenk-, Welt-Koordinatensystem- und Tool-Koordinatensystem-Modus. Der Gelenk-Modus erlaubt es die Position der Gelenke mithilfe des Teach Pendants jeweils einzeln oder alle Gelenke zusammen zu bewegen. Dieser Modus ermöglicht es daher die volle Kontrolle über alle Gelenke des Industrieroboters zu erlangen und diese an die jeweiligen Gegebenheiten der Umgebung anzupassen. Der Gelenk-Modus wird daher häufig zum Erreichen von schwer zugänglichen Stellen eingesetzt. Im Gegensatz zum Gelenk-Modus erlaubt es der Welt-Koordinatensystem-Modus den Mittelpunkt des Endeffektors (TCP) in der x-, y- oder z-Achse zu bewegen und Rotationen um die x-, y- oder z-Achse im Weltkoordinatensystem durchzuführen. Der Sockel des Industrieroboters stellt den Mittelpunkt des Weltkoordinatensystems dar. Für diesen Modus werden die Positionen der Gelenke über die inverse Kinematik, ermittelt und automatisch vom Teach Pendant eingestellt \cite{noauthor_jogging_2017}. Wenn bei Knickarmrobotern die Pose des Endeffektors bei der Berechnung der inversen Kinematik berücksichtigt wird, kann es je nach gewählter Pose des Endeffektors bis zu acht mögliche Gelenksstellungen für den Knickarmroboter geben, wordurch die inverse Kinematik für diesen Fall nicht mehr eindeutig für die gewählte Pose ist \cite[25]{pott_industrielle_2019}. Die letzte Möglichkeit den Industrieroboter einzustellen besteht darin, den TCP des Industrieroboters im Tool-Koordinatensystem-Modus einzustellen. Der Tool-Koordinatensystem-Modus besitzt die gleichen Möglichkeiten, wie der Welt-Koordinatensystem-Modus, verwendet jedoch aber als Referenzkoordinatensystem den TCP \cite{noauthor_jogging_2017}.
 
-\textcolor{red}{TODO: Teach Pendant genauer erklären}\\
-% Genauigkeit
+% Genauigkeit % TODO: Welche Genauigkeit ist mit einem Teach Pendant möglich?
 
 
 % Überschleifen: https://www.xplore-dna.net/mod/page/view.php?id=451
 
 % Robotersteuerung (Bewegungsbahn): https://wiki.induux.de/Robotersteuerung
 
-Für alle Programmierverfahren, ob Offline- oder Online-Programmierverfahren, welche zur Programmierung von Industrierobotern eingesetzt werden, kann gesagt werden, dass sie einen gewissen Lernaufwand bei der Einarbeitung benötigen. Der Lernaufwand um ein Programmierverfahren zu erlernen sinkt jedoch erheblich für untrainierte Personen, wenn eine visuelle Lernmethode eingesetzt wird. In Zukunft besteht daher ein sehr großes Potenzial zur Erforschung und Verbesserung von Gesten, Sprach und visuellen Systemen, da diese Systeme eine für den Menschen vertrauliche Interaktionsmöglichkeit bieten \cite{biggs_survey_nodate}.
-
 % Point-to-point: https://www.youtube.com/watch?v=Fd7wjZDoh7g
 
 % https://www.computerwoche.de/a/mikroprozessoren-machen-programmierung-erst-effektiv,1160823
 
+
+\section{Arten von Echtzeitverhalten}
+Im Umgang mit Industrierobotern ist es notwendig Echtzeitsysteme einzusetzen, welche für den jeweiligen spezifischen Anwendungsfall die Anforderung an die Reaktionszeit des Systems sicherstellen. Die Anforderung an das Echtzeitsystem können vielseitig sein. Diese können bei sehr zeitkritischen und sicherheitsrelevanten Systemem wenige Millisekunden und bei weniger relevanten Aufgaben, wie z.B. das Speichern von Daten auf eine Festplatte, bis hin zu mehreren Minuten, Stunden, Tagen oder sogar länger in Anspruch nehmen. Die entscheidente Herausforderung für das Echtzeitsystem ist es deshalb zu garantieren, dass das Ergebnis in dem für den Anwendungsfall erforderlichen Zeitintervall berechnet wird. Die Zeitintervalle werden durch die Hardware limitiert, wordurch eine für den Anwendungsfall entsprechend schnelle Hardware erforderlich ist. Anwendungsfälle mit genügend kleinen Zeitinvervallen können daher nur mit entsprechend schneller Hardware realisiert werden \cite{noauthor_echtzeitsystem_2020}.\\
+
+Bei Echtzeitsystemen wird zwischen harter, fester und weicher Echtzeitanforderung unterschieden. Unter harter Echtzeitanforderung versteht man, dass das Ergebnis der Berechnung innerhalb des Zeitintervalls  erfolgen muss, da ansonsten das System versagt hat. Bei Nichteinhaltung des Zeitintervalls besteht ansonsten die Möglichkeit, dass es zu einem Schaden kommt. Als Beispiel kann die Notbremsung eines autonom fahrenden Autos eine harte Echtzeitbedingung darstellen. Im Gegensatz zur harten Echtzeitanforderung stellt die feste Echtzeitanforderung eine etwas entspanntere Echtzeitanforderung dar. Bei der festen Echtzeitanforderung wird davon ausgegangen, dass kein unmittelbarer Schaden zustande kommt. Daher kann das Zeitintervall auch überschritten werden. Das Ergebnis wird beim Überschreiten des Zeitintervalls jedoch zumeist ungültig und weitere darauf aufbauende Berechnungen können daher abgebrochen werden. Ein Beispiel für eine feste Echtzeitanforderung kann sein, dass die derzeitige Position eines Fahrzeugs nach dem Weiterbewegen des Fahrzeugs nicht mehr die gleiche Position ist und Berechnungen auf diesen Daten schlicht zu falschen Ergebnissen führen würden. Aus diesem Grund würde es keinen Sinn machen mit den veralteten Daten weiterzuarbeiten. Bei weichen Echtzeitanforderung ist das Zeitintervall für die Bearbeitung der Aufgabe als Vorgabe zu sehen und kann wenig oder sehr stark überschritten werden. Zum Beispiel bei Multimediasystemen führen geringe Überschreitungen des Zeitintervalls zu verzögerten Bildern, welches jedoch in einem gewissen Rahmen  \cite[321\psq]{worn_echtzeitsysteme_2006} \textcolor{red}{TODO:}.
+
+% Echtzeitkernel
+% deterministisches & nicht deterministisches Zeitverhalten
+
+
+% https://de.wikipedia.org/wiki/Echtzeitsystem
+% Linux benötigt einen speziellen Kernel, FreeBSD, MacOSX Kernel, Windows NT Kernel (die am häufigsten verwendeten Betriebssysteme
+
+
+% Deadlock verhindern: https://de.wikipedia.org/wiki/Deadlock_(Informatik)
+
+% https://books.google.at/books?id=llghBAAAQBAJ&pg=PA182&lpg=PA182&dq=zeitverhalten+echtzeitverhalten&source=bl&ots=hVS6os93-J&sig=ACfU3U3Yt0ChDwoIIZzmuAYv63MRfg-Y6Q&hl=de&sa=X&ved=2ahUKEwj8qvuqzerpAhVp5KYKHZTBA0AQ6AEwBHoECAgQAQ#v=onepage&q=zeitverhalten%20echtzeitverhalten&f=false
+% --> downloaded
+% S. 1 - 4
+% Echtzeitbetriebssysteme: S. 343, 420, 425
+% Arten: S. 318 - 322
+
+
+% 'Eine Gruppe mit ständig wachsenden Funktionen hat geringe Echtzeit-
+% Anforderungen ( 100 ms bis Sekunden ), wie Roboterprogrammarchivierung,
+% Benutzerschnittstellen, SPS-Programmierung, Kommunikation zum Leitrechner,
+% Ferndiagnose, Robotersimulation, Bedienungsanleitungen in verschiedenen Spra-
+% chen, Inbetriebnahmehilfen, Auto-Tuning, Tools für Tests und Fehlersuche und
+% Lernprogramme.
+% Für diese Funktionen bietet ein Standardbetriebssystem (SBS) eine optimale
+% Plattform. Die meisten Funktionen lassen sich kostengünstig am weltweiten Soft-
+% ware-Markt ohne Entwicklungsaufwand beziehen, z.B. Software für SPS-Pro-
+% grammierung, Kommunikation z.B. Ethernet-TCP/IP, Robotersimulation. Für an-
+% dere Funktionen wie Benutzerschnittstellen und Hilfen existieren leistungsfähige
+% Entwicklungstools.
+% Die zweite Gruppe umfasst die eigentlichen Roboterfunktionen wie Interpre-
+% ter, Bewegungssteuerung, Technologiesteuerung, Sensor-Datenverarbeitung oder
+% Feldbusse für die hohe Echtzeitfähigkeit mit Deadlines von 1 ms bis 10 ms ge-
+% fordert sind. Für Antriebsregelungen muss die Gleichzeitigkeit der Regelung ein-
+% zelner Achsen mit einem Jitter kleiner 1 μs gewährleistet sein. Hier ist ein leis-
+% tungsfähiges Echtzeitbetriebssystem (EBS) mit preemptivem Multitasking und
+% kleiner Taskwechselzeit erforderlich.'
+% S. 518
+
+
+% Garbage Collector
+% https://de.wikipedia.org/wiki/Echtzeitsystem
+% Rechner zur Steuerung von technischen Einrichtungen oder Prozessen wie Maschinen, verfahrenstechnischen Anlagen oder Verkehrsmitteln sind praktisch immer Echtzeitsysteme. 
+
+% Bei einer Software, die Echtzeitbedingungen erfüllen soll, muss die maximale Laufzeit bestimmbar sein und darf keinen nicht oder nur bedingt beeinflussbaren Faktoren unterliegen, muss also deterministisch sein. Dies wird u. a. durch folgende System- oder Softwareeigenschaften beeinflusst: 
+% https://de.wikipedia.org/wiki/Echtzeitsystem
+
+
+% https://books.google.at/books?id=HV-dbKHt0mQC&pg=PA106&lpg=PA106&dq=windows+nt+kernel+not+real+time&source=bl&ots=Gbib90T1TD&sig=ACfU3U0YX16bkZMVXuELZqkmBBchhuNnIQ&hl=de&sa=X&ved=2ahUKEwijjeXH3urpAhUSnVwKHViWD_IQ6AEwA3oECAgQAQ#v=onepage&q=windows%20nt%20kernel%20not%20real%20time&f=false
+% "Windows NT kernel is non-preemptable -> no hard RTOS"
+% S. 106
+
+
+
+% https://de.wikipedia.org/wiki/RTX:_Real_Time_eXtensions_f%C3%BCr_Windows
+
+
+% Wie lange ist für uns Echtzeit? -> Messungen!
+
+
+
+\section{Sicherheitsanforderungen im Umgang mit Industrierobotern}
+% Normen, ...
 
 %https://books.google.at/books?id=vGcyKPlZPFEC&pg=PA48&lpg=PA48&dq=teach+pendants+vergleich&source=bl&ots=TPRtrhQPrs&sig=ACfU3U3eokMCgDvbYBbX4ki4KU9tF6B6Jg&hl=de&sa=X&ved=2ahUKEwiyvrqhzOfpAhVlShUIHTCwBu4Q6AEwAXoECAsQAQ#v=onepage&q=teach%20pendants%20vergleich&f=false
 % saftey requirements: S. 55
 % 50 ms bei WLAN erforderlich
 
 
-\section{Arten von Zeitverhalten}
-% Echtzeitverhalten
-%    weiches & hartes Echtzeitverhalten
-% Normales Zeitverhalten
-
-
-\section{Sicherheitsanforderungen im Umgang mit Industrierobotern}
-% Normen, ...
+% https://de.wikipedia.org/wiki/Industrieroboter
 
 \section{ROS}
 % Aufbauend auf dem Vergleich der Entwicklungsplattformen werden nun die für dieses Projekt am Besten geeigneten Werkzeuge vorgestellt.
 % ROS 1 (LTS) vs ROS 2
+
+%https://books.google.at/books?id=llghBAAAQBAJ&pg=PA182&lpg=PA182&dq=zeitverhalten+echtzeitverhalten&source=bl&ots=hVS6os93-J&sig=ACfU3U3Yt0ChDwoIIZzmuAYv63MRfg-Y6Q&hl=de&sa=X&ved=2ahUKEwj8qvuqzerpAhVp5KYKHZTBA0AQ6AEwBHoECAgQAQ#v=onepage&q=zeitverhalten%20echtzeitverhalten&f=false
+% 'Deswegen sind lang-
+% lebige Softwarearchitekturen mit wiederverwendbaren Bausteinen gefordert.'
+% S. 517
 
 
 \subsection{Architektur}
