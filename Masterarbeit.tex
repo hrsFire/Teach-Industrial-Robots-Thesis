@@ -128,6 +128,13 @@
 \cleardoublepage   % force output to a right page
 \tableofcontents
 
+% Abkürzungsverzeichnis
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}%\addcontentsline{toc}{chapter}{[evtl. Abkürzungsverzeichnis]}  % evtl. ersetzen durch \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+\chapter*{Abkürzungsverzeichnis}
+\input{kapitel/abkuerzungsverzeichnis/abkuerzungsverzeichnis}
+
 \chapter{Einleitung}
 \input{kapitel/einleitung/einleitung}
 
@@ -159,15 +166,6 @@
 %	\addcontentsline{toc}{chapter}{Listings}
 %	\lstlistoflistings
 %\end{minipage}
-
-% evtl. Abkürzungsverzeichnis:
-\clearpage
-\phantomsection
-\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}%\addcontentsline{toc}{chapter}{[evtl. Abkürzungsverzeichnis]}  % evtl. ersetzen durch \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
-%\chapter*{Abkürzungsverzeichnis}
-\input{kapitel/abkuerzungsverzeichnis/abkuerzungsverzeichnis}
-%% Die Kapitelstruktur ist mit der Betreuungsperson abzustimmen!
-
 
 \appendix
 \chapter{Anhang}  % evtl. ersetzen mit \chapter*{Anhang}
