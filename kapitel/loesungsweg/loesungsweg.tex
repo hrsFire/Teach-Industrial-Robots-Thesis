@@ -1,6 +1,6 @@
-\textcolor{red}{TODO}
-
-% Verwendeter Industrieroboter (Lernroboter, WidowX 200, warum?)
+\textcolor{red}{TODO:\\
+Verwendeter Industrieroboter (Lernroboter, WidowX 200, warum?)
+}
 
 %-----------------------------------------------
 
@@ -50,28 +50,9 @@
 
 % Intel Real Sense Camera ZR300
 
-
-\section{Simulations- und Testumgebungen}
-% Gazebo, vRep, Coppelia Sim, ABB, ...
-
-
-\section{Messungen}
+\section{Allgemeine Anforderungen}
+% weiche Echtzeitfähigkeit
 % Durchsatz, Latenzen, ...
-
-
-\section{Gesten}
-% Mögliche Gesten, Welche Gesten nicht
-
-
-\section{Ergonomie}
-
-
-
-% -----------------------
-
-
-\section{Allgemeine Softwareanforderungen}
-
 
 \subsection{Funktionale Anforderungen}
 
@@ -79,39 +60,80 @@
 \subsection{Nichtfunktionale Anforderungen}
 
 
-\section{Analyse der Systeme}
+\section{Einrichtung des Testsystems}
+\textcolor{red}{TODO:\\
+Linux-Container\\
+ROS\\
+\\
+Was ist ein Linux-Container? Vorteile?\\
+% https://www.techdivision.com/blog/lxc-vs-docker-wir-setzen-bei-techdivision-inzwischen-verstaerkt-auf-lxc.html
+% https://www.webhod.de/lxc-und-lxd-was-sind-linux-container/
+% https://www.linux-magazin.de/ausgaben/2015/05/lxd/
+\\
+Anhang: Installationsanleitung
+}
 
 
-\subsection{Frontend}
-
-
-\subsection{Backend}
-
-
-\section{Konfigurieren des Linux-Containers}
-
-
-
-\subsection{Probleme \& Besonderheiten}
-
-
-\section{Anbindung der Komponenten}
-
-
-
-
-\section{Einbinden von Nicht-ROS-Komponenten}
-
-
-\subsection{ROS Packages}
-
-
-\subsection{Webservices}
-
-
-
-
-\subsection{Zusammenfassung \& Vergleich}
+\subsection{Simulationsumgebungen}
+\textcolor{red}{TODO:\\
+Gazebo, vRep %, Coppelia Sim, ABB, ...
+https://www.ros.org/integration/
+}
 
 
 \section{Anbindung an ROS}
+\textcolor{red}{TODO:\\
+Anbindung an ROS
+}
+
+
+\section{Einbinden von Nicht-ROS-Komponenten}
+\textcolor{red}{TODO:\\
+WidowX 200 (direkte Verbindung) \& Azure Kinect SDKs\\
+Probleme und Besonderheiten
+}
+
+
+\subsection{ROS-Packages}
+\textcolor{red}{TODO:\\
+Verwendete ROS Packages
+}
+
+
+\section{Gesten}
+
+
+\subsection{Arten von Gesten}
+\textcolor{red}{TODO:\\
+Welche mögliche Gesten gibt es?
+}
+
+\subsection{Auswahl anhand der Ergonomie}
+\textcolor{red}{TODO:\\
+Welche Gesten sind zu empfehlen, welche sollten eher nicht gewählt werden? Gibt es vielleicht Bilder?
+}
+
+
+\section{User Experience}
+\textcolor{red}{TODO:\\
+Wie gut ist das System einsetzbar? UX
+}
+
+
+\section{Aufbau des Gesten-Roboter-Frameworks}
+\textcolor{red}{TODO:\\
+Gesten-Roboter-Framework mit UML erklären\\
+Wie kann es gestartet werden?\\
+Was sind die Vorraussetzungen um das Backend zu starten?\\
+ROS-Dependency Tree\\
+Klassenhierarchie und Vererbungsmöglichkeiten (Erweiterbar für jede Arte von Roboter \& Tiefenkamera, welche mindestens die folgenden Anforderungen erfüllt ..., ...)
+}
+
+
+\section{Messvoraussetzungen}
+\textcolor{red}{TODO:\\
+Durchsatz, Latenzen, ...\\
+Informationen aus Datenblätter\\
+Zeit zur Erkennung von Gesten (Bodytracking SDK: beinhaltet Latenz von Aussenden des Infrarot-Lichtimpuls bis zum Empfang zur Absorption des Lichtimpuls, durch Belichtungszeit bis hin zur Latenz über das \quoteMark{USB 2.0}-Kabel)?\\
+Mit Simulationsumgebung durchführen
+}
