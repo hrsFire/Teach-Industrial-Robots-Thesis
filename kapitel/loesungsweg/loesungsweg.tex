@@ -65,13 +65,13 @@ Die Anforderungen an die Software zur Gestensteuerung eines Industrieroboter kö
 
 \begin{compactitem}
     \item \textbf{Nutzung von verbreiteten Paradigmen für die Entwicklung}: Um mehrere Komponenten, welche auf unterschiedlichen Systemen verteilt sein können, miteinander kommunizieren lassen zu können bedarf es eines gemeinsamen Konzepts. Bei Industrierobotern wird hierbei vermehrt ROS eingesetzt, welches es erlaubt ROS-Messages über ein Netzwerkprotokoll verschicken zu können.
-    \item \textbf{Standardisiertes Austauschformat}: Der Austausch der Informationen kann bei ROS über sogenannte ROS-Messages erfolgen und beim Speichern und Laden von Informationen in ein standardisiertes Austauschformat, wie z.B. JSON oder XML, erfolgen. Hierdurch kan die Interoperabilität zwischen den Systemen gewährleistet werden.
-    \item \textbf{Zuverlässigkeit der Übertragung}: Die ROS-Messages müssen unverändert und vollständig über das Netzwerk an den ROS-Master geschickt werden können. Hierfür wird zumeist TCP/IP als Netzwerkprotokoll eingesetzt, welches die richtige Reihenfolge der zugrundeliegenden Datenpakete gewährleistet.
+    \item \textbf{Standardisiertes Austauschformat}: Der Austausch der Informationen kann bei ROS über sogenannte ROS-Messages erfolgen und beim Speichern und Laden von Informationen in ein standardisiertes Austauschformat, wie z.B. JSON oder XML, übersetzt werden. Hierdurch kann die Interoperabilität zwischen den Systemen gewährleistet werden.
+    \item \textbf{Zuverlässigkeit der Übertragung}: Die ROS-Messages müssen unverändert und vollständig über das Netzwerk an den ROS-Master geschickt werden können. Hierfür wird zumeist TCP/IP als Netzwerkprotokoll eingesetzt, welches die vollständigkeit und richtige Reihenfolge der zugrundeliegenden Datenpakete gewährleistet.
     \item \textbf{Zuverlässigkeit der Gestenerkennung}: Die Gestensteuerung sollte eine möglichst kleine Falsch-Positiv-Rate aufweisen um unbeabsichtigte Gesten möglichst gering zu halten und so gefährlichen Situationen entgegenwirken zu können.
     \item \textbf{Echtzeitfähigkeit}: Das System muss sicherstellen, dass es die Informationen in einem gewissen Zeitintervall abarbeiten kann um die Sicherheit des Systems und der beteiligten Menschen gewährleisten zu können.
-    \item \textbf{Adaptionsmöglichkeit an verschiedene Tiefenkameras}: Es muss die Möglichkeit bestehen die Tiefenkamera durch eine andere Tiefenkamera austauschbar zu machen. Hierbei muss sichergestellt werden, dass die Tiefenkameras die gleichen Schnittstellen verwenden um die Kommunikation zu ermöglichen.
-    \item \textbf{Adaptionsmöglichkeit an verschiedene Industrieroboter}: Durch die schiere Anzahl an Industrierobotern muss es zudem auch möglich sein den Industrieroboter durch einen anderen Industrieroboter unabhängig von seiner bisher vorhandenen Schnittstellen ersetzen zu können.
-    \item \textbf{Ergonomische Gesten}: Die Gesten müssen leich erlernbar, einfach anwendbar und leicht zu erlernen sein. Zudem sollte ein längeres Verwenden der Gesten nur zu geringen Ermüdungserscheinungen führen und von Links- sowie auch Rechtshändern ausführbar sein.
+    \item \textbf{Adaptionsmöglichkeit an verschiedene Tiefenkameras}: Es muss die Möglichkeit bestehen im System die Tiefenkamera durch eine andere Tiefenkamera austauschbar zu machen. Hierbei muss sichergestellt werden, dass die Tiefenkameras die gleichen Schnittstellen verwenden um die gleiche Kommunikation zu ermöglichen.
+    \item \textbf{Adaptionsmöglichkeit an verschiedene Industrieroboter}: Durch die schiere Anzahl an Industrierobotern muss es zudem auch möglich sein den Industrieroboter durch einen anderen Industrieroboter, unabhängig von seiner bisher vorhandenen Schnittstellen, ersetzen zu können.
+    \item \textbf{Ergonomische Gesten}: Die Gesten müssen leicht erlernbar, einfach anwendbar und leicht zu erlernen sein. Zudem sollte ein längeres Verwenden der Gesten höchstens zu geringen Ermüdungserscheinungen führen und das System von Links- sowie auch Rechtshändern bedienbar sein.
     \item \textbf{Genauigkeit der Erreichung der Zielpose}: Die Zielpose muss je nach Genauigkeit des Industrieroboters über die Gestensteuerung erreichbar sein. Ungenauigkeiten durch die Gestensteuerung, welche aber auch bei Teach Pendants vorhanden sind, sind subjektiver Natur.
     \item \textbf{Sicherheitsvorkehrungen}: Es muss sichergestellt werden können, dass der Industrieroboter jederzeit durch einen Notstop unverzüglich gestoppt werden kann um lebensbedrohliche Situationen vorbeugen zu können.
 \end{compactitem}
@@ -81,24 +81,16 @@ Da in dieser Arbeit das Gesten-Roboter-Framework mit und ohne ROS lauffähig sei
 
 \begin{compactitem}
     \item \textbf{Performanz}: Bei der Kommunikation zwischen den einzelnen Systemen, zu denen die Tiefenkamera und der Industrieroboter zählen, sollte die Anfrage so schnell wie möglich erfolgen, ohne lange Wartezeiten zu benötigen.
-    \item \textbf{Zuverlässigkeit}: Die Zuverlässigkeit beschreibt, wie verlässlich ein System seine Aufgaben ausführt. Ausfälle von ROS-Nodes oder sogar des ROS-Masters reduzieren hierbei unter anderem die Zuverlässigkeit des Systems drastisch.
+    \item \textbf{Zuverlässigkeit}: Die Zuverlässigkeit beschreibt, wie verlässlich ein System seine Aufgaben ausführt. Ausfälle von ROS-Nodes oder sogar des ROS-Masters selbst reduzieren hierbei unter anderem die Zuverlässigkeit des Systems drastisch.
     \item \textbf{Modularität}: Spiegelt den Grad der Aufteilung in Komponenten wider, welche vom eigenen Projekt oder von Dritten wiederverwendet werden können.
-    \item \textbf{Erweiterbarkeit}: Bezeichnet die Fähigkeit des Systems durch weitere Komponenten, welche dem System hinzugefügt werden können, angepasst zu werden. Bei ROS können zusätzliche ROS-Packages von Drittanbietern installiert werden, wodurch das System erweitert wird.
+    \item \textbf{Erweiterbarkeit}: Bezeichnet die Fähigkeit des Systems durch weitere Komponenten, welche dem System hinzugefügt werden können, angepasst zu werden. Bei ROS können zusätzliche ROS-Packages von Drittanbietern installiert werden, wodurch das System erweitert werden kann.
 \end{compactitem}
 
 \section{Einrichtung des Testsystems}
-\textcolor{red}{TODO:\\
-Linux-Container\\
-ROS\\
-\\
-Was ist ein Linux-Container? Vorteile?\\
-% https://www.techdivision.com/blog/lxc-vs-docker-wir-setzen-bei-techdivision-inzwischen-verstaerkt-auf-lxc.html
-% https://www.webhod.de/lxc-und-lxd-was-sind-linux-container/
-% https://www.linux-magazin.de/ausgaben/2015/05/lxd/
-\\
-Anhang: Installationsanleitung
-}
+Zur Umsetzung der Gestensteuerung von Industrierobotern wird ROS 1 mit dem Codenamen Melodic Morenia, welches als LTS-Version verfügbar ist und daher Langzeitunterstützung bietet, eingesetzt \cite{noauthor_robot_operating_system_2020}. Als Betriebssystem kommt Ubuntu 18.04 Bionic Beaver zum Einsatz, da dies die neueste unterstützte LTS-Version von Ubuntu darstellt, welche von ROS Melodic Morenia empfohlen wird \cite{noauthor_ros_distributions_nodate}. Zur besseren Einsetzbarkeit auf unterschiedlichen Linux-Distributionen wird das genannte Ubuntu 18.04 Bionic Beaver und ROS Melodic Morenia in einem Linux-Container installiert und per Image zur Verfügung gestellt. Der Vorteil durch die Container-Technik stellt hierbei das einfachere und schnellere Deployen, der in dieser Arbeit entwickelten Anwendung zur Gestensteuerung des WidowX 200, dar. Zudem bietet die Container-Technik im Gegensatz zu einem Hypervisor, wie z.B. VMware, VirtualBox oder Hyper-V, den Vorteil, dass kein vollständiges Linux-Betriebssystem virtualisiert werden muss, welches einen impliziten Ressourcen-Overhead, wie z.B. hohe RAM- und CPU-Auslastung, mit sich ziehen würde. Zur Umsetzung der Trennung von Prozessen werden die Kernelnamensräume und für die Ressourcenverwaltung cgroups eingesetzt, welche im Linux-Kernel enthalten sind. Dies führt dazu, dass der Linux-Container auf den gleichen Kernel wie das Host-System zugreifen kann, jedoch aber der Zugriff auf sensible Ressourcen durch den Linux-Kernel beschränkt oder sogar vollständig untersagt wird \cite{noauthor_lxc_2020}. Linux-Container werden auch kurz LXC genannt, welches auch die gleichnamige Bezeichnung für das Userspace-Tool ist um die Linux-Container zu verwalten. Die Erweiterung von LXC wird LXD genannt und ermöglicht die Verwaltung von mehreren LXC-Instanzen über einen System-Daemon, welcher per REST-API angesprochen werden kann. Zudem bietet LXD unter anderem die Möglichkeit Snapshots von Linux-Containern zu erstellen, zu erzeugen, zu starten und zu stoppen \cite{noauthor_lxc_2017}. Für diese Arbeit wird als Host-System, auf dem die LXC-Instanz installiert und ausgeführt wird, Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu ist und die den Linux-Kernel 5.4 einsetzt. Andere Linux-Distributionen sind grundsätzlich auch möglich solange die für diese Arbeit benötigten Features im Linux-Kernel verfügbar sind. Die benötigten Features können aus der Installationsanleitung, welche sich im Anhang \ref{appendix1:Einrichtung_des_Testsystems} befindet, entnommen werden.
 
+% https://www.techdivision.com/blog/lxc-vs-docker-wir-setzen-bei-techdivision-inzwischen-verstaerkt-auf-lxc.html
+% https://www.linux-magazin.de/ausgaben/2015/05/lxd/
 
 \subsection{Simulationsumgebungen}
 \textcolor{red}{TODO:\\
