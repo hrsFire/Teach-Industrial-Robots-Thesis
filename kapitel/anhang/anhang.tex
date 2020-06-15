@@ -1,4 +1,59 @@
 \section{Einrichtung des Testsystems}\label{appendix1:Einrichtung_des_Testsystems}
 \textcolor{red}{TODO: Installationsanleitung}
 
+%-----------------------------------------------
+
+% LXC: https://serverfault.com/questions/630220/how-do-i-configure-lxc-to-allow-the-use-of-sched-rr-in-a-container
+% Scheduler wechseln:
+% cat /sys/block/sda/queue/scheduler
+% https://www.thomas-krenn.com/de/wiki/Linux_I/O_Scheduler#Deadline
+
+
+%--------------
+%sudo apt install schedtool # http://manpages.ubuntu.com/manpages/xenial/man8/schedtool.8.html
+%
+%"A privileged user can change the priority policy of a process with the schedtool program[7]:ln 326, 373 or it is done by a program itself.[7]:ln 336 The priority class can be manipulated at the code level with a syscall like sched_setscheduler only available to root,[11] which schedtool uses.[12]"
+%# https://en.wikipedia.org/wiki/Brain_Fuck_Scheduler
+%sudo chrt -p $(pidof -s bash)
+
+
+% "the default scheduler is CFS, the "Completely Fair Scheduler"
+% http://manpages.ubuntu.com/manpages/focal/en/man7/sched.7.html
+% http://manpages.ubuntu.com/manpages/eoan/en/man7/sched.7.html
+% https://en.wikipedia.org/wiki/Completely_Fair_Scheduler
+% https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html
+%-------------
+
+% https://www.researchgate.net/publication/331290349_The_real-time_linux_kernel_A_survey_on_Preempt_RT
+
+% -----------
+
+
+% sudo chrt -d --sched-runtime 1000000 --sched-deadline 5000000 --sched-period 5000000 -p  0 57802
+% https://access.redhat.com/solutions/3742421
+% http://manpages.ubuntu.com/manpages/cosmic/de/man1/chrt.1.html
+% https://lwn.net/Articles/743740/
+% # nanoseconds for the parameters
+
+% TODO: Wie lange ist für uns Echtzeit? -> Messungen!
+
+%-----------------------------------------------
+
+
+% Dead Man's Switch: irgendetwas in der Hand halten?
+% Wenn sich keine Person vor dem Tiefensesor befindet, dann werden auch keine Bewegungen ausgeführt.
+
+% verwendeter Tiefensensor-Modus -> warum?
+
+% Intel Real Sense Camera ZR300
+
+%-------------------
+
+
 % https://books.google.at/books?id=vVMoDwAAQBAJ&pg=PA229&lpg=PA229&dq=lxc+realtime&source=bl&ots=6aSRy33GKg&sig=ACfU3U13TeQVx0D1fZ5Z6DxLmKdeHTkXOg&hl=de&sa=X&ved=2ahUKEwj3mrWgyuvpAhUEGuwKHdcmDr8Q6AEwA3oECAoQAQ#v=onepage&q=lxc%20realtime&f=false
+
+\section{Einrichtung der Simulationsumgebung}\label{appendix1:Einrichtung_der_Simulationsumgebung}
+\textcolor{red}{TODO:\\
+Wie kann man die Simulationsumgebung starten und benutzen und grundlegend einrichten\\
+WidowX 200 SDK (modifiziert)
+}

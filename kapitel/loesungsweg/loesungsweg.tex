@@ -1,64 +1,14 @@
-Zur Umsetzung der Gestensteuerung eines Industrieroboters wird der Lernroboter WidowX 200 von Trossen Robotics als Vorlage für einen Industrieroboter verwendet. Mit seinen 5 DOF eignet sich der WidowX 200 für Testzwecke als sichere Alternative zu einem Knickarmroboter. Bei Tests geht im Gegensatz zu einem Industrieroboter eine geringere Gefahr vom WidowX 200 aus, da dieser keine so hohen Kräfte, Geschwindigkeiten und Beschleunigungen wie ein Industrieroboter entwickeln kann. Zudem bietet der WidowX 200 Lernroboter den Vorteil, dass es ein umfangreiches Dynamixel-SDK bietet, welches die Integration in ROS und die direkte Kommunikation mit dem Lernroboter einfach gestaltet und daher die Entwicklung des für Gestensteuerung konzipierten Systems drastisch beschleunigt. Für den Gelenk-Modus stellt der Lernroboter auch die Möglichkeit bereit die Gelenke individuell ansprechen und deren Gelenkposition verändern zu können. Die Dynamixel-Servo-Motoren können individuell an die Befürfnisse der Aufgabenstellung angepasst werden, da unter anderem die maximale Geschwindigkeiten und Beschleunigungen der einzelnen Servo-Motoren individuell konfigurierbar sind. Die Reichweite des Roboterarms beträgt in eine Richtung \num{55} cm. Der Arbeitsbereich des WidowX 200 ist kreisförmig und liegt bei einem Durchmesser von \num{110} cm. Im Arbeitsbereich des WidowX 200 sollten sich keine ungewollten Objekte befinden und sichergestellt werden, dass der WidowX 200 in diesem Bereich frei von menschlichen Einflüssen bewegen kann. Anzumerken ist, dass die Wiederholgenauigkeit des WidowX 200 bei \num{1} mm liegt. Für individuelle Aufgabenstellungen kann der Endeffektor jederzeit durch bereits verfügbare oder selbst z.B. durch einen per 3D-Druck erstellten Endeffektor ersetzt werden. Das maximale Tragegewicht des WidowX 200 beträgt 200 g, welches nicht überschritten werden sollte, da ansonsten Fehler bei der Änderung der Gelenkposition auftreten können \cite{noauthor_widowx_200_nodate}.\\
+Zur Umsetzung der Gestensteuerung eines Industrieroboters wird der Lernroboter WidowX 200, welcher zur InterbotiX X-Serie gehört und von Trossen Robotics hergestellt wird, als Vorlage für einen Industrieroboter verwendet. Mit seinen 5 DOF eignet sich der WidowX 200 für Testzwecke als sichere Alternative zu einem Knickarmroboter. Bei Tests geht im Gegensatz zu einem Industrieroboter eine geringere Gefahr vom WidowX 200 aus, da dieser keine so hohen Kräfte, Geschwindigkeiten und Beschleunigungen wie ein Industrieroboter entwickeln kann. Zudem bietet der \quoteMark{WidowX 200}-Lernroboter den Vorteil, dass es ein umfangreiches Dynamixel-SDK bietet, welches die Integration in ROS und die direkte Kommunikation mit dem Lernroboter einfach gestaltet und daher die Entwicklung des für Gestensteuerung konzipierten Systems drastisch beschleunigt. Für den Gelenk-Modus stellt der Lernroboter auch die Möglichkeit bereit die Gelenke individuell ansprechen und deren Gelenkposition verändern zu können. Die Dynamixel-Servo-Motoren können individuell an die Befürfnisse der Aufgabenstellung angepasst werden, da unter anderem die maximale Geschwindigkeiten und Beschleunigungen der einzelnen Servo-Motoren individuell konfigurierbar sind. Die Reichweite des Roboterarms beträgt in eine Richtung \num{55} cm. Der Arbeitsbereich des WidowX 200 ist kreisförmig und liegt bei einem Durchmesser von \num{110} cm. Im Arbeitsbereich des WidowX 200 sollten sich keine ungewollten Objekte befinden und sichergestellt werden, dass der WidowX 200 in diesem Bereich frei von menschlichen Einflüssen bewegen kann. Anzumerken ist, dass die Wiederholgenauigkeit des WidowX 200 bei \num{1} mm liegt. Für individuelle Aufgabenstellungen kann der Endeffektor jederzeit durch bereits verfügbare oder selbst z.B. durch einen per 3D-Druck erstellten Endeffektor ersetzt werden. Das maximale Tragegewicht des WidowX 200 beträgt 200 g, welches nicht überschritten werden sollte, da ansonsten Fehler bei der Änderung der Gelenkposition auftreten können \cite{noauthor_widowx_200_nodate}.\\
 
-Zur Gestenerkennung wird die Azure Kinect aufgrund der eingebauten Tiefenkamera verwendet. Auf die Azure-Cloud-Integration wird jedoch verzichtet, da das Bodytracking SDK durch ein DNN eine ausreichend genaue Methode bereitstellt \cite{qm13_azure_kinect_release_notes_nodate} um 32 spezifische Positionen des menschlichen Körpers, zu denen unter anderem die Augen, Schulter, Knie, Daumen und Handspitze zählen, zu erkennen \cite{qm13_azure_joints_nodate}. Zudem wird durch den Einsatz des Bodytracking SDK die Entwicklung des für Gestensteuerung konzipierten Systems drastisch beschleunigt. Einzelne Finger können daher mit der Azure Kinect nicht erkannt werden. Gesten, welche jedoch die Hand im allgemeinen beinhalten, wie z.B. die Stopp-Geste, sind jedoch unter anderem durch die vorhandenen räumlichen Positionsinformationen realisierbar \cite{noauthor_microsoftazure-kinect-sensor-sdk_2020}.\\
+Zur Gestenerkennung wird die Azure Kinect aufgrund der eingebauten Tiefenkamera verwendet. Auf die Azure-Cloud-Integration wird jedoch verzichtet, da das Azure Kinect Body Tracking SDK durch ein DNN eine ausreichend genaue Methode bereitstellt \cite{qm13_azure_kinect_release_notes_nodate} um 32 spezifische Positionen des menschlichen Körpers, zu denen unter anderem die Augen, Schulter, Knie, Daumen und Handspitze zählen, zu erkennen \cite{qm13_azure_joints_nodate}. Zudem wird durch den Einsatz des Azure Kinect Body Tracking SDK die Entwicklung des für Gestensteuerung konzipierten Systems drastisch beschleunigt. Einzelne Finger können daher mit der Azure Kinect nicht erkannt werden. Gesten, welche jedoch die Hand im allgemeinen beinhalten, wie z.B. die Stopp-Geste, sind jedoch unter anderem durch die vorhandenen räumlichen Positionsinformationen realisierbar \cite{noauthor_microsoftazure-kinect-sensor-sdk_2020}.\\
 
 Die Gestensteuerung des WidowX 200, welches auf dem für diese Arbeit erstellten Gesten-Roboter-Framework basiert und als Basis für andere gestengesteuerte Roboter dienen kann, wird näher beschrieben und verschiedene Gesten werden nach der Ergonomie evaluiert. Anschließend werden Gesten, welche mit der Azure Kinect umsetzbar sind, ausgewählt und mit Sicherheitsvorkehrungen kombiniert, welche es verhindern sollen, dass der Roboter sich unbeabsichtigt bewegt.
 
 % https://elib.uni-stuttgart.de/bitstream/11682/9072/1/Schneider-Dissertation-60.pdf
 % https://robodk.com/doc/de/Robot-Validation-ISO9283.html
 
-
-
-%-----------------------------------------------
-
-% LXC: https://serverfault.com/questions/630220/how-do-i-configure-lxc-to-allow-the-use-of-sched-rr-in-a-container
-% Scheduler wechseln:
-% cat /sys/block/sda/queue/scheduler
-% https://www.thomas-krenn.com/de/wiki/Linux_I/O_Scheduler#Deadline
-
-
-%--------------
-%sudo apt install schedtool # http://manpages.ubuntu.com/manpages/xenial/man8/schedtool.8.html
-%
-%"A privileged user can change the priority policy of a process with the schedtool program[7]:ln 326, 373 or it is done by a program itself.[7]:ln 336 The priority class can be manipulated at the code level with a syscall like sched_setscheduler only available to root,[11] which schedtool uses.[12]"
-%# https://en.wikipedia.org/wiki/Brain_Fuck_Scheduler
-%sudo chrt -p $(pidof -s bash)
-
-
-% "the default scheduler is CFS, the "Completely Fair Scheduler"
-% http://manpages.ubuntu.com/manpages/focal/en/man7/sched.7.html
-% http://manpages.ubuntu.com/manpages/eoan/en/man7/sched.7.html
-% https://en.wikipedia.org/wiki/Completely_Fair_Scheduler
-% https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html
-%-------------
-
-% https://www.researchgate.net/publication/331290349_The_real-time_linux_kernel_A_survey_on_Preempt_RT
-
-% -----------
-
-
-% sudo chrt -d --sched-runtime 1000000 --sched-deadline 5000000 --sched-period 5000000 -p  0 57802
-% https://access.redhat.com/solutions/3742421
-% http://manpages.ubuntu.com/manpages/cosmic/de/man1/chrt.1.html
-% https://lwn.net/Articles/743740/
-% # nanoseconds for the parameters
-
-% TODO: Wie lange ist für uns Echtzeit? -> Messungen!
-
-%-----------------------------------------------
-
-
-% Dead Man's Switch: irgendetwas in der Hand halten?
-% Wenn sich keine Person vor dem Tiefensesor befindet, dann werden auch keine Bewegungen ausgeführt.
-
-% verwendeter Tiefensensor-Modus -> warum?
-
-% Intel Real Sense Camera ZR300
-
 \section{Allgemeine Anforderungen}
 Um die Gestensteuerung des WidowX 200 bewerten zu können müssen die allgemeinen Anforderungen an die Software zur Gestensteuerung eines Industrieroboters aufgezeigt werden. Hierzu zählen die funktionalen sowie auch die nichtfunktionalen Anforderungen an die Software zur Gestensteuerung eines Industrieroboters.
-% weiche Echtzeitfähigkeit
-% Durchsatz, Latenzen, ...
 
 \subsection{Funktionale Anforderungen}
 Die Anforderungen an die Software zur Gestensteuerung eines Industrieroboter können in die nachfolgenden Punkte gegliedert werden \cite{kircher_it_2006} \cite[2\psq]{brauer_gestenerkennung_nodate}:\\
@@ -96,35 +46,21 @@ Zur besseren Einsetzbarkeit auf unterschiedlichen Linux-Distributionen wird das 
 % https://www.linux-magazin.de/ausgaben/2015/05/lxd/
 
 \subsection{Simulationsumgebungen}
-\textcolor{red}{TODO:\\
-Gazebo, vRep %, Coppelia Sim, ABB, ...
-https://www.ros.org/integration/
-}
+Zum Durchführen von Tests werden oft Simulationsumgebungen verwendet, da diese den Vorteil bieten, dass kein realer Roboter vorhanden sein muss und dadurch gefährliche Situationen für den Menschen erst gar nicht entstehen können. Während der Entwicklung eines Roboters kann dieser sogar in einer virtuellen Umgebung getestet werden um so das Verhalten und technische Limitierungen des Roboters vor der Herstellung zu ermitteln. Dies spart Zeit und Kosten, da das fertige Produkt erst nach ausführlichen Tests hergestellt wird. Mit Simulationsumgebungen können zudem Tests schneller und effizienter durchgeführt werden, da unter anderem Differenzen zu exakten Zielposen einfacher und genauer als mit manuellen Messungen bestimmt werden können \cite{noauthor_gazebo_nodate}. Zwei der bekanntesten Simulationsumgebungen, welche frei auf dem Markt verfügbar sind und unterschiedliche Roboter unterstützen, sind Gazebo und Coppelia Sim, welches der Nachfolger von vRep darstellt. Beide Simulationsumgebungen sind unter Windows, Linux und macOS verfügbar und bieten die Möglichkeit die standardmäßige Physik-Engine nach belieben mit einer anderen Physik-Engine auszutauschen um z.B. eine genauere Simulation durchführen zu können. Copellia Sim und Gazebo besitzen zudem beide einen Szenen-Editor und bei Coppelia Sim ist zudem im Gegensatz zu Gazebo ein 3D-Model-Editor integriert. Bei Gazebo wird hierdurch eine externe Anwendung benötigt um die 3D-Modelle den jeweiligen Bedürfnissen anpassen zu können. Coppelia Sim ist zudem aufgrund der Stabilität der GUI und der Plugins und der besseren Dokumentation im Gegensatz zu Gazebo zu bevorzugen. Viele Roboter werden aufgrund der ROS-Integration standardmäßig mit Out-of-the-Box-Unterstützung für Gazebo ausgestattet, wodurch bei Verwendung von Coppelia Sim zumeist ein Mehraufwand zum Einrichten des Roboters vonnöten ist. Beide Simulationsumgebungen bieten die Möglichkeit an über ROS-Messages angesprochen zu werden. Hierdurch ist eine Integration in ROS leicht umsetzbar. Copellia Sim und Gazebo bieten jedoch aber auch die Möglichkeit an vollständig ohne ROS verwendet werden zu können und so in beliebigen Softwareumgebungen eingesetzt zu werden \cite{noauthor_v-rep_vs_gazebo_nodate}. In dieser Arbeit wird Gazebo eingesetzt, da bereits der Lernroboter WidowX 200 eine vollständige Gazebo-Unterstützung mitgeliefert bekommt. Die benötigten Schritte zum Einrichten der Simulationsumgebung für den \quoteMark{WidowX 200}-Lernroboter können aus dem Anhang \ref{appendix1:Einrichtung_der_Simulationsumgebung} entnommen werden.
+
+% https://www.ros.org/integration/
+% http://gazebosim.org/
+% https://www.coppeliarobotics.com/features
 
 \section{Anbindung an ROS}
-\textcolor{red}{TODO:\\
-Anbindung an ROS
-}
+Da Gazebo standardmäßig eine ROS-Integration bereitstellt müssen nur die ROS-Packages des \quoteMark{WidowX 200}-Lernroboters installiert werden um die Gazebo-Integration einzurichten, wie aus dem Anhang \ref{appendix1:Einrichtung_des_Testsystems} zu entnehmen ist. Danach kann, wie im Anhang \ref{appendix1:Einrichtung_der_Simulationsumgebung} beschrieben wird, die Simulationsumgebung gestartet und für z.B. Tests genutzt werden. Die ROS-Packages des \quoteMark{WidowX 200}-Lernroboters werden von Trossen Robotics entwickelt und der Quellcode kann öffentlich eingesehen werden um eigene Anpassungen daran durchführen zu können. Der \quoteMark{WidowX 200}-Lernroboter kann aufgrund des \quoteMark{InterbotiX}-Nodes von überall aus dem Roboter-Netzwerk angesprochen werden. Zudem ist durch die ROS-Unterstützun des WidowX 200 überhaupt erst möglich MoveIt zu unterstützen. MoveIt ist ein ROS-Package, welches es vor allem ermöglicht Bewegungen zu Planen, die inverse Kinematik zu berechnen oder aber auch Kollisionschecks mit einem Tiefensensor zu ermöglichen \cite{noauthor_moveit_nodate}. Zudem bietet MoveIt eine C++-API an um die ROS-Services zu überspringen und eine höhere Performanz als mit einer vollständigen ROS-Umsetzung zu erhalten \cite{noauthor_moveit_tutorial_nodate}.\\
 
-
-\section{Einbinden von Nicht-ROS-Komponenten}
-\textcolor{red}{TODO:\\
-WidowX 200 (direkte Verbindung) \& Azure Kinect SDKs\\
-Probleme und Besonderheiten
-}
-
-
-\subsection{ROS-Packages}
-\textcolor{red}{TODO:\\
-Verwendete ROS Packages
-}
-
+Für das Azure Kinect Sensor SDK, welches direkten Zugriff auf die Sensoren der Azure Kinect ermöglicht, und das Azure Kinect Body Tracking SDK, welches zur Gestenerkennung eingesetzt werden kann, werden keine ROS-Packages von Microsoft bereitgestellt \cite{tesych_about_azure_kinect_sdks_nodate}. Daher ist es notwendig diese direkt in einen eigenen ROS-Node oder direkt in den ROS-Node der in dieser Arbeit entwickelten Roboter-Gesten-Anwendung zu integrieren. Aufgrund der Komplexität der Gestenerkennung, der Notwendigkeit zur schnellen und sicheren Reaktion auf die Gesten und der Möglichkeit von sehr schnell aufeinander folgenden Gesten und Bewegungsabläufen der Hände wurde entschieden die Gestenerkennung über eine C++-Schnittstelle bereitzustellen um möglichst jederzeit sicherstellen zu können, dass die Nutzereingaben schnell genug an die Steuereinheit übermittelt werden können. Zudem bietet es bei der Messung der Latenz der Übertragung mit und ohne ROS-Anbindung den Vorteil, dass schnell darauf geschlossen werden kann wo der Flaschenhals im System liegt. Dies wäre mit sehr vielen selbst erstellten und verteilten ROS-Nodes nur sehr schwer bis überhaupt nicht einsehbar, da das System zu komplex werden würde \cite{noauthor_why_dont_we_use_ros_nodate}. Der ROS-Node zur Gestenerkennung muss durch diesen Ansatz nur noch die benötigten Roboter-Befehle per MoveIt oder über die ROS-Schnittstelle des Industrieroboters an die Motoren des Industrieroboters senden um Gelenkbewegungen auslösen zu können.
 
 \section{Gesten}
 % https://www.uni-bremen.de/fileadmin/user_upload/sites/artec/Publikationen/artec_Paper/042_paper.pdf
 % S. 3
 % brauer_gestenerkennung_nodate
-
 
 \subsection{Arten von Gesten}
 \textcolor{red}{TODO:\\
@@ -143,7 +79,6 @@ Notstop-Handgerät\\
 Berechnungen
 }
 
-
 \section{Aufbau des Gesten-Roboter-Frameworks}
 \textcolor{red}{TODO:\\
 Gesten-Roboter-Framework mit UML erklären\\
@@ -151,14 +86,14 @@ Wie kann es gestartet werden?\\
 Was sind die Vorraussetzungen um das Backend zu starten?\\
 ROS-Dependency Tree\\
 Klassenhierarchie und Vererbungsmöglichkeiten (Erweiterbar für jede Arte von Roboter \& Tiefenkamera, welche mindestens die folgenden Anforderungen erfüllt ..., ...)\\
-UML Diagramm (Regelkreis, Besprechung, ...)
+UML Diagramm (Regelkreis, Besprechung, ...)\\
+WidowX 200 Packages angepasst für direkte Kommunikation, da gleiche Schnittstellen für Vergleiche besser geeignet sind
 }
-
 
 \section{Messvoraussetzungen}
 \textcolor{red}{TODO:\\
 Durchsatz, Latenzen, ...\\
 Informationen aus Datenblätter\\
-Zeit zur Erkennung von Gesten (Bodytracking SDK: beinhaltet Latenz von Aussenden des Infrarot-Lichtimpuls bis zum Empfang zur Absorption des Lichtimpuls, durch Belichtungszeit bis hin zur Latenz über das \quoteMark{USB 2.0}-Kabel)?\\
+Zeit zur Erkennung von Gesten (Azure Kinect Body Tracking SDK: beinhaltet Latenz von Aussenden des Infrarot-Lichtimpuls bis zum Empfang zur Absorption des Lichtimpuls, durch Belichtungszeit bis hin zur Latenz über das \quoteMark{USB 2.0}-Kabel)?\\
 Mit Simulationsumgebung durchführen
 }
