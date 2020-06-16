@@ -58,36 +58,13 @@ Da Gazebo standardmäßig eine ROS-Integration bereitstellt müssen nur die ROS-
 Für das Azure Kinect Sensor SDK, welches direkten Zugriff auf die Sensoren der Azure Kinect ermöglicht, und das Azure Kinect Body Tracking SDK, welches zur Gestenerkennung eingesetzt werden kann, werden keine ROS-Packages von Microsoft bereitgestellt \cite{tesych_about_azure_kinect_sdks_nodate}. Daher ist es notwendig diese direkt in einen eigenen ROS-Node oder direkt in den ROS-Node der in dieser Arbeit entwickelten Roboter-Gesten-Anwendung zu integrieren. Aufgrund der Komplexität der Gestenerkennung, der Notwendigkeit zur schnellen und sicheren Reaktion auf die Gesten und der Möglichkeit von sehr schnell aufeinander folgenden Gesten und Bewegungsabläufen der Hände wurde entschieden die Gestenerkennung über eine C++-Schnittstelle bereitzustellen um möglichst jederzeit sicherstellen zu können, dass die Nutzereingaben schnell genug an die Steuereinheit übermittelt werden können. Zudem bietet es bei der Messung der Latenz der Übertragung mit und ohne ROS-Anbindung den Vorteil, dass schnell darauf geschlossen werden kann wo der Flaschenhals im System liegt. Dies wäre mit sehr vielen selbst erstellten und verteilten ROS-Nodes nur sehr schwer bis überhaupt nicht einsehbar, da das System zu komplex werden würde \cite{why_dont_we_use_ros_nodate}. Der ROS-Node zur Gestenerkennung muss durch diesen Ansatz nur noch die benötigten Roboter-Befehle per MoveIt oder über die ROS-Schnittstelle des Industrieroboters an die Motoren des Industrieroboters senden um Gelenkbewegungen auslösen zu können.
 
 \section{Gesten}
-Gesten sind alle Formen der Bewegung, welche der nonverbalen Kommunikation dienen und mit den Armen, den Händen, dem Kopf, den Füßen oder Beinen ausgeführt werden können \cite{gestik_2020}. Wissenschaftler unterscheiden bis zu 5000 verschiedene Gesten, welche weltweit bewusst oder unbewusst eingesetzt werden. Handgesten werden vor allem dafür eingesetzt um Aussagen zu untermauern und deren Wirksamkeit zu verstärken. Bei Gesten sind auch die verschiedenen Posen des eingesetzten Körperbereichs entscheident zu beachten, da die Geste je nach Pose unterschiedliche Bedeutung besitzen kann. Z.B. ist das Greifen des Kinns mit dem Zeigefinger und Daumen eine nachdenkliche Geste, welche jedoch durch überdecken des verschlossenen Mundes mit dem Zeigefinger zu einer anderst interpretierbaren Geste wird. Das Überdecken des verschlossenen Mundes mit dem Zeigefinger kann als ein bewusstes Unterdrücken von Informationen angesehen werden und spiegelt daher nicht mehr die nachdenkliche Pose wider \cite{matschnig_korpersprache_2007}. Je nach Religion, Situation, Kultur, sozialer Herkunft, unterschiedlicher Ansichten und je nach Gefühlslage können Gesten eine andere Bedeutung besitzen. Aus diesen Gründen ist es sehr wichtig die verschiedenen Arten von Gesten zu kennen um so möglichst ethisch neutrale Gesten für die Kommunikation mit einem Industrieroboter auswählen zu können \cite{gesten_liste_2020}.
-% https://www.uni-bremen.de/fileadmin/user_upload/sites/artec/Publikationen/artec_Paper/042_paper.pdf
-% S. 3
-% brauer_gestenerkennung_nodate
-
-% Semaphorische  Gesten (Körperhaltung)
-% dynamische und statische Gesten -> statische Gesten
-
-
-% https://pdfs.semanticscholar.org/a214/7d3db5335383d4db53e68ffcadbdc66b9568.pdf
-% S. 68
-
-% http://campar.in.tum.de/pub/walchshaeusl2004da/walchshaeusl2004da.pdf
-% S. 7
-% V. PAVLOVIC, R. SHARMAund T. HUANG:Visual Interpretation of Hand Ge-stures for Human-Computer Interaction: A Review.  IEEE Transactions on Pat-tern Analysis and Machine Intelligence, 19(7):677–695, 1997.
-% Verschiedene Klassen von Gesten
-% Abbildung einfügen
+Gesten sind alle Formen der Bewegung, welche der nonverbalen Kommunikation dienen und mit den Armen, den Händen, dem Kopf, den Füßen oder Beinen ausgeführt werden können \cite{gestik_2020}. Wissenschaftler unterscheiden bis zu 5000 verschiedene Gesten, welche weltweit bewusst oder unbewusst eingesetzt werden. Handgesten werden vor allem dafür eingesetzt um Aussagen zu untermauern und deren Wirksamkeit zu verstärken. Bei Gesten sind auch die verschiedenen Posen des eingesetzten Körperbereichs entscheident zu beachten, da die Geste je nach Pose unterschiedliche Bedeutung besitzen kann. Z.B. ist das Greifen des Kinns mit dem Zeigefinger und Daumen eine nachdenkliche Geste, welche jedoch durch überdecken des verschlossenen Mundes mit dem Zeigefinger zu einer anderst interpretierbaren Geste wird. Das Überdecken des verschlossenen Mundes mit dem Zeigefinger kann als ein bewusstes Unterdrücken von Informationen angesehen werden und spiegelt daher nicht mehr die nachdenkliche Pose wider \cite[137\psq]{matschnig_korpersprache_2007}.
 
 \subsection{Arten von Gesten}
-Lexikalisierte Gesten\\
-Deiktische Gesten\\
-Ikonische Gesten\\
-Metaphorische Gesten\\
-Rhythmische Gesten\\
-
-% kontext
-% Körpernahe Gesten und auf Objekte gerichtete Gesten
+Je nach Religion, Situation, Kultur, sozialer Herkunft, unterschiedlicher Ansichten und je nach Gefühlslage können Gesten eine andere Bedeutung besitzen. Aus diesen Gründen ist es sehr wichtig die verschiedenen Arten von Gesten zu kennen um so möglichst ethisch neutrale Gesten für die Kommunikation mit einem Industrieroboter auswählen zu können \cite{gesten_liste_2020}. Daraus wird ersichtlich, dass nicht nur die Geste selber für das interpretieren notwendig ist, sondern aber auch der Kontext in der die Geste eingesetzt wird. Je nach Kontext sind körpernahe und körperferne Gesten, welche z.B. auf Objekte gerichtet sind, daher gleichermaßen für Missinterpretationen anfällig \cite[137\psq]{matschnig_korpersprache_2007}, da z.B. beim Erschrecken die Hände reflexartig ausgestreckt werden, bei Angstzuständen oder starker Wärme der Schweiß von der Stirn gewischt oder bei Rückenschmerzen an den Rücken gegriffen wird \cite{matschnig_glossar_nodate}.\\
 
 % Set the overall layout of the tree
-\tikzstyle{level 1}=[level distance=1.6cm, sibling distance=4.5cm]
+\tikzstyle{level 1}=[level distance=1.6cm, sibling distance=8.5cm]
 \tikzstyle{level 2}=[level distance=1.6cm, sibling distance=3.5cm]
 \tikzstyle{level 3}=[level distance=1.6cm, sibling distance=5.2cm]
 \tikzstyle{level 4}=[level distance=1.6cm, sibling distance=2.8cm]
@@ -99,7 +76,7 @@ Rhythmische Gesten\\
 \begin{figure}[!h]
     \centering
     \begin{tikzpicture}[grow=down, sloped, edge from parent/.style={draw,-latex}]
-    \node[bag] {Hand/Arm-Bewegungen}
+    \node[bag] {Hand- \& Armbewegungen}
         child {
             node[bag] {Gesten}
                 child {
@@ -128,17 +105,54 @@ Rhythmische Gesten\\
                 }
         }
         child {
-            node[end] {Unbeabsichtigte Bewegungen}
+            node[end] {unbeabsichtigte Bewegungen}
         };
     \end{tikzpicture}\newline
     \caption[Einteilung der Gesten]{Einteilung der Gesten \\Quelle: \cite[680]{pavlovic_visual_1997}}
 	\label{fig:einteilung_der_gesten}
 \end{figure}
 
+Eine der bekanntesten Gesten-Taxonomie für HCI mit denen alle Hand- und Armbewegungen klassifiziert werden können, welche in Abbildung \ref{fig:einteilung_der_gesten} ersichtlich ist, stammt von Quek, einem  Professor für Informatik und Mathematik am Virginia Polytechnic Institute und der State University. Diese Taxonomie teilt die Hand- und Armbewegungen in Gesten und unbeabsichtigte Bewegungen ein. Nur wenn die Geste mit einer absichtlichen Hand- oder Armbewegung durchgeführt wurde, wird die Hand- oder Armbewegung in diesem Modell als Geste klassifiziert. Alle anderen Hand- oder Armbewegungen sind daher nach diesem Modell keine Gesten, da diese für den Computer keine sinnvollen Informationen bieten. Gesten können nach dieser Taxonomie wiederum in manipulative und kommunikative Gesten unterteilt werden. Manipulative Gesten werden dazu verwendet mittels z.B. Bewegungsgesten oder Drehgesten auf Objekte in der Umgebung einzuwirken und diese zu verändern, wohingegen kommunikative Gesten einen inhärenten kommunikativen Zweck erfüllen und zumeist durch die Sprache unterstützt werden. kommunikative Gesten können wiederum in agierende und symbolische Gesten unterteilt werden. Der Unterschied zwischen symbolischen und agierenden Gesten besteht darin, dass symbolische Gesten im Gegensatz zu agierenden Gesten eine bildliche Beschreibung einer Aktion darstellen und mit einer zuvor definierten Aktion verknüft werden müssen um diese interpretierbar zu machen, und agierende Gesten im direkten Zusammenhang zur Bewegung stehen und so auch direkt erkennbar sind. Die referenzielle Geste, welche zur symbolischen Gestenart zählt, kann z.B. eine kreisförmige Bewegung mit dem Zeigefinger sein, welche angibt dass die Bewegung auf ein Rad bezogen ist und diese sich bewegen soll. Neben der referenziellen Geste existiert auch die modalisierende Geste, welche im Gegensatz zur referenziellen Geste eine Aktion durch eine symbolische Geste und zusätzlicher Verwendung der Sprache vorgeben kann, dass z.B. ein Rad sich bewegen soll. Für symbolische Geste sind der Kreativität keine Grenzen gesetzt und deshalb können diese nach beliebem mit einer Aktion verknüpft werden. Zu den agierenden Gesten zählen mimetische und deiktische Gesten, welche im direkten Zusammenhang mit der Interpretation der Geste stehen. Deiktische Gesten werden dabei mit dem Zeigefinger durchgeführt und geben z.B. eine Position vor, wohingegen mimetische Gesten bestimmte Aktionen imitieren. Im HCI-Kontext werden symbolische Gesten überwiegend eingesetzt, da diese zumeist durch verschiedene statische Handhaltungen dargestellt werden können und so überwiegend anstrengende und ermüdende Gesten vermieden werden können \cite[680]{pavlovic_visual_1997}.
+
+% https://toastmasters-dortmund.de/wp-content/uploads/Gesten-Ihr-K%C3%B6rper-spricht.pdf
+% S. 8
+
+% https://www.uni-bremen.de/fileadmin/user_upload/sites/artec/Publikationen/artec_Paper/042_paper.pdf
+% S. 3
+% \cite{brauer_gestenerkennung_nodate}
+
+% Semaphorische  Gesten (Körperhaltung)
+% dynamische und statische Gesten -> statische Gesten
+
+% https://pdfs.semanticscholar.org/a214/7d3db5335383d4db53e68ffcadbdc66b9568.pdf
+% S. 68
+
+% http://campar.in.tum.de/pub/walchshaeusl2004da/walchshaeusl2004da.pdf
+% S. 7
+
+\subsection{Beispiele für unethische symbolische Gesten}
+Gesten können je nach Religion, Situation, Kultur, sozialer Herkunft, unterschiedlicher Ansichten und je nach Gefühlslage auf eine andere Art und Weise interpretiert werden und sollten daher für alle Menschen ethisch vertrettbar sein um Missverständnisse vorzubeugen \cite{gesten_liste_2020}. Aus diesem Grund werden hierfür beispielhaft ein paar Gesten aus aller Welt miteinander verglichen und deren Bedeutungen in den unterschiedlichen Bereichen erklärt.\\
+
+\textbf{Daumen hoch}: Die \quoteMark{Daumen hoch}-Geste wird im deutschsprachigen Raum, USA und Korea eine besondere Leistung hervorzuheben. In anderen Ländern wie z.B. Russland, Frankreich, Israel, Griechenland und Italien ist es jeodch eine obszöne Aufforderung zum Sex und sollte daher nicht verwendet werden um Probleme und unangenehme Situationen zu vermeiden. In China und Japan hingegen bedeutet die \quoteMark{Daumen hoch}-Geste, dass man fünf Stück von einer Sache bestellen will und in Japan kann es zudem auch als Synonym für einen festen Freund missinterpretiert werden. Die \quoteMark{Daumen hoch}-Geste kann in Australien, Afghanistan, Iran, Irak und Nigeria, aber auch als provokante Aufforderung zum gehen missverstanden werden \cite{handzeichen_gesten_2018}.\\
+
+\textbf{Daumen-Zeigefinger-Kreis}: Die \quoteMark{Daumen-Zeigefinger-Kreis}-Geste wird im deutschsprachigen Raum, Nordamerika/USA, England, Mexiko, Skandinavien und Kanada positiv aufgefasst und bedeutet in den meisten Fällen \quoteMark{Okay} oder, dass zumeist ein Aufgabe sehr gut ausgeführt wurde. In der Türkei, Griechenland und Russland zeigt hierdurch symbolisch eine Körperöffnung, welches in diesen Ländern als obszön zu betrachten ist. Die \quoteMark{Daumen-Zeigefinger-Kreis}-Geste wird in Brasilien als obszöne Beleidung aufgefasst und in Belgien und Tunesien wird damit sogar ausgedrückt, dass die andere Person eine Null und dadurch nutzlos ist \cite{handzeichen_gesten_2018}.\\
+
+\textbf{Zeigefinger ausstrecken}: Das Richten des Zeigefingers auf andere Personen ist in dem meisten Ländern, wie z.B. dem deutschsprachigen Raum, Frankreich, Italien, China und Japan, ein Zeichen der Respektlosigkeit und der Verachtung. Wenn der Zeigefinger auf sich selbst gezeigt wird stellt es hingegen ein Zeichen der eigenen Selbstverliebtheit dar, welches in den genannten Ländern, wie auch das Zeigen mit dem Zeigefinger auf andere Personen, als negativ zu werten ist \cite{gesten_vergleich_nodate}.\\
+
+\textbf{Mit Zeigefinger an die Stirn tippen}: Im deutschsprachigen Raum wird diese Geste als sehr abwärtend wahrgenommen und bedeutet im Normalfall, dass die andere Person ein Idition ist. In Nordamerika und Peru hingegen ist es eine Anerkennung und ein Ausdruck dafür, dass die andere Person sehr schlau bzw. clever ist. In den USA wird diese Geste sogar dazu verwendet um andere Personen im Straßenverkehr freundlicherweise darauf hinzuweisen, dass in der Nähe eine Polizeikontrolle stattfindet \cite{handzeichen_gesten_2018}.\\
+
+Im Großen und Ganzen kann gesagt werden, dass es nur schwer möglich ist Gesten so zu gestalten damit sie für alle religiösen, kulturellen und sozialen Gegebenheiten und in jeglichem Kontext frei von Missinterpretationen sind. Es ist jedoch möglich die Gesten aufgrund der bisher erarbeiteten Grundlage ethisch auszuwählen und zu gestalten um möglichen Missinterpretationen entgegenwirken zu können.
+
+% https://www.diepresse.com/5507147/gefahrliche-gesten#slide-2
+% https://www.redenwelt.de/rede-tipps/gesten-im-ausland/
+
 \textcolor{red}{TODO:\\
-Welche möglichen Gesten gibt es?\\
-„Designing Gestural In-terfaces: Touchscreens and Interactive Devices“[Saffer, 2009, ab S. 183]\\
-\ref{fig:einteilung_der_gesten}
+2020\_Book\_KollaborierendeRoboterAnweisen.pdf einbauen\\
+% Gesten werden intuitiv eingesetzt
+% https://books.google.at/books?id=uin3DAAAQBAJ&pg=PA205&lpg=PA205&dq=unbeabsichtigte+gesten&source=bl&ots=LQEP5eRs0n&sig=ACfU3U1DxjQLGS8gvOGFozpa7R_MdSUmvA&hl=de&sa=X&ved=2ahUKEwi--rvawIbqAhVEiqQKHbpyAHoQ6AEwB3oECAcQAQ#v=onepage&q=unbeabsichtigte%20gesten&f=false
+% S. 208
+%
+% „Designing Gestural In-terfaces: Touchscreens and Interactive Devices“[Saffer, 2009, ab S. 183]\\
 % S. 3
 % brauer_gestenerkennung_nodate
 % https://de.wikipedia.org/wiki/Liste_von_Gesten
@@ -148,6 +162,45 @@ Welche möglichen Gesten gibt es?\\
 }
 
 \subsection{Auswahl anhand der Ergonomie}
+% https://app.designpilot.io/tool-221-niedriger-koerperlicher-aufwand
+% https://docs.microsoft.com/de-de/windows/mixed-reality/comfort
+%
+% Im Gegensatz zu VR ist jedoch kein Referenzwert vorhanden um eine vom körper abgewante Geste auf ein Objekt beziehen zu können
+% sollte nicht peinlich, nervig und sozial akzeptiert sein (https://mobilbranche.de/2017/04/augmented-virtuelle-realitaet-facebook-f8)
+% anstrengende & ermüdende Gesten vermeiden
+%
+%% anstrengende & ermüdende Gesten
+% Kreisgesten sind unangenehm über längere Zeit -> abstützende Gesten, welche nicht bei langeweile oder ansonsten beim Erschrecken ausgelöst werden können,  sind zu bevorzugen
+%
+%https://books.google.at/books?id=mvYoBAAAQBAJ&pg=PA248&lpg=PA248&dq=handtracking+anstrengend&source=bl&ots=y_fNP9Bfks&sig=ACfU3U31LmVzDwypmbJF1pdAKoWunYkRSQ&hl=de&sa=X&ved=2ahUKEwiV7qDi44bqAhXNDewKHVVzD_4Q6AEwAHoECAoQAQ#v=onepage&q=handtracking%20anstrengend&f=false
+% "Da sich diese Art der Gestikbedienung auf Dauer als anstrengend erwies wurde, die Kamera stattdessen..."
+% Hand ablegen ist Kräfte schonender!!!
+% S. 16
+%
+% Beim Teachen steht man normalerweise um den Roboter ordnungsgemäß und vollständig sehen zu können
+%
+% Freihandsgesten sind mitunter von Proband zu Proband anstrengen wahrzunehmen
+% DIP-3587.pdf
+% S. 84
+% https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjFtfei5YbqAhWfTBUIHRixCioQFjAFegQIBBAB&url=ftp%3A%2F%2Fftp.informatik.uni-stuttgart.de%2Fpub%2Flibrary%2Fmedoc.ustuttgart_fi%2FDIP-3587%2FDIP-3587.pdf&usg=AOvVaw24yxO6rcIhrjUV518mSXOR
+%
+% Andere wiederum empfinden das durchgehende ausstrecken des Zeigefingers als anstrengend
+% MA_MegaMol_Gestensteuerung.pdf
+% S. 85
+% https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjFtfei5YbqAhWfTBUIHRixCioQFjAEegQIBxAB&url=https%3A%2F%2Felib.uni-stuttgart.de%2Fbitstream%2F11682%2F9269%2F1%2FMA_MegaMol_Gestensteuerung.pdf&usg=AOvVaw2PYT7wcAuoQ_mWks4OxZgh
+% bzw. https://books.google.at/books?id=aXckBAAAQBAJ&pg=PA178&lpg=PA178&dq=virtual+reality+erm%C3%BCdende+gesten&source=bl&ots=WzxrxJkNjL&sig=ACfU3U3Niwn_KB0rv1PgqnpTodLdxjnbOQ&hl=de&sa=X&ved=2ahUKEwiA_vSF3YbqAhXhuXEKHUmsB8oQ6AEwAnoECAkQAQ#v=onepage&q=erm%C3%BCdend&f=false   S. 161
+%
+% "Bei  der  Gestensteuerung  ist demnach eine gute User Experience dadurch gekenn-zeichnet,  dass  die  Interaktion  nicht  anstrengend  ist  und  das  System  mit  der  Erkennung  zuverlässig  funktioniert. "
+% http://michaelkipp.de/student/Krammling2018.pdf
+% S. 28
+%
+%https://pdfs.semanticscholar.org/a214/7d3db5335383d4db53e68ffcadbdc66b9568.pdf
+% S. 68
+% Gesten im Oberkörperbereich sind zu bevorzugen
+%
+% Gesten sollten weiter auseinander liegen um die Gesten unterscheidbar zu machen
+
+
 \textcolor{red}{TODO:\\
 Welche Gesten sind zu empfehlen, welche sollten eher nicht gewählt werden? Gibt es vielleicht Bilder?\\
 Begründung der Implementierten Gesten für die jeweiligen Aktionen (Joint Mode, ...) und warum diese sinnvoll sind\\
@@ -156,12 +209,15 @@ zumeist werden Gesten vom Körper weg sehr unbewusst durchgeführt und Gesten am
 Gesten welche sehr selten eingesetzt werden, da ansonsten die Gesten sehr schnell als Falsch-Positive gewertet werden -> sicherheitskritisch für den Menschen (unterbewusste Gesten vermeiden)\\
 nicht verrenken oder unangenehme Posen einnehmen müssen\\
 Ergonomie ist noch zu testen, aber es wird bereits durch Vermutung und Literatur angenommen, dass diese Gesten unter anderem angenehm sein könnten\\
-Diese Gesten wurden in die Gesten-Roboter-Anwendung implementiert
+Diese Gesten wurden in die Gesten-Roboter-Anwendung implementiert\\
+.\\
+müssen mit einer gewissen Genauigkeit ausgeführt werden
+% https://books.google.at/books?id=u1fpBQAAQBAJ&pg=PA338&lpg=PA338&dq=unbeabsichtigte+gesten&source=bl&ots=9MVKFczn33&sig=ACfU3U0ysvHiyVaWtzhpLqglozL8aA3YNw&hl=de&sa=X&ved=2ahUKEwi--rvawIbqAhVEiqQKHbpyAHoQ6AEwBnoECAYQAQ#v=onepage&q=unbeabsichtigte%20gesten&f=false   S. 339 Problematische Gesten und Oberflächen & Genauigkeit & S. 340 Empfehlungen
 }
 
 \section{Sicherheitsvorkehrungen}
 \textcolor{red}{TODO:\\
-Notstop-Handgerät\\
+Notstop-Handgerät: beim Erschrecken zu starkes drücken erkennen (erschrecken) und ansonsten etwas drücken (bewusst)\\
 Was passiert wenn die Anwendung geschlossen wird?\\
 Man muss in die Richtung des Roboters/Azure Kinect schauen
 }
