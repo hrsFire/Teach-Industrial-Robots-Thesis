@@ -58,28 +58,112 @@ Da Gazebo standardmäßig eine ROS-Integration bereitstellt müssen nur die ROS-
 Für das Azure Kinect Sensor SDK, welches direkten Zugriff auf die Sensoren der Azure Kinect ermöglicht, und das Azure Kinect Body Tracking SDK, welches zur Gestenerkennung eingesetzt werden kann, werden keine ROS-Packages von Microsoft bereitgestellt \cite{tesych_about_azure_kinect_sdks_nodate}. Daher ist es notwendig diese direkt in einen eigenen ROS-Node oder direkt in den ROS-Node der in dieser Arbeit entwickelten Roboter-Gesten-Anwendung zu integrieren. Aufgrund der Komplexität der Gestenerkennung, der Notwendigkeit zur schnellen und sicheren Reaktion auf die Gesten und der Möglichkeit von sehr schnell aufeinander folgenden Gesten und Bewegungsabläufen der Hände wurde entschieden die Gestenerkennung über eine C++-Schnittstelle bereitzustellen um möglichst jederzeit sicherstellen zu können, dass die Nutzereingaben schnell genug an die Steuereinheit übermittelt werden können. Zudem bietet es bei der Messung der Latenz der Übertragung mit und ohne ROS-Anbindung den Vorteil, dass schnell darauf geschlossen werden kann wo der Flaschenhals im System liegt. Dies wäre mit sehr vielen selbst erstellten und verteilten ROS-Nodes nur sehr schwer bis überhaupt nicht einsehbar, da das System zu komplex werden würde \cite{why_dont_we_use_ros_nodate}. Der ROS-Node zur Gestenerkennung muss durch diesen Ansatz nur noch die benötigten Roboter-Befehle per MoveIt oder über die ROS-Schnittstelle des Industrieroboters an die Motoren des Industrieroboters senden um Gelenkbewegungen auslösen zu können.
 
 \section{Gesten}
+Gesten sind alle Formen der Bewegung, welche der nonverbalen Kommunikation dienen und mit den Armen, den Händen, dem Kopf, den Füßen oder Beinen ausgeführt werden können \cite{gestik_2020}. Wissenschaftler unterscheiden bis zu 5000 verschiedene Gesten, welche weltweit bewusst oder unbewusst eingesetzt werden. Handgesten werden vor allem dafür eingesetzt um Aussagen zu untermauern und deren Wirksamkeit zu verstärken. Bei Gesten sind auch die verschiedenen Posen des eingesetzten Körperbereichs entscheident zu beachten, da die Geste je nach Pose unterschiedliche Bedeutung besitzen kann. Z.B. ist das Greifen des Kinns mit dem Zeigefinger und Daumen eine nachdenkliche Geste, welche jedoch durch überdecken des verschlossenen Mundes mit dem Zeigefinger zu einer anderst interpretierbaren Geste wird. Das Überdecken des verschlossenen Mundes mit dem Zeigefinger kann als ein bewusstes Unterdrücken von Informationen angesehen werden und spiegelt daher nicht mehr die nachdenkliche Pose wider \cite{matschnig_korpersprache_2007}. Je nach Religion, Situation, Kultur, sozialer Herkunft, unterschiedlicher Ansichten und je nach Gefühlslage können Gesten eine andere Bedeutung besitzen. Aus diesen Gründen ist es sehr wichtig die verschiedenen Arten von Gesten zu kennen um so möglichst ethisch neutrale Gesten für die Kommunikation mit einem Industrieroboter auswählen zu können \cite{gesten_liste_2020}.
 % https://www.uni-bremen.de/fileadmin/user_upload/sites/artec/Publikationen/artec_Paper/042_paper.pdf
 % S. 3
 % brauer_gestenerkennung_nodate
 
+% Semaphorische  Gesten (Körperhaltung)
+% dynamische und statische Gesten -> statische Gesten
+
+
+% https://pdfs.semanticscholar.org/a214/7d3db5335383d4db53e68ffcadbdc66b9568.pdf
+% S. 68
+
+% http://campar.in.tum.de/pub/walchshaeusl2004da/walchshaeusl2004da.pdf
+% S. 7
+% V. PAVLOVIC, R. SHARMAund T. HUANG:Visual Interpretation of Hand Ge-stures for Human-Computer Interaction: A Review.  IEEE Transactions on Pat-tern Analysis and Machine Intelligence, 19(7):677–695, 1997.
+% Verschiedene Klassen von Gesten
+% Abbildung einfügen
+
 \subsection{Arten von Gesten}
+Lexikalisierte Gesten\\
+Deiktische Gesten\\
+Ikonische Gesten\\
+Metaphorische Gesten\\
+Rhythmische Gesten\\
+
+% kontext
+% Körpernahe Gesten und auf Objekte gerichtete Gesten
+
+% Set the overall layout of the tree
+\tikzstyle{level 1}=[level distance=1.6cm, sibling distance=4.5cm]
+\tikzstyle{level 2}=[level distance=1.6cm, sibling distance=3.5cm]
+\tikzstyle{level 3}=[level distance=1.6cm, sibling distance=5.2cm]
+\tikzstyle{level 4}=[level distance=1.6cm, sibling distance=2.8cm]
+
+% Define styles for bags and leafs
+\tikzstyle{bag} = [draw=none, fill=none, text centered]
+\tikzstyle{end} = [draw=none, fill=none, text centered]
+
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}[grow=down, sloped, edge from parent/.style={draw,-latex}]
+    \node[bag] {Hand/Arm-Bewegungen}
+        child {
+            node[bag] {Gesten}
+                child {
+                    node[end] {manipulativ}
+                }
+                child {
+                    node[bag] {kommunikativ}
+                        child {
+                            node[bag] {agierend}
+                                child {
+                                    node[end] {mimetisch}
+                                }
+                                child {
+                                    node[end] {deiktisch}
+                                }
+                        }
+                        child {
+                            node[bag] {symbolisch}
+                                child {
+                                    node[end] {referenziell}
+                                }
+                                child {
+                                    node[end] {modalisierend}
+                                }
+                        }
+                }
+        }
+        child {
+            node[end] {Unbeabsichtigte Bewegungen}
+        };
+    \end{tikzpicture}\newline
+    \caption[Einteilung der Gesten]{Einteilung der Gesten \\Quelle: \cite[680]{pavlovic_visual_1997}}
+	\label{fig:einteilung_der_gesten}
+\end{figure}
+
 \textcolor{red}{TODO:\\
-Welche mögliche Gesten gibt es?\\
+Welche möglichen Gesten gibt es?\\
 „Designing Gestural In-terfaces: Touchscreens and Interactive Devices“[Saffer, 2009, ab S. 183]\\
+\ref{fig:einteilung_der_gesten}
 % S. 3
 % brauer_gestenerkennung_nodate
+% https://de.wikipedia.org/wiki/Liste_von_Gesten
+% https://de.wikipedia.org/wiki/Gestik
+% https://tu-dresden.de/ing/informatik/smt/cgv/die-professur/mitarbeiter/ludwig_schmutzler/ludwig_schmutzler_ws1213
+% https://de.dreamstime.com/arten-von-k%C3%B6rperstellen-und-darstellungen-gesten-das-bild-des-oberk%C3%B6rpers-arztes-image164620417
 }
 
 \subsection{Auswahl anhand der Ergonomie}
 \textcolor{red}{TODO:\\
 Welche Gesten sind zu empfehlen, welche sollten eher nicht gewählt werden? Gibt es vielleicht Bilder?\\
-Begründung der Implementierten Gesten für die jeweiligen Aktionen (Joint Mode, ...) und warum diese sinnvoll sind
+Begründung der Implementierten Gesten für die jeweiligen Aktionen (Joint Mode, ...) und warum diese sinnvoll sind\\
+Eine Geste startet nur eine Aktion, bestimmt jedoch aber nicht die Geschwindigkeit des Industrieroboters, da dies zu gefährlich für den Menschen wäre\\
+zumeist werden Gesten vom Körper weg sehr unbewusst durchgeführt und Gesten am Körper sind bewusster? (Literatur?)\\
+Gesten welche sehr selten eingesetzt werden, da ansonsten die Gesten sehr schnell als Falsch-Positive gewertet werden -> sicherheitskritisch für den Menschen (unterbewusste Gesten vermeiden)\\
+nicht verrenken oder unangenehme Posen einnehmen müssen\\
+Ergonomie ist noch zu testen, aber es wird bereits durch Vermutung und Literatur angenommen, dass diese Gesten unter anderem angenehm sein könnten\\
+Diese Gesten wurden in die Gesten-Roboter-Anwendung implementiert
 }
 
 \section{Sicherheitsvorkehrungen}
 \textcolor{red}{TODO:\\
 Notstop-Handgerät\\
-Was passiert wenn die Anwendung geschlossen wird?
+Was passiert wenn die Anwendung geschlossen wird?\\
+Man muss in die Richtung des Roboters/Azure Kinect schauen
 }
 
 \section{Aufbau des Gesten-Roboter-Frameworks}
