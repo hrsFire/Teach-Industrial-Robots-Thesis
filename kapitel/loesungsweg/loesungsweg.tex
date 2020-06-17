@@ -118,8 +118,6 @@ Eine der bekanntesten Gesten-Taxonomie für HCI mit denen alle Hand- und Armbewe
 % S. 8
 
 % https://www.uni-bremen.de/fileadmin/user_upload/sites/artec/Publikationen/artec_Paper/042_paper.pdf
-% S. 3
-% \cite{brauer_gestenerkennung_nodate}
 
 % Semaphorische  Gesten (Körperhaltung)
 % dynamische und statische Gesten -> statische Gesten
@@ -148,22 +146,28 @@ Im Großen und Ganzen kann gesagt werden, dass es nur schwer möglich ist Gesten
 % https://www.diepresse.com/5507147/gefahrliche-gesten#slide-2
 % https://www.redenwelt.de/rede-tipps/gesten-im-ausland/
 
-\textcolor{red}{TODO:\\
-2020\_Book\_KollaborierendeRoboterAnweisen.pdf einbauen\\
-% Gesten werden intuitiv eingesetzt
-% https://books.google.at/books?id=uin3DAAAQBAJ&pg=PA205&lpg=PA205&dq=unbeabsichtigte+gesten&source=bl&ots=LQEP5eRs0n&sig=ACfU3U1DxjQLGS8gvOGFozpa7R_MdSUmvA&hl=de&sa=X&ved=2ahUKEwi--rvawIbqAhVEiqQKHbpyAHoQ6AEwB3oECAcQAQ#v=onepage&q=unbeabsichtigte%20gesten&f=false
-% S. 208
-%
-% „Designing Gestural In-terfaces: Touchscreens and Interactive Devices“[Saffer, 2009, ab S. 183]\\
-% S. 3
-% \quote{brauer_gestenerkennung_nodate}
-% https://de.wikipedia.org/wiki/Liste_von_Gesten
-% https://de.wikipedia.org/wiki/Gestik
 % https://tu-dresden.de/ing/informatik/smt/cgv/die-professur/mitarbeiter/ludwig_schmutzler/ludwig_schmutzler_ws1213
-% https://de.dreamstime.com/arten-von-k%C3%B6rperstellen-und-darstellungen-gesten-das-bild-des-oberk%C3%B6rpers-arztes-image164620417
-}
+
+% „Designing Gestural Interfaces: Touchscreens and Interactive Devices“[Saffer, 2009, ab S. 183]
 
 \subsection{Auswahl anhand der Ergonomie}
+Aufgrundlage der ermittelten Limitierungen der Azure Kinect und der untersuchten ethischen Voraussetzungen können nun entsprechende Gesten entwickelt werden, welche die Anforderungen an die sicherheitskritische Steuerung eines Industrieroboters aus ergonomischer Sicht, aber auch zur Vermeidung von Unfällen mit Industrierobotern, erfüllen können.
+\textcolor{red}{TODO:}
+
+
+
+
+
+
+% keine komplizierten Kommandos (z.B. Gesten- oder Zeichen-vokabulare: Handzeichen, geometrische Formen und Farben) zur einfachen und schnellen Erlernbarkeit
+% S. 97  2020_Book_KollaborierendeRoboterAnweisen.pdf
+%
+% direkte und natürliche Interaktion intuitive und einfache Gestaltung (Zufriedenstellung) universelle Zugänglichkeit (Effizienz)
+% S. 103  2020_Book_KollaborierendeRoboterAnweisen.pdf
+%
+% Im Falle einer Gestensteuerung (GS) sorgt die Bewegung im Arbeitsraum des Roboters für ein geringes Sicherheitsgefühl bei den Nutzern. Bei der Verwen- dung einer rein gestenbasierten Eingabe ist die mangelnde Rückmeldung ein we- sentlicher Schwachpunkt dieser MRS-Technologie für den Einsatz in einer iMRK. Hinzu kommt die Möglichkeit von unbeabsichtigten Eingaben bei Verwendung ohne zusätzlicher Eingabegeräte.
+% S. 132  2020_Book_KollaborierendeRoboterAnweisen.pdf
+%
 % https://app.designpilot.io/tool-221-niedriger-koerperlicher-aufwand
 % https://docs.microsoft.com/de-de/windows/mixed-reality/comfort
 %
@@ -217,11 +221,86 @@ müssen mit einer gewissen Genauigkeit ausgeführt werden
 % https://books.google.at/books?id=u1fpBQAAQBAJ&pg=PA338&lpg=PA338&dq=unbeabsichtigte+gesten&source=bl&ots=9MVKFczn33&sig=ACfU3U0ysvHiyVaWtzhpLqglozL8aA3YNw&hl=de&sa=X&ved=2ahUKEwi--rvawIbqAhVEiqQKHbpyAHoQ6AEwBnoECAYQAQ#v=onepage&q=unbeabsichtigte%20gesten&f=false   S. 339 Problematische Gesten und Oberflächen & Genauigkeit & S. 340 Empfehlungen
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.70\textwidth]{images/loesungsweg/joint_hierarchy}
+	\caption[Azure Kinect: 32 spezifische Positionen des menschlichen Körpers]{Azure Kinect: 32 spezifische Positionen des menschlichen Körpers \\Quelle: \cite{qm13_azure_joints_nodate}}
+	\label{fig:joint_hierarchy}
+\end{figure}
+\FloatBarrier
+
+Wie in Abbildung \ref{fig:joint_hierarchy} zu sehen ist, können bei der linken und rechten Hand unter anderem die Handspitze, der Daumen, ca. die Mitte der Hand und das Gelenk über das Azure Kinect Body Tracking SDK, welches 32 spezifischen Positionen des menschlichen Körpers identifzieren kann, genutzt werden. Die Bestimmung und Nutzung der einzelnen Finger der linken und rechten Hand ist daher nicht möglich und daher können die einzelnen Finger mit der Azure Kinect nicht zur Gestensteuerung eines Industrieroboters eingesetzt werden. Aus diesem Grund werden zur Gestensteuerung des Industrieroboters auf feinmotorische Gesten mit den einzelnen Fingern, zu denen z.B. das Skalieren mit zwei Fingern zählt, verzichtet \cite{qm13_azure_joints_nodate}.\newline
+
+
+
+
+\textcolor{red}{TODO:}\newline
+In der Tabelle \ref{tab:implementierte_gesten} sind die für die Gestensteuerung des Industrieroboters aufgestellten Gesten ersichtlich. Zum besseren Verständnis der Gesten wurden diese zudem mit den in Abbildung \ref{fig:joint_hierarchy} ersichtlichen 32 spezifischen Positionen des menschlichen Körpers, welche durch die Azure Kinect bereitgestellt werden, übersichtlich verknüpft. Bei der Entwicklung der Gesten wurde darauf geachtet, dass die Gesten den Links- und Rechtshändern eine entspannte Möglichkeit bieten den Industrieroboter über die für das Teachen vorgesehene Zeit zu bedienen. Aus diesem Grund war bei der Entwicklung der Gesten sehr wichtig der bedienenden Person bei längeren Bedienungsvorgängen, wie z.B. der Gelenkstellung erhöhen, eine Möglichkeit zum Ablegen der Hände zu bieten um so Ermüdungserscheinungen vorbeugen zu können. Auf der anderen Seite war jedoch aber bei der Entwicklung der Gesten auch wichtig, die Gesten in einer gewissen Distanz voneinander anzuordnen um so unbeabsichtigte Betätigungen mehrerer Gesten während des Bedienungsvorganges zu minimieren. Unbeabsichtigte Gesten können jedoch aber auch durch reflexartige Bewegungen zum Schutz des eigenen Lebens entstehen. Diese reflexartigen und unbeabsichtigten Gesten, wie z.B. das Schützen des Kopfes mit den Händen, wurden bei der Entwicklung der Gesten mitberücksichtigt und werden vom System größtmöglich herausgefiltert.
+
+\definecolor{LightGray}{gray}{0.9}
+\definecolor{SeaShell}{rgb}{1.0, 0.96, 0.93}
+\rowcolors{1}{}{SeaShell}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.175\textwidth}|>{\raggedright\arraybackslash}p{0.53\textwidth}|>{\raggedright\arraybackslash}p{0.19\textwidth}|}
+\hline
+\rowcolor{LightGray} \thead{Aktion} & \thead{Beschreibung\\mit\\spezifischen Geste} & \thead{Anmerkung}\\
+\hline
+Gelenkstellung erhöhen & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz oder länger zwischen das \textbf{rechte Schlüsselbein} (\bracketText{CLAVICLE\_RIGHT}) und die \textbf{rechte Schulter} (\bracketText{SHOULDER\_RIGHT}) legen & \nameref{ast:gesten_anmerkung_1}\\
+\hline
+Gelenkstellung verringern & \textbf{Rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz oder länger zwischen das \textbf{linke Schlüsselbein} (\bracketText{CLAVICLE\_LEFT}) und die \textbf{linke Schulter} (\bracketText{SHOULDER\_LEFT}) legen & \nameref{ast:gesten_anmerkung_1}\\
+\hline
+Endeffektor auseinanderfahren & \textbf{Rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz oder länger in die \textbf{Mitte der Brusthöhe} (\bracketText{SPINE\_CHEST}) legen & \nameref{ast:gesten_anmerkung_1}\\
+\hline
+Endeffektor zusammenfahren & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz oder länger in die \textbf{Mitte der Brusthöhe} (\bracketText{SPINE\_CHEST}) legen & \nameref{ast:gesten_anmerkung_1}\\
+\hline
+Endeffektor-\newline Modus umschalten & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz auf das \textbf{linke Knie} (\bracketText{KNEE\_LEFT}) legen \newline\newline \textbf{ODER} \newline\newline \textbf{rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz auf das \textbf{rechte Knie} (\bracketText{KNEE\_RIGHT}) legen & \nameref{ast:gesten_anmerkung_2} \newline\newline  Verfügbare Modi:\newline
+$\bullet$ gesperrt\newline
+$\bullet$ nicht gesperrt\newline\newline
+Standardmäßig:\newline
+$\bullet$ nicht gesperrt\\
+\hline
+Zum vorigen Gelenk wechseln & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz auf das \textbf{linke Ohr} (\bracketText{EAR\_LEFT}) legen & \nameref{ast:gesten_anmerkung_2}  \nameref{ast:gesten_anmerkung_3}\\
+\hline
+Zum nächsten Gelenk wechseln & \textbf{Rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz auf das \textbf{rechte Ohr} (\bracketText{EAR\_RIGHT}) legen & \nameref{ast:gesten_anmerkung_2}\\
+\hline
+Präzisionsmodus umschalten & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz in den \textbf{Bereich des Bauchnabels} (\bracketText{SPINE\_NAVEL}) legen \newline\newline \textbf{ODER} \newline\newline \textbf{rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz in den \textbf{Bereich des Bauchnabels} (\bracketText{SPINE\_NAVEL}) legen & \nameref{ast:gesten_anmerkung_2} \newline\newline Verfügbare Modi:\newline
+$\bullet$ präzise (Beschleunigung deaktiviert)\newline
+$\bullet$ Beschleuni-\newline gung aktiviert\newline\newline
+Standardmäßig:\newline
+$\bullet$ präzise (Beschleunigung deaktiviert)\\
+\hline
+Positionen speichern & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz auf die \textbf{linke Hüfthöhe} (\bracketText{HIP\_LEFT}) legen \newline\newline \textbf{ODER} \newline\newline \textbf{rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz auf die \textbf{rechte Hüfthöhe} (\bracketText{HIP\_RIGHT}) legen & \nameref{ast:gesten_anmerkung_2}\\
+\hline
+\caption[Implementierte Gesten]{Implementierte Gesten}
+\label{tab:implementierte_gesten}
+\end{longtable}
+
+\paragraph*{$^{\ast1}$}\label{ast:gesten_anmerkung_1}\small{Wenn der Präzisionsmodus ausgeschalten (Beschleunigung aktiviert) ist, führt ein längeres verharren in dieser Pose zu einer Beschleunigung der jeweiligen Bewegung.}
+\paragraph*{$^{\ast2}$}\label{ast:gesten_anmerkung_2}\small{Längeres verharren in dieser Pose ändert die Einstellung nur einmal. Um die Einstellung mehrmals zu ändern muss die Pose verlassen und anschließend neu initiiert werden.}
+\paragraph*{$^{\ast3}$}\label{ast:gesten_anmerkung_3}\small{Die Anzahl der Gelenke sind vom jeweiligen Industrieroboter abhängig.}
+\newline\newline
+
+In der Tabelle \ref{tab:implementierte_gesten} sind die Aktionen, welche mit Gesten verknüft wurden aufgelistet. Zu jeder Geste wird eine genaue Beschreibung angegeben um die Geste ordnungsgemäß ausführen zu können. In manchen Fällen, wie z.B. beim Umschalten des Präzisionsmodus, kann dies je nach Präferenz durch die linke oder rechte Hand erfolgen. Hierdurch steht es der Person frei die Geste seiner Wahl für den jeweiligen Anwendungsfall auszuwählen. Zur Erhöhung der Sicherheit wurde eine Möglichkeit implementiert den Endeffektor zu sperren, damit keine Aktionen mit ihm ausgeführt werden können. Z.B. wenn der Endeffektor eine Last transportiert ist es Wichtig, dass diese nicht plötzlich durch ungewolltes öffnen des Endeffektors fallen gelassen wird und so ungewollt einen Schaden verursachen würde. Standardmäßig ist der Endeffektor nicht gesperrt, da im Normalfall am Anfang noch keine Last transportiert wird. Der Präzisionsmodus ermöglicht das Wechseln zwischen präziser immer gleich bleibender Geschwindigkeit mit einer für den Industrieroboter voreingesellten Minimalgeschwindigkeit und einem unpräzisen aber dafür schnelleren Modus, bei dem die Geschwindigkeit und Beschleunigung bis zu einem für den jeweiligen Industrieroboter zum sicheren Teachen vorgegebenen Schwellwert erreicht wird.
+
 \section{Sicherheitsvorkehrungen}
 \textcolor{red}{TODO:\\
 Notstop-Handgerät: beim Erschrecken zu starkes drücken erkennen (erschrecken) und ansonsten etwas drücken (bewusst)\\
 Was passiert wenn die Anwendung geschlossen wird?\\
-Man muss in die Richtung des Roboters/Azure Kinect schauen
+Man muss in die Richtung des Roboters/Azure Kinect schauen\\
+controller mit drucksensor
+% https://www.amazon.de/gp/product/B077SRP4Q9/ref=ox_sc_act_title_1?smid=ADR4M3MFY6SKF&psc=1
 }
 
 \section{Aufbau des Gesten-Roboter-Frameworks}

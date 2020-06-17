@@ -13,13 +13,13 @@
 }
 
 \newcommand{\acronymEntryNewline}[0]{
-	\vspace*{0.631em} \\ %0.631em
+	\vspace*{0.631em} \\
 }
 
 \newcommand{\todayWithoutDay}{\DTMlangsetup[german]{showdayofmonth=false}\today\DTMlangsetup[german]{showdayofmonth=true}}
 
-\newcommand{\quoteMark}[1]{
-	\glqq#1\grqq
+\newcommand{\quoteMark}[1]{%
+	\glqq#1\grqq%
 }
 
 \newcommand{\setCSharpListing}{
@@ -70,4 +70,8 @@
 		showtabs=false,
 		captionpos=t
 	}
+}
+
+\newcommand{\bracketText}[1]{%
+    \textit{\scriptsize{#1}}%
 }
