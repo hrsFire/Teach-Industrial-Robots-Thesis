@@ -1,11 +1,12 @@
 \section{Zusammenfassung}
 
+\textcolor{red}{TODO}
 % Azure Kinect: 
 %    Stärken der Kinect: Keine Notwendigkeit einer Kalibrierpose, Posenberechnung ohne getragene Hardware
 % Problem: immer in Richtung der Azure Kinect schauen -> diese ist statisch
 
 \section{Ausblick}
-
+\textcolor{red}{TODO}
 % ROS ist nicht das Allheilmittel sonder eine mögliche Implementierung die sich erst noch im industriellen Einsatz behaupten muss über die Jahre \cite{noauthor_why_dont_we_use_ros_nodate}
 
 % Was könnte in Zukunft besser gemacht werden?
@@ -13,10 +14,8 @@
 % Gibt es bessere Alternativen?
 
 % Gibt es weiterführende Themen, welche behandelt werden könnten?
+Im Vergleich zur Kinect 2, welche eine \num{0,3}-Megapixel-Tiefenkamera verbaut hat, ist die Azure Kinect, welche eine 1-Megapixel-Tiefenkamera besitzt, bereits eine deutliche Weiterentwicklung zu ihrem Vorgängermodell. Nichtsdestotrotz ist hier jedoch durch den großen Spring von einer \num{0,3}- auf eine 1-Megapixel-Auflösung noch genügend Verbesserungspotenziall vorhanden um noch höhere Auflösungen erreichen zu können \cite{bamji__2018}. Mit einer höheren Auflösung der Tiefenkamera wäre es möglich die Gesten noch genauer zu erkennen und die False-Positive-Rate noch weiter zu verringern. Mittels Eye-Tracking, welches z.B. in der HoloLens 2 verbaut ist \cite{hololens2_hardware_nodate}, könnte man die Sicherheit der bedienenden Person zusätzlich erhöhen und die Gestenerkennung noch zuverlässiger gestalten. Hiermit könnte man unter anderem erkennen ob die bedienende Person Ermüdungserscheinungen aufweist und daher besser eine Pause einlegen sollte oder sogar nicht mehr bei Bewusstsein ist, da die bedienende Person z.B. ungewollt auf dem Boden liegt.\\
 
+Weiteres Forschungspotenzial besteht auch im Bereich der Sicherheit und Ergonomie der in dieser Arbeit entwickelten Gesten-Roboter-Anwendung. Hierbei könnte erforscht werden wie gut sich smarte Fußeinlagesohlen zur Sicherheits- und Ergonomiesteigerung eignen würden. Hierdurch würden die Hände zur Gestensteuerung frei bleiben und es könnte womöglich eine Art von \quoteMark{Dead Man's Switch} mit einer smarten Fußeinlagesohle realisiert werden. Hierdurch wäre es vermutlich machbar sehr schnelle und reflexartige Druckverteilungen und Bewegungen zu Erkennen und den Industrieroboter bei dieser Art von Bewegung zu stoppen. Zu wenig oder kein Druck auf den Fußeinlagesohlen könnten mehrere Gründe haben, da z.B. die Sohlen abgezogen wurden oder die bedienende Person ungewollt auf dem Boden liegt. Das Starten der Gestenerkennung könnte womöglich auch durch eine korrekt ausgeführte Kombination aus Fußbewegungen realisiert werden \cite{tan_design_2015}. Eine andere Möglichkeit würde darin bestehen einen smarten Handschuh mit einem Beschleunigungssensor und einem Gyroskop zu verwenden, welcher zu schnelle Bewegungen erkennen könnte und die Bewegung des Industrieroboters bei auffälligen Bewegungen anhält \cite{ghimire_smart_2019}. Hierzu könnte ein künstliches neuronale Netzwerk auf diese auffälligen Bewegungen trainiert werden.
 
-\textcolor{red}{
-Weiteres Forschungspotenzial im Bereich der Sicherheit und Ergonomie würde vermutlich zudem in smarten Fußeinlagesohlen bestehen, da hierdurch die Hände zur Gestensteuerung frei bleiben würden. Zudem wäre es womöglich machbar sehr schnelle und reflexartige Druckverteilungen und Bewegungen zu Erkennen und den Industrieroboter bei dieser Art von Bewegung zu stoppen, wenn zu wenig oder kein Druck auf den Sohlen gemessen würde. Dieser Umstand könnte mehrere Gründe haben, da z.B. die Sohlen abgezogen wurden oder die bedienende Person ungewollt auf dem Boden liegt. Das Starten der Gestenerkennung könnte womöglich auch durch eine korrekt ausgeführte Kombination aus Fußbewegungen realisiert werden. --> TODO: Quelle; Vergleich zu Plattform fürs Teachen\newline
-\newline
-Eine andere Möglichkeit würde darin bestehen einen smarten Handschuh zu verwenden, welcher zu schnelle Bewegungen erkennt und die Bewegung des Industrieroboters anhält. -> TODO: Quelle
-}
+% Vergleich zu Plattform fürs Teachen
