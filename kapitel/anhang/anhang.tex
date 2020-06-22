@@ -1,7 +1,18 @@
 \section{Einrichtung des Testsystems}\label{appendix1:Einrichtung_des_Testsystems}
 \textcolor{red}{TODO: Installationsanleitung}
 
-Hierbei wird als Scheduler SCHED\_RR eingesetzt, welcher feste Echtzeitfähigkeit im 50 ms Bereich garantiert. Für den \quoteMark{SCHED\_RR}-Scheduler müssen dabei die Parameter richtig eingestellt werden. Der \quoteMark{Runtime}-Parameter beträgt hierbei 5000000 ns, der \quoteMark{Deadline}-Parameter beträgt 50000000 ns und der \quoteMark{Periode}-Parameter beträgt 50000000 ns. Der \quoteMark{Runtime}-Parameter steht dabei für die benötigte Ausführungszeit der Aufgabe, der \quoteMark{Deadline}-Parameter für wie schnell nach der Laufzeit die Periode gestartet werden muss und der \quoteMark{Periode}-Parameter für wie oft die Laufzeit ausgeführt wird.
+Hierbei wird als Scheduler SCHED\_DEADLINE eingesetzt, welcher feste Echtzeitfähigkeit im 50 ms Bereich garantiert. Für den \quoteMark{SCHED\_DEADLINE}-Scheduler müssen dabei die Parameter richtig eingestellt werden. Der \quoteMark{Runtime}-Parameter beträgt hierbei 35000000 ns, der \quoteMark{Deadline}-Parameter beträgt 50000000 ns und der \quoteMark{Periode}-Parameter beträgt 50000000 ns. Der \quoteMark{Runtime}-Parameter steht dabei für die benötigte Ausführungszeit der Aufgabe, der \quoteMark{Deadline}-Parameter für wie schnell nach der Laufzeit die Periode gestartet werden muss und der \quoteMark{Periode}-Parameter für wie oft die Laufzeit ausgeführt wird \cite{man_sched7_nodate}.\\
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.85\textwidth]{images/anhang/sched_deadline}
+	\caption[SCHED\_DEADLINE Ablauf]{SCHED\_DEADLINE Ablauf \\Quelle: \cite{man_sched7_nodate}}
+	\label{fig:sched_deadline}
+\end{figure}
+\FloatBarrier
+
+
+% Bild generieren: https://www.man7.org/linux/man-pages/man7/sched.7.html
 % https://access.redhat.com/solutions/3742421
 
 % lxc start script for app and set scheduler for process
