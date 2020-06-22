@@ -75,3 +75,10 @@
 \newcommand{\bracketText}[1]{%
     \textit{\scriptsize{#1}}%
 }
+
+\newenvironment{compact_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
