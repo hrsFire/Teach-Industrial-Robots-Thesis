@@ -42,7 +42,7 @@
 }
 
 \newcommand{\setBashListing}{
-	\lstset{language=bash,caption={bash version},
+	\lstset{language=bash,
 		extendedchars=\true,
 		escapeinside=``,
 		inputencoding={utf8},
@@ -72,13 +72,20 @@
 	}
 }
 
+\input{styles/yaml.tex}
+
 \newcommand{\bracketText}[1]{%
     \textit{\scriptsize{#1}}%
 }
 
-\newenvironment{compact_enumerate}{
+\newenvironment{compactenumerate}{
 \begin{enumerate}
   \setlength{\itemsep}{1pt}
   \setlength{\parskip}{0pt}
   \setlength{\parsep}{0pt}
 }{\end{enumerate}}
+
+\newenvironment{redbox}[1]{
+    \begin{tcolorbox}[colback=Red!20!White,colframe=Red!85!White,title={#1}]
+    }{\end{tcolorbox}
+}

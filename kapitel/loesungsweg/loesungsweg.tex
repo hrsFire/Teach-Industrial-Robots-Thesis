@@ -237,7 +237,7 @@ Anwendung über Command line starten (Anhang)
 
 \section{Messvoraussetzungen}
 Zur Messung der Übertragunslatenz bei der Gestensteuerung und zum anderen bei der Anbindung mit oder ohne ROS müssen die Messvoraussetzungen für die Replizierbarkeit zuerst klargestestellt werden. Die Messungen und deren Visualierungen basieren auf den Best Practices, welche im wissenschaftlichen Artikel \quoteMark{Ten Simple Rules for Effective StatisticalPractice} veröffentlicht wurden. Diese Regeln des wissenschaftlichen Artikels lauten wie folgt \cite{kass_ten_2016}:
-\begin{compact_enumerate}
+\begin{compactenumerate}
     \item \textbf{Statistische Methoden sollten Daten ermöglichen, wissenschaftliche Fragen zu beantworten}: Es soll nicht auf der Struktur der Daten sondern aufgrundlage des wisschenschaftlichen Ziels der Daten gearbeitet werden. Z.B. können Daten aus einer Tabelle nach unterschiedlichen Aspekten klassifiziert werden anstatt diese direkt zu verwenden.
     \item \textbf{Signale sind rauschbehaftet}: Analoge Signale sind immer rauschbehaftet, da dies ein kontinuierliches Signal darstellt, und das Messen von physikalischen Größe immer mit Messfehlern behaftet ist.
     \item \textbf{Vorausplanen}: Es ist sinnvoll sich im Vorhinein Fragen zu stellen, welche den möglichen Ausgang der Messergebnisse betreffen. Zudem ist es auch hilfreich sich die möglichen Störgrößen klarzumachen um mögliche Probleme im Vorhinein zu lösen.
@@ -248,7 +248,7 @@ Zur Messung der Übertragunslatenz bei der Gestensteuerung und zum anderen bei d
     \item \textbf{Überprüfen der Annahmen}: Es sollten die Annahmen überprüft werden und bei Abweichungen sollten diese begründet werden können.
     \item \textbf{Wenn möglich replizieren}: Die Messungen sollten mehrmals in unterschiedlichen Testsituationen durchgeführt werden um so die Robustheit der Daten sicherstellen zu können.
     \item \textbf{Analyse reproduzierbar machen}: Die Ergebnisse sollten nachvollziehbar gestaltet werden, sodass diese von Dritten auf die gleiche Art und Weise repliziert werden können.
-\end{compact_enumerate}
+\end{compactenumerate}
 
 Die Azure Kinect wird in einer Höhe von \num{0,85} m in einer zur Oberfläche geraden Ausrichtung positioniert. Der Abstand der testenden Person zur Azure Kinect beträgt \num{1,90} m und die testende Person hat eine Körpergröße von \num{1,78} m. Der Testraum ist ein mit sonnenlicht belichteter Raum, welcher eine Raumtemperatur von \num{22,7} °C aufweist und die empfohlene Betriebsumgebung für die Azure Kinect aufweist \cite{tesych_azure_nodate}. Der Testrechner auf dem die Gesten-Roboter-Anwendung ausgeführt wird weist 8 GB RAM auf und hat einen AMD Ryzen 5 3600X 6-Kernprozessor, welcher bis zu 12 logische Kerne aufweist, verbaut. Die Grafikkarte des Testsystems ist eine AMD Radeon RX 5700 XT wodurch das Body Tracking der Azure Kinect nur im CPU-Modus verwendet werden kann, da das Body Tracking der Azure Kinect nur CUDA basierte Nvidia Grafikkarten als Grafikkartenbeschleunigung zulässt \cite{encausse_body_nodate}. Der CPU-Modus des Azure Kinect Body Tracking SDK stellt daher der kleinste gemeinsame Nenner für alle Systeme dar und spiegelt so die Performance eines allgemein verfügbaren Systems wider.\\
 
