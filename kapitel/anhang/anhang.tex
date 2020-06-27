@@ -178,13 +178,13 @@ sudo apt install ros-melodic-robot-state-publisher ros-\
 melodic-rqt-plot ros-melodic-joy
                 \end{lstlisting}
 
-            \item Anschließend müssen die auf der Webseite \href{https://github.com/Interbotix/interbotix_ros_arms#quickstart}{https://github.com\\/Interbotix/interbotix\_ros\_arms\#quickstart} beschriebenen Schritte durchgeführt werden.
+            \item Anschließend müssen die auf der Webseite \href{https://github.com/Interbotix/interbotix_ros_arms#quickstart}{https://github.com/Interbotix/interbotix\\\_ros\_arms\#quickstart} beschriebenen Schritte durchgeführt werden.
 
             \item Danach müssen die folgenden Einstellungen auf dem Host-System durchgeführt werden damit der unprivilegierte Linux-Container Zugriff auf den Dynamixel U2D2 erhält: \textcolor{red}{\newline\newline TODO: eigenes repository oder CD\newline\newline}
 
                 \begin{lstlisting}[language=bash]
-wget https://raw.githubusercontent.com/Interbotix/interbotix_\
-ros_arms/master/interbotix_sdk/10-interbotix-udev.rules
+wget https://raw.githubusercontent.com/Interbotix/interbotix\
+_ros_arms/master/interbotix_sdk/10-interbotix-udev.rules
 sudo cp 10-interbotix-udev.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
 echo "# Interbotix WidowX 200
@@ -193,8 +193,8 @@ sudo chown ubuntu /dev/ttyDXL" >> ~/.bashrc
 
             \item Außerhalb des Containers müssen folgende Einstellungen erfolgen, damit der unprivilegierte Container Zugriff auf den Dynamixel U2D2 erhält:
                 \begin{lstlisting}[language=bash]
-lxc config device add <container name> dynamixel_u2d2_ttydxl unix-char \
-path=/dev/ttyDXL required=false
+lxc config device add <container name> dynamixel_u2d2_ttydxl\
+ unix-char path=/dev/ttyDXL required=false
                 \end{lstlisting}
         \end{enumerate}
 
@@ -210,8 +210,8 @@ path=/dev/ttyDXL required=false
         Zum Testen der grundlegenden Funktionalität des WidowX 200 können ein paar spezifische ROS-Befehle an diesen gesendet werden.
 
         \begin{lstlisting}[language=bash]
-roslaunch interbotix_descriptions description.launch robot_name:=\
-wx200 jnt_pub_gui:=true
+roslaunch interbotix_descriptions description.launch robot_name:\
+=wx200 jnt_pub_gui:=true
 
 roslaunch interbotix_sdk arm_run.launch robot_name:=wx200
 
@@ -234,24 +234,24 @@ source ~/.bashrc
             \item Außerhalb des Linux-Containers müssen die folgenden Einstellungen erfolgen um die Azure Kinect für den derzeitgen User verfügbar zu machen \cite{microsoftazure-kinect-sensor-sdk_installation_nodate}:
 
                 \begin{lstlisting}[language=bash]
-wget https://raw.githubusercontent.com/microsoft/Azure-Kinect-\
-Sensor-SDK/develop/scripts/99-k4a.rules
+wget https://raw.githubusercontent.com/microsoft/Azure-\
+Kinect-Sensor-SDK/develop/scripts/99-k4a.rules
 sudo cp 99-k4a.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
                 \end{lstlisting}
 
             \item Außerhalb des Linux-Containers müssen die folgenden Einstellungen erfolgen, damit der unprivilegierte Container Zugriff auf die Azure Kinect erhält:
                 \begin{lstlisting}[language=bash]
-lxc config device add <container name> microsoft_generic_superspeed_usb_\
-hub unix-char vendorid=045e productid=097a
-lxc config device add <container name> microsoft_generic_usb_hub unix-char \
-vendorid=045e productid=097b
-lxc config device add <container name> azure_kinect_depth_camera unix-char \
-vendorid=045e productid=097c
-lxc config device add <container name> azure_kinect_4k_camera unix-char \
-vendorid=045e productid=097d
-lxc config device add <container name> azure_kinect_microphone_array \
-unix-char vendorid=045e productid=097e
+lxc config device add <container name> microsoft_generic_\
+superspeed_usb_hub unix-char vendorid=045e productid=097a
+lxc config device add <container name> microsoft_generic_usb\
+_hub unix-char vendorid=045e productid=097b
+lxc config device add <container name> azure_kinect_depth_\
+camera unix-char vendorid=045e productid=097c
+lxc config device add <container name> azure_kinect_4k_\
+camera unix-char vendorid=045e productid=097d
+lxc config device add <container name> azure_kinect_\
+microphone_array unix-char vendorid=045e productid=097e
                 \end{lstlisting}
 
             \item Den Linux-Container neustarten.
@@ -264,8 +264,8 @@ unix-char vendorid=045e productid=097e
 sudo apt install curl
 curl https://packages.microsoft.com/keys/microsoft.asc | \
 sudo apt-key add -
-sudo apt-add-repository https://packages.microsoft.com/ubuntu\
-/18.04/prod
+sudo apt-add-repository https://packages.microsoft.com/\
+ubuntu/18.04/prod
                 \end{lstlisting}
 
             \item Installieren der Azure Kinect SDKs:
@@ -419,8 +419,8 @@ img
 
                 \item Anschließend das Image des Linux-Containers einhängen und daraufhin die neue Größe des Images eingeben:
                     \begin{lstlisting}[language=bash]
-sudo mount /var/snap/lxd/common/lxd/disks/default.img \
-/<mount point>
+sudo mount /var/snap/lxd/common/lxd/disks/default.img\
+ /<mount point>
 sudo btrfs filesystem resize maxG /<mount point>
                     \end{lstlisting}
             \end{enumerate}
@@ -448,8 +448,8 @@ USER_NAME="ubuntu"
 LXC_INSTANCE="<container name>"
 ROS_APP_PARAMETER=""
 ADDITIONAL_APP_PARAMETERS="--move-home-at-exit --move-home-at-error"
-APP_MODE_PARAMETER="--teach-positions"  # --repeat-recorded-positions or
-                                        # --teach-positions
+APP_MODE_PARAMETER="--teach-positions"  # --repeat-recorded-positions
+                                        # or --teach-positions
 
 lxc start $LXC_INSTANCE
 sleep 3
@@ -458,41 +458,38 @@ USER_ID=$(lxc exec $LXC_INSTANCE -- id -u $USER_NAME)
 if [ "$USE_ROS_COMMUNICATION" = true ] ; then
     ROS_APP_PARAMETER="--use-ros"
     # Start the InterbotiX node
-    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i -c \
-    "nohup roslaunch interbotix_sdk arm_run.launch robot_name:=wx200 &>\
-    /dev/null &"
+    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i\
+     -c "nohup roslaunch interbotix_sdk arm_run.launch robot_name:=\
+     wx200 &>/dev/null &"
     sleep 3
 else
     # Start roscore
-    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash \
-    -i -c "nohup roscore &>\
-    /dev/null &"
+    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i\
+     -c "nohup roscore &>/dev/null &"
     sleep 3
     # Initialize the parameter server
     lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash \
-    -i -c "nohup roslaunch interbotix_sdk arm_run.launch robot_name:=\
-    wx200 &>/dev/null &"
-    INTERBOTIX_PID=$(ps aux | grep -i "roslaunch interbotix_sdk" | \
-    awk '{print $2}' | head -n -1)
+    -i -c "nohup roslaunch interbotix_sdk arm_run.launch robot_name:\
+    =wx200 &>/dev/null &"
+    INTERBOTIX_PID=$(ps aux | grep -i "roslaunch interbotix_sdk" |\
+     awk '{print $2}' | head -n -1)
     sleep 3
     # The InterbotiX node isn't required anymore
     kill $INTERBOTIX_PID
 fi
 
 # Start the TIR app
-bash lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash \
--i -c \
-"rosrun teach_industrial_robots teach_industrial_robots_node \
-$APP_MODE_PARAMETER $ROS_APP_PARAMETER $ADDITIONAL_APP_PARAMETERS" \
-& LXC_TIR_APP_PID=$1
+bash lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i\
+-c "rosrun teach_industrial_robots teach_industrial_robots_node \
+$APP_MODE_PARAMETER $ROS_APP_PARAMETER $ADDITIONAL_APP_PARAMETERS" &\
+ LXC_TIR_APP_PID=$1
 
 sleep 2
 # Schedule the TIR app for real time usage
 TIR_PID_APP=$(ps aux | grep -i "teach_industrial_robots/teach_\
-industrial_robots_node" | \
-awk '{print $2}' | head -n -1)
+industrial_robots_node" | awk '{print $2}' | head -n -1)
 pkexec chrt -d --sched-runtime 1000000 --sched-deadline 5000000 \
---sched-period 5000000 -p  0 $TIR_PID_APP
+--sched-period 5000000 -p 0 $TIR_PID_APP
 
 if [ $(chrt -p $TIR_PID_APP | grep -c "SCHED_DEADLINE") -eq 0 ] ; \
 then
