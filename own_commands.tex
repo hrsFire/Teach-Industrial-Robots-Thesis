@@ -41,19 +41,6 @@
 	}
 }
 
-\newcommand{\setBashListing}{
-	\lstset{language=bash,
-		extendedchars=\true,
-		escapeinside=``,
-		inputencoding={utf8},
-		basicstyle=\ttfamily,
-		showstringspaces=false,
-		commentstyle=\color{red},
-		keywordstyle=\color{blue},
-		captionpos=t
-	}
-}
-
 \newcommand{\setJavaScriptListing}{
 	\lstset{language=JavaScript,
 		extendedchars=\true,  
@@ -73,6 +60,7 @@
 }
 
 \input{styles/yaml.tex}
+\input{styles/bash.tex}
 
 \newcommand{\bracketText}[1]{%
     \textit{\scriptsize{#1}}%
