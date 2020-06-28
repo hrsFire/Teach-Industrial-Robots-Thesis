@@ -1,5 +1,5 @@
 \section{Einrichtung des Testsystems}\label{appendix1:Einrichtung_des_Testsystems}
-Zur Einrichtung des Testsystems wird zuallererst ein Linux-Container eingerichtet, welches ein einfacheres und schnelleres Deployen auf unterschiedlichen Linux-Distributionen ermöglicht. Zum Hosten des Linux-Containers wird in dieser Installationsanleitung Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu darstellt. Nach der Einrichten des Linux-Containers können die benötigten Pakete in dieser neu erstellten Umgebung installiert und daraufhin entsprechend konfiguriert werden.
+Zur Einrichtung des Testsystems wird zuallererst ein Linux-Container erstellt, welcher ein einfaches und schnelles Deployen auf unterschiedlichen Linux-Distributionen ermöglicht. Zum Hosten des Linux-Containers wird in dieser Installationsanleitung Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu darstellt. Nach der Einrichten des Linux-Containers können die benötigten Pakete in dieser neu erstellten Umgebung installiert und daraufhin entsprechend konfiguriert werden.
 
 \subsection{Erstellen des Linux-Containers}
 Für die Installation der Linux-Container-Tools werden Administratorrechte auf dem Zielsystem benötigt. Die benötigten Installationsschritte zum Einrichten des Linux-Containers sind wie folgt \cite{lxd_blog_nodate}.
@@ -7,38 +7,39 @@ Für die Installation der Linux-Container-Tools werden Administratorrechte auf d
 \begin{enumerate}[label*=\arabic*.]
     \item LXD 4.0 installieren:\
         \begin{lstlisting}[style=bash]
-sudo apt install lxd
+sudo snap install lxd
         \end{lstlisting}
     bzw.
         \begin{lstlisting}[style=bash]
-sudo snap install lxd
+sudo apt install lxd
         \end{lstlisting}
 
-    \item LXD initialisieren:\
+    \item LXD mit den Standardeinstellungen initialisieren:\
         \begin{lstlisting}[style=bash]
 lxd init
         \end{lstlisting}
 
     \item Den derzeitigen User zur LXD-Gruppe hinzufügen:\
         \begin{lstlisting}[style=bash]
-sudo adduser <user name> lxd
+sudo adduser $(whoami) lxd
         \end{lstlisting}
         Logout \& Login durchführen oder mittels des folgenden Befehls den User im Terminal neu anmelden.
         \begin{lstlisting}[style=bash]
-su - <user name>
+su - $(whoami)
         \end{lstlisting}
 
     \item Erstellen des Linux-Containers:\\
-        Der Container wird hiermit im Default-Container-Pool erstellt.
+        Der Linux-Container wird mit dem folgenden Befehl im Default-Linux-Container-Pool erstellt. Der Platzhalter \quoteMark{<container name>} muss durch einen entsprechenden Namen für den Linux-Container ersetzt werden.
         \begin{lstlisting}[style=bash]
-lxc init ubuntu:18.04 <container name>
+CONTAINER_NAME="<container name>"
+lxc init ubuntu:18.04 $CONTAINER_NAME
         \end{lstlisting}
-        Mit der Option \quoteMark{-s} kann ein anderer Container-Pool ausgewählt werden.
+        Mit der Option \quoteMark{-s} kann ein anderer Linux-Container-Pool ausgewählt werden.
         \begin{lstlisting}[style=bash]
-lxc init ubuntu:18.04 <container name> -s <container pool name>
+lxc init ubuntu:18.04 $CONTAINER_NAME -s <container pool name>
         \end{lstlisting}
 
-    \item Die gespeicherte Disk kann mit dem folgenden Befehl angeschaut werden:\
+    \item Die Eigenschaften des Image des neu erstellten Linux-Containers können mit dem folgenden Befehl eingesehen werden:\
         \begin{lstlisting}[style=bash]
 lxc storage list
         \end{lstlisting}
@@ -52,15 +53,14 @@ config:
   raw.idmap: both 1000 1000
   user.user-data: |
     #cloud-config
-    runcmd:
-      - 'sed -i "s/; enable-shm =
- yes/enable-shm = no/g" /etc/pulse/client.conf'
-      - 'echo export PULSE_SERVER=unix:/tmp/
-.pulse-native | tee --append /home/ubuntu/.profile'
+    package_upgrade: true
     packages:
       - x11-apps
       - mesa-utils
       - pulseaudio
+    runcmd:
+      - 'sed -i "s/; enable-shm = yes/enable-shm = no/g" /etc/pulse/client.conf'
+      - 'echo export PULSE_SERVER=unix:/tmp/.pulse-native | tee --append /home/ubuntu/.profile'
 description: GUI LXD profile
 devices:
   PASocket:
@@ -77,7 +77,7 @@ name: gui
 used_by:
                 \end{lstlisting}
 
-                \item Bei der Erstellung der Datei \quoteMark{gui-profile.yaml} ist zu beachten, dass die IDs im Eintrag \quoteMark{raw.idmap: both 1000 1000} folgenden Bedeutung haben:
+                \item Bei der Erstellung der Datei \quoteMark{gui-profile.yaml} ist zu beachten, dass die IDs im Eintrag \quoteMark{raw.idmap: both 1000 1000} folgende Bedeutung haben:
                     \begin{lstlisting}[language=yaml]
 raw.idmap: both <host user id> <user id in container>
                     \end{lstlisting}
@@ -86,7 +86,7 @@ raw.idmap: both <host user id> <user id in container>
                         \hline
                         <host user id>: & Die User-ID, welche zum Starten des Linux-Containers verwendet wird.\\
                         \hline
-                        <user id in container>: & Die User-ID des Users innerhalb des Linux-Containers. Normalerweise ist dies die User-ID 1000, da der erste User, welcher im Linux-Container eingerichtet wurde, standardmäßig die User-ID 1000 erhält.\\
+                        <user id in container>: & Die User-ID des Users innerhalb des Linux-Containers. Normalerweise ist dies die User-ID 1000, da der erste User, welcher im Linux-Container eingerichtet wird, standardmäßig die User-ID 1000 erhält.\\
                         \hline
                     \end{tabular}\\
 
@@ -95,17 +95,26 @@ raw.idmap: both <host user id> <user id in container>
 lxc profile create gui
 cat gui-profile.yaml | lxc profile edit gui
                     \end{lstlisting}
+
+                \item Abschließend muss das Profil dem neu erstellten Linux-Container zugewiesen werden:
+                    \begin{lstlisting}[style=bash]
+lxc profile add $CONTAINER_NAME gui
+                    \end{lstlisting}
         \end{enumerate}
+
+% Debugging "Cloud-config" with:
+% /var/log/cloud-init-output.log
+% lxc console ros-tir --show-log
 
     \item Den Linux-Container starten und eine Shell im Linux-Container öffnen:
         \begin{lstlisting}[style=bash]
-lxc start <container name>
-lxc exec <container name> -- sudo --user ubuntu --login
+lxc start $CONTAINER_NAME
+lxc exec $CONTAINER_NAME -- sudo --user ubuntu --login
         \end{lstlisting}
 
     \item Um Rendering-Probleme zu vermeiden sollten die neuesten Treiber im Linux-Container installiert werden:
         \begin{lstlisting}[style=bash]
-sudo add-apt-repository ppa:oibaf/graphics-drivers
+sudo add-apt-repository ppa:oibaf/graphics-drivers -yn
 sudo apt upgrade -y
         \end{lstlisting}
 
@@ -128,33 +137,33 @@ glmark2
 pacat < /dev/urandom
         \end{lstlisting}
 
-    \item Von Zeit zu Zeit sollte ein Backup vom Linux-Container erstellt werden
+    \item Von Zeit zu Zeit sollte auf dem Host-System ein Backup vom Linux-Container erstellt werden:
         \begin{lstlisting}[style=bash]
-lxc export ros-melodic ros-melodic.tar.gz
+lxc export $CONTAINER_NAME ${CONTAINER_NAME}.tar.gz
         \end{lstlisting}
 
         bzw. zum Erstellen eines Snapshots
 
         \begin{lstlisting}[style=bash]
-lxc snapshot ros-melodic snap01
-lxc publish ros-melodic/snap01 --alias <new-alias>
-lxc image export <new-alias> ros-melodic.tar.gz
+lxc snapshot $CONTAINER_NAME snap01
+lxc publish ${CONTAINER_NAME}/snap01 --alias <new-alias>
+lxc image export <new-alias> ${CONTAINER_NAME}.tar.gz
         \end{lstlisting}
 
-    \item Das Backup kann mittels des folgenden Befehls zurückgespielt werden:
-        \begin{lstlisting}[style=bash]
-lxc import <new-alias> ros-melodic.tar.gz
-        \end{lstlisting}
-
-        bzw.
-
-        \begin{lstlisting}[style=bash]
-lxc image import ros-melodic.tar.gz --alias <new-alias>
-        \end{lstlisting}
-
+    \item Das Backup kann auf dem Host-System mittels des folgenden Befehls zurückgespielt werden:
         \begin{redbox}{Wichtig:}
             Beim Import des Linux-Containers muss sichergestellt werden, dass zuvor alle mit dem Linux-Container verknüpften Linux-Container-Profile vorhanden sind, da es ansonsten zu Import-Fehlern kommt.
         \end{redbox}
+
+        \begin{lstlisting}[style=bash]
+lxc import <new-alias> ${CONTAINER_NAME}.tar.gz
+        \end{lstlisting}
+
+        bzw. der Snapshot
+
+        \begin{lstlisting}[style=bash]
+lxc image import ${CONTAINER_NAME}.tar.gz --alias <new-alias>
+        \end{lstlisting}
 \end{enumerate}
 
 
@@ -163,10 +172,10 @@ Mit der zuvor installierten \quoteMark{Ubuntu 20.04 Focal Fossa}-Umgebung könne
 
 \begin{enumerate}[label*=\arabic*.]
     \item Installation von ROS 1:\\
-    Zur Nutzung von ROS 1 muss ROS Melodic installiert werden. Die Installationsanleitung kann der offiziellen ROS-Seite (\href{http://wiki.ros.org/melodic/Installation/Ubuntu}{http://wiki.ros.org/melodic/Installation/Ubuntu}) entnommen werden. Bei der Installation des ROS-Pakets muss nur das Basis-ROS-Paket installiert werden.
+    Zur Nutzung von ROS 1 muss ROS Melodic installiert werden. Die Installationsanleitung kann der offiziellen ROS-Webseite (\href{http://wiki.ros.org/melodic/Installation/Ubuntu}{http://wiki.ros.org/melodic/Installation/Ubuntu}) entnommen werden. Bei der Installation des ROS-Pakets muss das \quoteMark{ros-melodic-desktop-full}-Paket mit dem folgenden Befehl installiert werden.
 
         \begin{lstlisting}[style=bash]
-sudo apt install ros-melodic-ros-base
+sudo apt install ros-melodic-desktop-full
         \end{lstlisting}
 
     \item Installation des WidowX 200:
@@ -178,32 +187,37 @@ sudo apt install ros-melodic-robot-state-publisher ros-\
 melodic-rqt-plot ros-melodic-joy
                 \end{lstlisting}
 
-            \item Anschließend müssen die auf der Webseite \href{https://github.com/Interbotix/interbotix_ros_arms#quickstart}{https://github.com/Interbotix/interbotix\\\_ros\_arms\#quickstart} beschriebenen Schritte durchgeführt werden.
+            \item Anschließend müssen die auf der Webseite \href{https://github.com/Interbotix/interbotix_ros_arms#quickstart}{https://github.com/Interbotix/interbotix\\\_ros\_arms\#quickstart} beschriebenen Schritte 1 bis 6 durchgeführt werden:
 
             \begin{redbox}{Wichtig:}
                 Anstelle des \quoteMark{https://github.com/Interbotix/interbotix\_ros\_arms.git}-Repositories muss das für diese Arbeit modifizierte Repository, welches auf der CD/ISO im Verzeichnis \quoteMark{Repositories/interbotix\_ros\_arms} beigelegt ist, verwendet werden. Zum Klonen des modifizierten Repositories muss hierzu der folgende Befehl verwendet werden:
 
                 \begin{lstlisting}[style=bash]
-git clone <path to repository on cd or iso/Repositories/\
-interbotix_ros_arms>
+git clone <path to repository on cd or iso/Repositories/interbotix\
+_ros_arms>
                 \end{lstlisting}
             \end{redbox}
 
-            \item Danach müssen die folgenden Einstellungen auf dem Host-System durchgeführt werden damit der unprivilegierte Linux-Container Zugriff auf den Dynamixel U2D2 erhält:
+            \item Danach müssen die folgenden Einstellungen auf dem Host-System durchgeführt werden, damit der unprivilegierte Linux-Container Zugriff auf den Dynamixel U2D2 erhält:
 
                 \begin{lstlisting}[style=bash]
-wget https://raw.githubusercontent.com/Interbotix/interbotix\
-_ros_arms/master/interbotix_sdk/10-interbotix-udev.rules
+wget https://raw.githubusercontent.com/Interbotix/interbotix_ros_arms/\
+master/interbotix_sdk/10-interbotix-udev.rules
 sudo cp 10-interbotix-udev.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
-echo "# Interbotix WidowX 200
-sudo chown ubuntu /dev/ttyDXL" >> ~/.bashrc
                 \end{lstlisting}
 
-            \item Außerhalb des Containers müssen folgende Einstellungen erfolgen, damit der unprivilegierte Container Zugriff auf den Dynamixel U2D2 erhält:
+            \item Außerhalb des Linux-Containers müssen folgende Einstellungen erfolgen, damit der unprivilegierte Container Zugriff auf den Dynamixel U2D2 erhält:
                 \begin{lstlisting}[style=bash]
-lxc config device add <container name> dynamixel_u2d2_ttydxl\
- unix-char path=/dev/ttyDXL required=false
+lxc config device add $CONTAINER_NAME dynamixel_u2d2_ttydxl unix-char path\
+=/dev/ttyDXL required=false
+                \end{lstlisting}
+
+            \item Innerhalb des Linux-Containers muss zudem der folgende Befehl ausgeführt werden, um als normaler User auf den Dynamixel U2D2 zugreifen zu können:
+                \begin{lstlisting}[style=bash]
+echo "# Interbotix WidowX 200
+sudo chown ubuntu /dev/ttyDXL" >> ~/.bashrc
+source ~/.bashrc
                 \end{lstlisting}
         \end{enumerate}
 
@@ -219,8 +233,8 @@ lxc config device add <container name> dynamixel_u2d2_ttydxl\
         Zum Testen der grundlegenden Funktionalität des WidowX 200 können ein paar spezifische ROS-Befehle an diesen gesendet werden.
 
         \begin{lstlisting}[style=bash]
-roslaunch interbotix_descriptions description.launch robot_name:\
-=wx200 jnt_pub_gui:=true
+roslaunch interbotix_descriptions description.launch robot_name:=wx200 jnt_pub\
+_gui:=true
 
 roslaunch interbotix_sdk arm_run.launch robot_name:=wx200
 
@@ -230,37 +244,37 @@ roslaunch interbotix_gazebo gazebo.launch robot_name:=wx200
 rosservice call /gazebo/unpause_physics
         \end{lstlisting}
 
-    \item Wichtige Informationen für ROS bekanntmachen:
-        \begin{lstlisting}[style=bash]
-echo "# ROS
-source /opt/ros/melodic/setup.bash
-source ~/interbotix_ws/devel/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-        \end{lstlisting}
+%     \item Wichtige Informationen für ROS bekanntmachen:
+%         \begin{lstlisting}[style=bash]
+% echo "# ROS
+% source /opt/ros/melodic/setup.bash
+% source ~/interbotix_ws/devel/setup.bash" >> ~/.bashrc
+% source ~/.bashrc
+%         \end{lstlisting}
 
     \item Azure Kinect installieren:
         \begin{enumerate}[label*=\arabic*.]
             \item Außerhalb des Linux-Containers müssen die folgenden Einstellungen erfolgen um die Azure Kinect für den derzeitgen User verfügbar zu machen \cite{microsoftazure-kinect-sensor-sdk_installation_nodate}:
 
                 \begin{lstlisting}[style=bash]
-wget https://raw.githubusercontent.com/microsoft/Azure-\
-Kinect-Sensor-SDK/develop/scripts/99-k4a.rules
+wget https://raw.githubusercontent.com/microsoft/Azure-Kinect-Sensor-SDK/\
+develop/scripts/99-k4a.rules
 sudo cp 99-k4a.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
                 \end{lstlisting}
 
             \item Außerhalb des Linux-Containers müssen die folgenden Einstellungen erfolgen, damit der unprivilegierte Container Zugriff auf die Azure Kinect erhält:
                 \begin{lstlisting}[style=bash]
-lxc config device add <container name> microsoft_generic\
-_superspeed_usb_hub unix-char vendorid=045e productid=097a
-lxc config device add <container name> microsoft_generic_usb\
-_hub unix-char vendorid=045e productid=097b
-lxc config device add <container name> azure_kinect_depth\
-_camera unix-char vendorid=045e productid=097c
-lxc config device add <container name> azure_kinect_4k\
-_camera unix-char vendorid=045e productid=097d
-lxc config device add <container name> azure_kinect\
-_microphone_array unix-char vendorid=045e productid=097e
+lxc config device add $CONTAINER_NAME microsoft_generic_superspeed_usb\
+_hub usb vendorid=045e productid=097a
+lxc config device add $CONTAINER_NAME microsoft_generic_usb\
+_hub usb vendorid=045e productid=097b
+lxc config device add $CONTAINER_NAME azure_kinect_depth\
+_camera usb vendorid=045e productid=097c
+lxc config device add $CONTAINER_NAME azure_kinect_4k\
+_camera usb vendorid=045e productid=097d
+lxc config device add $CONTAINER_NAME azure_kinect_microphone_\
+array usb vendorid=045e productid=097e
                 \end{lstlisting}
 
             \item Den Linux-Container neustarten.
@@ -271,20 +285,18 @@ _microphone_array unix-char vendorid=045e productid=097e
             \item Microsoft-Paketquelle hinzufügen \cite{microsoftazure-kinect-sensor-sdk_installation_nodate}:
                 \begin{lstlisting}[style=bash]
 sudo apt install curl
-curl https://packages.microsoft.com/keys/microsoft.asc | \
-sudo apt-key add -
-sudo apt-add-repository https://packages.microsoft.com/\
-ubuntu/18.04/prod
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+sudo apt-add-repository https://packages.microsoft.com/ubuntu/18.04/prod
                 \end{lstlisting}
 
             \item Installieren der Azure Kinect SDKs:
                 \begin{lstlisting}[style=bash]
-sudo apt install k4a-tools=1.3.0
+sudo apt install k4a-tools=1.3.*
 sudo apt install libk4a1.3-dev
                 \end{lstlisting}
 
                 \begin{redbox}{Wichtig:}
-                    Die jeweilige Development-Version von libk4a installieren!
+                    Zur installierten Version vom \quoteMark{k4a-tools}-Paket muss die jeweilige Development-Version vom \quoteMark{libk4a}-Paket installiert werden.
 
                     \begin{lstlisting}[style=bash]
 sudo apt install libk4a<major>.<minor>-dev
@@ -297,7 +309,7 @@ sudo apt install libk4a1.3-dev
                     \end{lstlisting}
                 \end{redbox}
 
-            \item Um Paketkollisionen beim Updaten zu verhindern sollten das Paket \quoteMark{k4a-tools} vom Updateprozess ausgeschlossen werden:
+            \item Um Paketkollisionen beim Updaten zu verhindern sollte das Paket \quoteMark{k4a-tools} vom Updateprozess ausgeschlossen werden:
                 \begin{lstlisting}[style=bash]
 sudo apt-mark hold k4a-tools
 sudo apt-mark showhold
@@ -325,8 +337,8 @@ Found 1 connected devices:
 
             \item Die jeweilige Firmware von \href{https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#msis}{https://github.com/microsoft/Azure-Kinect-Sensor-SDK\\/blob/develop/docs/usage.md\#msis} herunterladen und flashen
                 \begin{lstlisting}[style=bash]
-wget https://download.microsoft.com/download/1/9/8/198048e8-\
-63f2-45c6-8f96-1fd541d1b4bc/AzureKinectDK_Fw_1.6.102075014.bin
+wget https://download.microsoft.com/download/1/9/8/198048e8-63f2-45c6-\
+8f96-1fd541d1b4bc/AzureKinectDK_Fw_1.6.102075014.bin
                 \end{lstlisting}
 
             \item Die heruntergeladene Firmware flashen:
@@ -342,7 +354,7 @@ AzureKinectFirmwareTool -u AzureKinectDK_Fw_1.6.102075014.bin
 k4aviewer
                 \end{lstlisting}
 
-            \item Body Tracking testen:
+            \item Body Tracking testen:\\
                 Die OpenGL-Version, der Grafikkartenname und der eingesetzte Grafikkartentreiber kann mit den folgenden Befehlen abgefragt werden:
                 \begin{lstlisting}[style=bash]
 sudo apt install mesa-utils
@@ -351,47 +363,59 @@ glxinfo | grep -E "Device:|OpenGL version"
 
                 Die Ausgabe kann z.B. wie folgt aussehen:
                 \begin{lstlisting}[style=bash]
-    Device: AMD Radeon RX 5700 XT (NAVI10, DRM 3.35.0, 5.4.0-\
-    39-generic, LLVM 10.0.0) (0x731f)
-OpenGL version string: 4.6 (Compatibility Profile) Mesa 20.2.\
-0-devel (git-c0c03f4 2020-06-27 bionic-oibaf-ppa)
+    Device: AMD Radeon RX 5700 XT (NAVI10, DRM 3.35.0, 5.4.0-39-generic,\
+ LLVM 10.0.0) (0x731f)
+OpenGL version string: 4.6 (Compatibility Profile) Mesa 20.2.0-devel (git\
+-c0c03f4 2020-06-27 bionic-oibaf-ppa)
                 \end{lstlisting}
 
                 \begin{redbox}{Wichtig:}
-                    Das Body Tracking benötigt einen Grafikkartentreiber mit mindestens \quoteMark{OpenGL 4.4}- und \quoteMark{OpenGL Compatibility Context}-Unterstützung. Bei den Open-Source-Mesa-Treibern tritt lauf Stand 29. März 2020 mit dem Paket \quoteMark{k4a-tools} in der Version 1.3 oder niedriger der Fehler\newline\newline
+                    Für das Body Tracking wird ein Grafikkartentreiber mit mindestens \quoteMark{OpenGL 4.4}- und \quoteMark{OpenGL Compatibility Context}-Unterstützung benötigt. Bei den Open-Source-Mesa-Treibern tritt lauf Stand 29. März 2020 mit dem \quoteMark{k4a-tools}-Paket in der Version 1.3 oder niedriger der Fehler\newline\newline
                     \quoteMark{Shader Error: 0:2(38): error: `gl\_FragColor' undeclared\\0:2(38): error: value of type vec4 cannot be assigned to variable of type error}\newline\newline
-                    auf, welcher das Starten der \quoteMark{k4abt\_simple\_3d\_viewer}-Anwendung verhindert. Hierzu muss die \quoteMark{k4abt\_simple\_3d\_viewer}-Anwendung mit dem in dieser Arbeit erstellten GLSL-Patch\footnote{\href{https://github.com/microsoft/Azure-Kinect-Samples/commit/15c303fb9a3a6b3a2c54a57cb11996823389595a}{https://github.com/microsoft/Azure-Kinect-Samples/commit/15c303fb9a3a6b3a\\2c54a57cb11996823389595a}}, welcher bereits in den Hauptzweig des \quoteMark{Azure-Kinect-Samples}-Repositories eingepflegt wurde, neukompiliert werden. Getestet wurde das Kompilieren mit der Commit-Version \quoteMark{ac696e4015648dd82dd019e59d94ba169f3c81aa}. Wenn Fehler beim Kompilieren auftretten, kann nach dem Klonen des Repositories explizit mit dem folgenden Befehl auf den in dieser Arbeit verwendeten Stand zugegriffen werden.
-                    \begin{lstlisting}[style=bash]
-git checkout ac696e4015648dd82dd019e59d94ba169f3c81aa
-                    \end{lstlisting}
+                    auf, welcher das Starten der \quoteMark{k4abt\_simple\_3d\_viewer}-Anwendung verhindert.
                 \end{redbox}
 
                 \begin{redbox}{}
-                    Kompiliert wird der Code wie folgt:
-
+                    Hierzu muss die \quoteMark{simple\_3d\_viewer}-Anwendung mit dem in dieser Arbeit erstellten GLSL-Patch\footnote{\href{https://github.com/microsoft/Azure-Kinect-Samples/commit/15c303fb9a3a6b3a2c54a57cb11996823389595a}{https://github.com/microsoft/Azure-Kinect-Samples/commit/15c303fb9a3a6b3a\\2c54a57cb11996823389595a}}, welcher bereits in den Hauptzweig des \quoteMark{Azure-Kinect-Samples}-Repositories eingepflegt wurde, neukompiliert werden. Getestet wurde das Kompilieren mit der Commit-Version \quoteMark{ac696e4015648dd82dd019e59d94ba169f3c81aa}. Wenn ein Fehler beim Kompilieren auftritt, kann nach dem Klonen des Repositories explizit mit dem folgenden Befehl auf den in dieser Arbeit verwendeten Stand des Repositories zugegriffen werden.
                     \begin{lstlisting}[style=bash]
-mkdir projects
-cd projects
+git checkout ac696e4015648dd82dd019e59d94ba169f3c81aa
+                    \end{lstlisting}
+
+                    Zum kompilieren der \quoteMark{simple\_3d\_viewer}-Anwendung müssen die folgenden Schritte eingehalten werden.
+                    \begin{enumerate}[label=\arabic*.]
+                        \item Das \quoteMark{Azure-Kinect-Samples}-Repository klonen:
+                            \begin{lstlisting}[style=bash]
 git clone --recursive https://github.com/microsoft/Azure\
 -Kinect-Samples.git
 cd Azure-Kinect-Samples/
+                            \end{lstlisting}
 
+                        \item Um einen Kompilierfehler zu vermeiden muss in der Datei \quoteMark{CMakeLists.txt} zwischen \quoteMark{FIND\_PACKAGE(k4a REQUIRED)} und \quoteMark{FIND\_PACKAGE(k4abt REQUIRED)} der Text \quoteMark{FIND\_PACKAGE(k4arecord REQUIRED)} eingefügt werden.
+
+                        \item Um einen weiteren Kompilierfehler zu vermeiden muss in der Datei \quoteMark{CMakeLists.txt} im Verzeichnis \quoteMark{body-tracking-samples/simple\_3d\_viewer/} zwischen \quoteMark{k4abt} und \quoteMark{window\_controller\_3d::window\_controller\_3d} der Text \quoteMark{k4arecord} eingefügt werden.
+
+                        \item Notwendige Pakete zum Kompilieren der \quoteMark{simple\_3d\_viewer}-Anwendung installieren:
+                            \begin{lstlisting}[style=bash]
 sudo apt install libxi-dev cmake ninja-build
-sudo apt install libxrandr-dev libxinerama-dev\
- libxcursor -dev libgl-dev # for GLFW
-sudo apt install mesa-vulkan-drivers # for Vulkan support
-                                     # in GLFW (optional)
-
+sudo apt install libxrandr-dev libxinerama-dev libxcursor\
+-dev libgl-dev # for GLFW
+sudo apt install mesa-vulkan-drivers # for Vulkan support in
+                                         # GLFW (optional)
+                            \end{lstlisting}
+                        \item Die \quoteMark{simple\_3d\_viewer}-Anwendung komplieren und ausführbar machen:
+                            \begin{lstlisting}[style=bash]
 mkdir build
 cd build
 cmake .. -GNinja
 ninja
 
 chmod +x ./bin/simple_3d_viewer
-                    \end{lstlisting}
+                            \end{lstlisting}
+                    \end{enumerate}
                 \end{redbox}
+%nm -gD /usr/lib/x86_64-linux-gnu/libk4arecord.so | grep -i "k4a_playback"
 
-                Wenn eine Nvidia GPU verbaut ist, kann die GPU-Beschleunigung eingesetzt werden. Hierzu muss das CUDA-Paket installiert werden:
+                Wenn eine Nvidia-GPU verbaut ist, kann die GPU-Beschleunigung eingesetzt werden. Hierzu muss das CUDA-Paket installiert werden:
                 \begin{lstlisting}[style=bash]
 k4abt_simple_3d_viewer
                 \end{lstlisting}
@@ -404,10 +428,10 @@ k4abt_simple_3d_viewer
                 bzw.
 
                 \begin{lstlisting}[style=bash]
-./bin/simple_3d_viewer
+~/Azure-Kinect-Samples/build/bin/simple_3d_viewer
                 \end{lstlisting}
 
-                Wenn keine Nvidia GPU verbaut ist muss ansonsten der CPU-Modus verwendet werden:
+                Wenn keine Nvidia-GPU verbaut ist muss ansonsten der CPU-Modus verwendet werden:
                 \begin{lstlisting}[style=bash]
 k4abt_simple_3d_viewer CPU
                 \end{lstlisting}
@@ -415,7 +439,7 @@ k4abt_simple_3d_viewer CPU
                 bzw.
 
                 \begin{lstlisting}[style=bash]
-./bin/simple_3d_viewer CPU
+~/Azure-Kinect-Samples/build/bin/simple_3d_viewer CPU
                 \end{lstlisting}
         \end{enumerate}
 
@@ -429,11 +453,12 @@ sudo apt install cmake gdb gcc python python-catkin-tools
             \item InterbotiX SDK kompilieren:
                 \begin{lstlisting}[style=bash]
 cd ~/interbotix_ws
+rm -rf build devel/
 catkin build
 source ~/.bashrc
                 \end{lstlisting}
 
-            \item Die Roboter-Gesten-Anwendung aus dem Ordner \quoteMark{Repositories/Teach-Industrial-Robots} auf der CD/ISO klonen und anschließend kompilieren:
+            \item Die Roboter-Gesten-Anwendung aus dem Ordner \quoteMark{Repositories/Teach-Industrial-Robots} auf der CD/ISO klonen, Abhängigkeiten installieren und anschließend die Roboter-Gesten-Anwendung kompilieren:
                 \begin{lstlisting}[style=bash]
 mkdir -p ~/tir_ws/src
 cd ~/tir_ws/
@@ -443,8 +468,11 @@ source ~/tir_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
 cd ~/tir_ws/src
-git clone <path to repository on cd or iso/Repositories/\
-Teach-Industrial-Robots>
+git clone <path to repository on cd or iso/Repositories/Teach-Industrial\
+-Robots>
+
+sudo apt install libglm-dev libeigen3-dev rapidjson-dev libk4a1.3\
+-dev libk4abt1.0-dev
 
 cd ~/tir_ws
 catkin build
@@ -459,6 +487,7 @@ source ~/.bashrc
 echo "# Temporary user folder
 sudo mkdir -p /run/user/$(id --user)
 sudo chown $(whoami) /run/user/$(id --user)" >> ~/.bashrc
+source ~/.bashrc
                 \end{lstlisting}
 
             \item VS Code installieren:
@@ -482,18 +511,16 @@ ext install ms-iot.vscode-ros
 
         \item Wenn der Speicherplatz des Linux-Containers zu knapp wird kann der Speicherplatz des Linux-Containers wie folgt auf dem Host-System vergrößert werden:
             \begin{enumerate}[label*=\arabic*.]
-                \item Image des Linux-Containers vergrößern:
+                \item Image des Linux-Containers z.B. um 5 GB vergrößern:
                     \begin{lstlisting}[style=bash]
-sudo truncate -s +5G /var/snap/lxd/common/lxd/disks/default.\
-img
+sudo truncate -s +5G /var/snap/lxd/common/lxd/disks/default.img
                     \end{lstlisting}
 
                 \item Host-System neustarten
 
                 \item Anschließend das Image des Linux-Containers einhängen und daraufhin die neue Größe des Images eingeben:
                     \begin{lstlisting}[style=bash]
-sudo mount /var/snap/lxd/common/lxd/disks/default.img\
- /<mount point>
+sudo mount /var/snap/lxd/common/lxd/disks/default.img /<mount point>
 sudo btrfs filesystem resize maxG /<mount point>
                     \end{lstlisting}
             \end{enumerate}
@@ -522,7 +549,7 @@ LXC_INSTANCE="<container name>"
 ROS_APP_PARAMETER=""
 ADDITIONAL_APP_PARAMETERS="--move-home-at-exit --move-home-at-error"
 APP_MODE_PARAMETER="--teach-positions"  # --repeat-recorded-positions
-                                        # or --teach-positions
+                                           # or --teach-positions
 
 lxc start $LXC_INSTANCE
 sleep 3
@@ -531,29 +558,27 @@ USER_ID=$(lxc exec $LXC_INSTANCE -- id -u $USER_NAME)
 if [ "$USE_ROS_COMMUNICATION" = true ] ; then
     ROS_APP_PARAMETER="--use-ros"
     # Start the InterbotiX node
-    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i\
-     -c "nohup roslaunch interbotix_sdk arm_run.launch robot_name:=\
-     wx200 &>/dev/null &"
+    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i -c "nohup\
+     roslaunch interbotix_sdk arm_run.launch robot_name:=wx200 &>/dev/null &"
     sleep 3
 else
     # Start roscore
-    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i\
-     -c "nohup roscore &>/dev/null &"
+    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i -c "nohup\
+     roscore &>/dev/null &"
     sleep 3
     # Initialize the parameter server
-    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash\
-     -i -c "nohup roslaunch interbotix_sdk arm_run.launch robot_name:\
-    =wx200 &>/dev/null &"
-    INTERBOTIX_PID=$(ps aux | grep -i "roslaunch interbotix_sdk" |\
-     awk '{print $2}' | head -n -1)
+    lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i -c "nohup\
+     roslaunch interbotix_sdk arm_run.launch robot_name:=wx200 &>/dev/null &"
+    INTERBOTIX_PID=$(ps aux | grep -i "roslaunch interbotix_sdk" | awk '{print $2}'\
+     | head -n -1)
     sleep 3
-    # The InterbotiX node isn't required anymore
+    # The InterbotiX node is only required to retrieve the parameters for the robot
     kill $INTERBOTIX_PID
 fi
 
 # Start the TIR app
-bash lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i\
- -c "rosrun teach_industrial_robots teach_industrial_robots_node\
+bash lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i -c "rosrun\
+ teach_industrial_robots teach_industrial_robots_node\
  $APP_MODE_PARAMETER $ROS_APP_PARAMETER $ADDITIONAL_APP_PARAMETERS" &\
  LXC_TIR_APP_PID=$1
 
@@ -561,11 +586,10 @@ sleep 2
 # Schedule the TIR app for real time usage
 TIR_PID_APP=$(ps aux | grep -i "teach_industrial_robots/teach_\
 industrial_robots_node" | awk '{print $2}' | head -n -1)
-pkexec chrt -d --sched-runtime 1000000 --sched-deadline 5000000\
- --sched-period 5000000 -p 0 $TIR_PID_APP
+pkexec chrt -d --sched-runtime 1000000 --sched-deadline 5000000 --sched-period\
+ 5000000 -p 0 $TIR_PID_APP
 
-if [ $(chrt -p $TIR_PID_APP | grep -c "SCHED_DEADLINE") -eq 0 ] ; \
-then
+if [ $(chrt -p $TIR_PID_APP | grep -c "SCHED_DEADLINE") -eq 0 ] ; then
     lxc stop $LXC_INSTANCE --force
     exit
 fi
@@ -628,6 +652,5 @@ wait $LXC_TIR_APP_PID
 
 \section{Einrichtung der Simulationsumgebung}\label{appendix1:Einrichtung_der_Simulationsumgebung}
 \textcolor{red}{TODO:\\
-Wie kann man die Simulationsumgebung starten und benutzen und grundlegend einrichten\\
-WidowX 200 SDK (modifiziert)
+Wie kann man die Simulationsumgebung starten und benutzen und grundlegend einrichten
 }
