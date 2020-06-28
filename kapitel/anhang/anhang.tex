@@ -207,7 +207,7 @@ sudo cp 10-interbotix-udev.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
                 \end{lstlisting}
 
-            \item Außerhalb des Linux-Containers müssen folgende Einstellungen erfolgen, damit der unprivilegierte Container Zugriff auf den Dynamixel U2D2 erhält:
+            \item Außerhalb des Linux-Containers müssen folgende Einstellungen erfolgen, damit der unprivilegierte Linux-Container Zugriff auf den Dynamixel U2D2 erhält:
                 \begin{lstlisting}[style=bash]
 lxc config device add $CONTAINER_NAME dynamixel_u2d2_ttydxl unix-char path\
 =/dev/ttyDXL required=false
@@ -263,7 +263,7 @@ sudo cp 99-k4a.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
                 \end{lstlisting}
 
-            \item Außerhalb des Linux-Containers müssen die folgenden Einstellungen erfolgen, damit der unprivilegierte Container Zugriff auf die Azure Kinect erhält:
+            \item Außerhalb des Linux-Containers müssen die folgenden Einstellungen erfolgen, damit der unprivilegierte Linux-Container Zugriff auf die Azure Kinect erhält:
                 \begin{lstlisting}[style=bash]
 lxc config device add $CONTAINER_NAME microsoft_generic_superspeed_usb\
 _hub usb vendorid=045e productid=097a
