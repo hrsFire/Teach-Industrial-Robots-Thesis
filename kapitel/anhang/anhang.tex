@@ -603,7 +603,33 @@ trap "lxc stop $LXC_INSTANCE --force" SIGINT SIGTERM SIGHUP
 
 # Wait for the TIR app to complete
 wait $LXC_TIR_APP_PID
-\end{lstlisting}
+\end{lstlisting}\leavevmode\newline
+
+Zum Ausführen des Start-Scripts muss im Listing \ref{lst:start_script_for_app} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\\\_COMMUNICATION} steuert ob die Gesten-Roboter-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Gesten-Roboter-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{APP\_MODE\_PARAMETER} eingesetzt. Um weitere von der Gesten-Roboter-Anwendung unterstützte Parameter anzuwenden kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den folgenden Parametern modifiziert werden.
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.2\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|>{\raggedright\arraybackslash}p{0.50\textwidth}|}
+\hline
+\rowcolor{LightGray} \thead[c]{Kurzschreibweise\\des\\Parameters} & \thead[c]{Ausgeschriebener\\Parameter} & \thead[c]{Beschreibung}\\
+\hline
+-opf & \texttt{-{}-}overwrite-positions-file & Ermöglicht das Überschreiben der Positionsdatei. Zuvor sollte ein Backup der Positionsdatei gemacht werde um Datenverlust zu vermeiden.\\
+\hline
+-rrp & \texttt{-{}-}repeat-recorded-positions & Die aufgezeichneten Positionen aus der Positionsdatei wiederholen lassen\\
+\hline
+-tp & \texttt{-{}-}teach-positions & Positionen lernen\\
+\hline
+-rn="\phantom{}<name>" & \texttt{-{}-}robot-name="\phantom{}<name>" & Name des Roboters (Default: "wx200")\\
+\hline
+-rm="\phantom{}<name>" & \texttt{-{}-}robot-model="\phantom{}<name>" & Robotermodell (in der Regel derselbe wie der Name des Roboters; Default: "wx200")\\
+\hline
+-ur & \texttt{-{}-}use-ros & ROS oder eine direkte Verbindung zum Industrieroboter verwenden\\
+\hline
+-mhaex & \texttt{-{}-}move-home-at-exit & Beim Beenden der Anwendung in die Ausgangsposition zurückfahren\\
+\hline
+-mhaer & \texttt{-{}-}move-home-at-error & Bei einem Fehler der Anwendung in die Ausgangsposition zurückfahren\\
+\hline
+ & --help & Zeigt die Hilfe\\
+\hline
+\end{longtable}
 
 %-----------------------------------------------
 
