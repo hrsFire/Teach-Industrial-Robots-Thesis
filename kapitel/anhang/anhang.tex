@@ -1,5 +1,5 @@
 \section{Einrichtung des Testsystems}\label{appendix1:Einrichtung_des_Testsystems}
-Zur Einrichtung des Testsystems wird zuallererst ein Linux-Container erstellt, welcher ein einfaches und schnelles Deployen auf unterschiedlichen Linux-Distributionen ermöglicht. Zum Hosten des Linux-Containers wird in dieser Installationsanleitung Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu darstellt. Nach der Einrichten des Linux-Containers können die benötigten Pakete in dieser neu erstellten Umgebung installiert und daraufhin entsprechend konfiguriert werden.
+Zur Einrichtung des Testsystems wird zuallererst ein Linux-Container erstellt, welcher ein einfaches und schnelles Deployen auf unterschiedlichen Linux-Distributionen ermöglicht. Zum Hosten des Linux-Containers wird in dieser Installationsanleitung Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu darstellt. Nach der Einrichten des Linux-Containers können die benötigten Pakete in dieser neu erstellten Umgebung installiert und daraufhin entsprechend konfiguriert werden. Der vorkonfigurierte Linux-Container ist auch auf der CD/ISO im Verzeichnis \quoteMark{Container/} vorzufinden. Dabei ist jedoch zu beachten, dass auf dem Host-System dennoch ein paar wenige Konfigurationsschritte für das Host-System durchgeführt werden müssen. Die Schritte für den Linux-Container können hingegen mit dem vorkonfigurierten Linux-Container übersprungen werden.
 
 \subsection{Erstellen des Linux-Containers}
 Für die Installation der Linux-Container-Tools werden Administratorrechte auf dem Zielsystem benötigt. Die benötigten Installationsschritte zum Einrichten des Linux-Containers sind wie folgt \cite{lxd_blog_nodate}.
@@ -373,15 +373,14 @@ OpenGL version string: 4.6 (Compatibility Profile) Mesa 20.2.0-devel (git\
                     Für das Body Tracking wird ein Grafikkartentreiber mit mindestens \quoteMark{OpenGL 4.4}- und \quoteMark{OpenGL Compatibility Context}-Unterstützung benötigt. Bei den Open-Source-Mesa-Treibern tritt lauf Stand 29. März 2020 mit dem \quoteMark{k4a-tools}-Paket in der Version 1.3 oder niedriger der Fehler\newline\newline
                     \quoteMark{Shader Error: 0:2(38): error: `gl\_FragColor' undeclared\\0:2(38): error: value of type vec4 cannot be assigned to variable of type error}\newline\newline
                     auf, welcher das Starten der \quoteMark{k4abt\_simple\_3d\_viewer}-Anwendung verhindert.
-                \end{redbox}
 
-                \begin{redbox}{}
                     Hierzu muss die \quoteMark{simple\_3d\_viewer}-Anwendung mit dem in dieser Arbeit erstellten GLSL-Patch\footnote{\href{https://github.com/microsoft/Azure-Kinect-Samples/commit/15c303fb9a3a6b3a2c54a57cb11996823389595a}{https://github.com/microsoft/Azure-Kinect-Samples/commit/15c303fb9a3a6b3a\\2c54a57cb11996823389595a}}, welcher bereits in den Hauptzweig des \quoteMark{Azure-Kinect-Samples}-Repositories eingepflegt wurde, neukompiliert werden. Getestet wurde das Kompilieren mit der Commit-Version \quoteMark{ac696e4015648dd82dd019e59d94ba169f3c81aa}. Wenn ein Fehler beim Kompilieren auftritt, kann nach dem Klonen des Repositories explizit mit dem folgenden Befehl auf den in dieser Arbeit verwendeten Stand des Repositories zugegriffen werden.
                     \begin{lstlisting}[style=bash]
 git checkout ac696e4015648dd82dd019e59d94ba169f3c81aa
                     \end{lstlisting}
 
                     Zum kompilieren der \quoteMark{simple\_3d\_viewer}-Anwendung müssen die folgenden Schritte eingehalten werden.
+                    \newcounter{bt_wichtig}
                     \begin{enumerate}[label=\arabic*.]
                         \item Das \quoteMark{Azure-Kinect-Samples}-Repository klonen:
                             \begin{lstlisting}[style=bash]
@@ -393,7 +392,13 @@ cd Azure-Kinect-Samples/
                         \item Um einen Kompilierfehler zu vermeiden muss in der Datei \quoteMark{CMakeLists.txt} zwischen \quoteMark{FIND\_PACKAGE(k4a REQUIRED)} und \quoteMark{FIND\_PACKAGE(k4abt REQUIRED)} der Text \quoteMark{FIND\_PACKAGE(k4arecord REQUIRED)} eingefügt werden.
 
                         \item Um einen weiteren Kompilierfehler zu vermeiden muss in der Datei \quoteMark{CMakeLists.txt} im Verzeichnis \quoteMark{body-tracking-samples/simple\_3d\_viewer/} zwischen \quoteMark{k4abt} und \quoteMark{window\_controller\_3d::window\_controller\_3d} der Text \quoteMark{k4arecord} eingefügt werden.
+                        \setcounter{bt_wichtig}{\value{enumiii}}
+                    \end{enumerate}
+                \end{redbox}
 
+                \begin{redbox}{}
+                    \begin{enumerate}[label=\arabic*.]
+                        \setcounter{enumiii}{\value{bt_wichtig}}
                         \item Notwendige Pakete zum Kompilieren der \quoteMark{simple\_3d\_viewer}-Anwendung installieren:
                             \begin{lstlisting}[style=bash]
 sudo apt install libxi-dev cmake ninja-build
@@ -402,6 +407,7 @@ sudo apt install libxrandr-dev libxinerama-dev libxcursor\
 sudo apt install mesa-vulkan-drivers # for Vulkan support in
                                          # GLFW (optional)
                             \end{lstlisting}
+
                         \item Die \quoteMark{simple\_3d\_viewer}-Anwendung komplieren und ausführbar machen:
                             \begin{lstlisting}[style=bash]
 mkdir build
