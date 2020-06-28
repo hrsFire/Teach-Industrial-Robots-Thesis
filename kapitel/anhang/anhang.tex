@@ -389,9 +389,7 @@ git clone --recursive https://github.com/microsoft/Azure\
 cd Azure-Kinect-Samples/
                             \end{lstlisting}
 
-                        \item Um einen Kompilierfehler zu vermeiden muss in der Datei \quoteMark{CMakeLists.txt} zwischen \quoteMark{FIND\_PACKAGE(k4a REQUIRED)} und \quoteMark{FIND\_PACKAGE(k4abt REQUIRED)} der Text \quoteMark{FIND\_PACKAGE(k4arecord REQUIRED)} eingefügt werden.
-
-                        \item Um einen weiteren Kompilierfehler zu vermeiden muss in der Datei \quoteMark{CMakeLists.txt} im Verzeichnis \quoteMark{body-tracking-samples/simple\_3d\_viewer/} zwischen \quoteMark{k4abt} und \quoteMark{window\_controller\_3d::window\_controller\_3d} der Text \quoteMark{k4arecord} eingefügt werden.
+                        \item Um einen Kompilierfehler\footnote{\label{fn:pull_request_54}\href{https://github.com/microsoft/Azure-Kinect-Samples/pull/54}{https://github.com/microsoft/Azure-Kinect-Samples/pull/54}} zu vermeiden muss in der Datei \quoteMark{CMakeLists.txt} zwischen \quoteMark{FIND\_PACKAGE(k4a REQUIRED)} und \quoteMark{FIND\_PACKAGE(k4abt REQUIRED)} der Text \quoteMark{FIND\_PACKAGE(k4arecord REQUIRED)} eingefügt werden. Um einen weiteren Kompilierfehler\footref{fn:pull_request_54} zu vermeiden muss zudem in der Datei \quoteMark{CMakeLists.txt} im Verzeichnis \quoteMark{body-tracking-samples/simple\_3d\_viewer/} zwischen \quoteMark{k4abt} und \quoteMark{window\_controller\_3d::window\_controller\_3d} der Text \quoteMark{k4arecord} eingefügt werden.
                         \setcounter{bt_wichtig}{\value{enumiii}}
                     \end{enumerate}
                 \end{redbox}
