@@ -180,7 +180,16 @@ melodic-rqt-plot ros-melodic-joy
 
             \item Anschließend müssen die auf der Webseite \href{https://github.com/Interbotix/interbotix_ros_arms#quickstart}{https://github.com/Interbotix/interbotix\\\_ros\_arms\#quickstart} beschriebenen Schritte durchgeführt werden.
 
-            \item Danach müssen die folgenden Einstellungen auf dem Host-System durchgeführt werden damit der unprivilegierte Linux-Container Zugriff auf den Dynamixel U2D2 erhält: \textcolor{red}{\newline\newline TODO: eigenes repository oder CD\newline\newline}
+            \begin{redbox}{Wichtig:}
+                Anstelle des \quoteMark{https://github.com/Interbotix/interbotix\_ros\_arms.git}-Repositories muss das für diese Arbeit modifizierte Repository, welches auf der CD/ISO im Verzeichnis \quoteMark{Repositories/interbotix\_ros\_arms} beigelegt ist, verwendet werden. Zum Klonen des modifizierten Repositories muss hierzu der folgende Befehl verwendet werden:
+
+                \begin{lstlisting}[style=bash]
+git clone <path to repository on cd or iso/Repositories/\
+interbotix_ros_arms>
+                \end{lstlisting}
+            \end{redbox}
+
+            \item Danach müssen die folgenden Einstellungen auf dem Host-System durchgeführt werden damit der unprivilegierte Linux-Container Zugriff auf den Dynamixel U2D2 erhält:
 
                 \begin{lstlisting}[style=bash]
 wget https://raw.githubusercontent.com/Interbotix/interbotix\
@@ -355,7 +364,9 @@ OpenGL version string: 4.6 (Compatibility Profile) Mesa 20.2.\
                     \begin{lstlisting}[style=bash]
 git checkout ac696e4015648dd82dd019e59d94ba169f3c81aa
                     \end{lstlisting}
+                \end{redbox}
 
+                \begin{redbox}{}
                     Kompiliert wird der Code wie folgt:
 
                     \begin{lstlisting}[style=bash]
@@ -364,11 +375,7 @@ cd projects
 git clone --recursive https://github.com/microsoft/Azure\
 -Kinect-Samples.git
 cd Azure-Kinect-Samples/
-                    \end{lstlisting}
-                \end{redbox}
 
-                \begin{redbox}{}
-                    \begin{lstlisting}[style=bash]
 sudo apt install libxi-dev cmake ninja-build
 sudo apt install libxrandr-dev libxinerama-dev\
  libxcursor -dev libgl-dev # for GLFW
@@ -426,10 +433,19 @@ catkin build
 source ~/.bashrc
                 \end{lstlisting}
 
-            \item Die Roboter-Gesten-Anwendung kompilieren:
+            \item Die Roboter-Gesten-Anwendung aus dem Ordner \quoteMark{Repositories/Teach-Industrial-Robots} auf der CD/ISO klonen und anschließend kompilieren:
                 \begin{lstlisting}[style=bash]
+mkdir -p ~/tir_ws/src
+cd ~/tir_ws/
+catkin build
 echo "# ROS
 source ~/tir_ws/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+cd ~/tir_ws/src
+git clone <path to repository on cd or iso/Repositories/\
+Teach-Industrial-Robots>
+
 cd ~/tir_ws
 catkin build
 source ~/.bashrc
