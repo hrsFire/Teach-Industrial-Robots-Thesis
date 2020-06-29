@@ -605,7 +605,7 @@ trap "lxc stop $LXC_INSTANCE --force" SIGINT SIGTERM SIGHUP
 wait $LXC_TIR_APP_PID
 \end{lstlisting}\leavevmode\newline
 
-Zum Ausführen des Start-Scripts muss im Listing \ref{lst:start_script_for_app} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\\\_COMMUNICATION} steuert ob die Gesten-Roboter-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Gesten-Roboter-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{APP\_MODE\_PARAMETER} eingesetzt. Um weitere von der Gesten-Roboter-Anwendung unterstützte Parameter anzuwenden kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den folgenden Parametern modifiziert werden.
+Zum Ausführen des Start-Scripts muss im Listing \ref{lst:start_script_for_app} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\\\_COMMUNICATION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{APP\_MODE\_PARAMETER} eingesetzt. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anzuwenden kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den folgenden Parametern modifiziert werden.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.2\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|>{\raggedright\arraybackslash}p{0.50\textwidth}|}
 \hline
