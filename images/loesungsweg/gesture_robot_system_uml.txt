@@ -1,0 +1,29 @@
+@startuml
+
+class GesturesRobotApp
+
+package gestures {
+  class GesturesEngine
+  class GesturesBase
+  interface GesturesQuery
+  GesturesEngine *-- GesturesBase
+  GesturesQuery <|.. GesturesBase
+  .GesturesRobotApp *-- GesturesEngine
+}
+
+package kinect {
+  class AzureKinectGestures
+  .GesturesBase <|-- AzureKinectGestures
+}
+
+package robot_arm {
+  class RobotArmBase
+  .GesturesRobotApp o-- RobotArmBase
+}
+
+package interbotix {
+  class InterbotixRobotArm
+  .RobotArmBase <|-- InterbotixRobotArm
+}
+
+@enduml

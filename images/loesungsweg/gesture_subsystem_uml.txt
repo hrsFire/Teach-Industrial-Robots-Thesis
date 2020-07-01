@@ -1,0 +1,38 @@
+@startuml
+start
+
+:Gruppen für Gesten erstellen;
+:Gesten mit zugehörigen Aktionen erstellen;
+:Gesten zu Gesten-Gruppen zuweisen;
+:Gesten-Engine starten;
+
+repeat
+  :Gesten-Informationen erhalten;
+  
+  if (Neue Gesten-Informationen vorhanden?) then (Ja)
+    :Erste Gesten-Gruppe aus den Gesten-Gruppen auswählen;
+
+    while (Gesten-Gruppen durchgearbeitet?)
+      if (Steht die Gesten-Gruppe nicht in Konflikt mit vorher ausgeführten Gesten oder Gesten-Gruppen?) then(Ja)
+        :Erste Geste in der Gesten-Gruppe auswählen;
+        
+        while (Gesten-Gruppen durchgearbeitet?)
+          if (Wurde die Geste erkannt?) then (Ja)
+            :Aktion für die Geste ausführen;
+          else (Nein)
+            :Nächste Geste aus der Gesten-Gruppe auswählen;
+          endif
+        endwhile
+      endif
+      
+      :Nächste Gesten-Gruppe auswählen;
+    endwhile
+  endif
+  
+  :Gesten-Informationen als verwendet markieren;
+repeat while (Gesten-Engine nicht stoppen?)
+
+:Gesten-Engine stoppen;
+
+stop
+@enduml

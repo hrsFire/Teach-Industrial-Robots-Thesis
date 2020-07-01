@@ -63,17 +63,17 @@ Zu Gesten zählen alle Formen der Bewegung, welche der nonverbalen Kommunikation
 \subsection{Arten von Gesten}
 Je nach Religion, Situation, Kultur, sozialer Herkunft, unterschiedlicher Ansichten und je nach Gefühlslage können Gesten eine andere Bedeutung besitzen. Aus diesen Gründen ist es sehr wichtig die verschiedenen Arten von Gesten zu kennen um so möglichst ethisch neutrale Gesten für die Kommunikation mit einem Industrieroboter auswählen zu können \cite{gesten_liste_2020}. Daraus wird ersichtlich, dass nicht nur die Geste selber für das interpretieren notwendig ist, sondern aber auch der Kontext in der die Geste eingesetzt wird. Je nach Kontext sind körpernahe und körperferne Gesten, welche z.B. zum Zeigen auf Objekte eingesetzt werden, daher gleichermaßen für Missinterpretationen anfällig \cite[137\psq]{matschnig_korpersprache_2007}, da z.B. beim Erschrecken die Hände reflexartig ausgestreckt werden, bei Angstzuständen oder starker Wärme der Schweiß von der Stirn gewischt oder bei Rückenschmerzen an den Rücken gegriffen wird \cite{matschnig_glossar_nodate}.\\
 
-% Set the overall layout of the tree
-\tikzstyle{level 1}=[level distance=1.6cm, sibling distance=8.5cm]
-\tikzstyle{level 2}=[level distance=1.6cm, sibling distance=3.5cm]
-\tikzstyle{level 3}=[level distance=1.6cm, sibling distance=5.2cm]
-\tikzstyle{level 4}=[level distance=1.6cm, sibling distance=2.8cm]
-
-% Define styles for bags and leafs
-\tikzstyle{bag} = [draw=none, fill=none, text centered]
-\tikzstyle{end} = [draw=none, fill=none, text centered]
-
 \begin{figure}[!h]
+    % Set the overall layout of the tree
+    \tikzstyle{level 1}=[level distance=1.6cm, sibling distance=8.5cm]
+    \tikzstyle{level 2}=[level distance=1.6cm, sibling distance=3.5cm]
+    \tikzstyle{level 3}=[level distance=1.6cm, sibling distance=5.2cm]
+    \tikzstyle{level 4}=[level distance=1.6cm, sibling distance=2.8cm]
+
+    % Define styles for bags and leafs
+    \tikzstyle{bag} = [draw=none, fill=none, text centered]
+    \tikzstyle{end} = [draw=none, fill=none, text centered]
+
     \centering
     \begin{tikzpicture}[grow=down, sloped, edge from parent/.style={draw,-latex}]
     \node[bag] {Hand- \& Armbewegungen}
@@ -223,28 +223,81 @@ Obwohl die implementierten Gesten so ausgelegt wurden, dass reflexartige und unb
 % Notstop-Handgerät: beim Erschrecken zu starkes drücken erkenne und ansonsten etwas bewusst drücken
 
 \section{Aufbau des Roboter-Gesten-Frameworks}
-Die in dieser Arbeit entwickelte Roboter-Gesten-Anwendung baut auf dem Roboter-Gesten-Framework, welches zusätzlich in dieser Arbeit erstellt wurde, auf. Der Vorteil des Roboter-Gesten-Frameworks besteht darin, dass durch dessen Einsatz die Entwicklung von einer Anwendung zur Gestensteuerung vereinfacht und dadurch auch beschleunigt wird. Das Roboter-Gesten-Framework bietet neben der Möglichkeit vordefinierte Gestenerkennungsalgorithmen zu verwenden, auch die Möglichkeit an um Industrieroboter über eine einheitliche Schnittstelle ansprechen zu können. Die Gestensteuerung kann jedoch unabhängig von einem Roboter und ROS erfolgen, da die Gesten- und Roboterkomponenten lose gekoppelt wurden und so mit verschiedenen Systemkonstellationen zusammenarbeiten können. Die Roboter-Gesten-Anwendung wurde als Demonstrationsanwendung entworfen um eine mögliche Nutzung des Roboter-Gesten-Frameworks vorzuzeigen.\\
+Die in dieser Arbeit entwickelte Roboter-Gesten-Anwendung baut auf dem Roboter-Gesten-Framework, welches zusätzlich in dieser Arbeit erstellt wurde, auf. Der Vorteil des Roboter-Gesten-Frameworks besteht darin, dass durch dessen Einsatz die Entwicklung von einer Anwendung zur Gestensteuerung vereinfacht und dadurch auch beschleunigt wird. Das Roboter-Gesten-Framework bietet neben der Möglichkeit vordefinierte Gestenerkennungsalgorithmen, welche unter anderem Vektorberechnungen auf Basis der Tiefenkamerainformationen durchführen, zu verwenden, auch die Möglichkeit an um Industrieroboter über eine einheitliche Schnittstelle ansprechen zu können. Die Gestensteuerung kann jedoch unabhängig von einem Roboter und ROS erfolgen, da die Gesten- und Roboterkomponenten lose gekoppelt wurden und so mit verschiedenen Systemkonstellationen zusammenarbeiten können. Die Roboter-Gesten-Anwendung wurde als Demonstrationsanwendung entworfen um eine mögliche Nutzung des Roboter-Gesten-Frameworks vorzuzeigen.\\
 
-\textcolor{red}{Gesten-Subsystem: UML (Ablaufdiagramm?}\\
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.85\textwidth]{images/loesungsweg/gesture_subsystem_uml}
+	\caption[Gesten-Subsystem (Aktivitätdiagramm)]{Gesten-Subsystem (Aktivitätdiagramm)}
+	\label{fig:gesture_subsystem_uml}
+\end{figure}
+\FloatBarrier
 
-Das Gesten-Subsystem verwaltet dabei die zugewiesenen Gesten und deren auszuführende Aktionen. Die Gesten können dabei in sogenannte Gesten-Gruppen unterteilt werden um die Gesten einer kategorischen Gliederung zu unterwerden. Zudem bieten diese den Vorteil um ähnliche oder Gesten oder gegensätzliche Aktionen voneinander isolieren zu können. \textcolor{red}{TODO: Abhängigkeiten}
+Das Gesten-Subsystem, dessen Ablauf in Abbildung \ref{fig:gesture_subsystem_uml} ersichtlich ist, verwaltet die zugewiesenen Gesten und deren auszuführende Aktionen. Die Gesten können dabei in sogenannte Gesten-Gruppen unterteilt werden um die Gesten einer kategorischen Gliederung zu unterwerfen. Zudem bieten die Gesten-Gruppen den Vorteil, dass ähnliche Gesten oder gegensätzliche Aktionen auf unkomplizierte Art und Weise voneinander isoliert werden können. Hierzu können Gesten in Gesten-Gruppe eingegliedert und Gesten und Gesten-Gruppen Prioritäten zugewiesen werden. Neben der Zuweisung von Prioritäten können Gesten auch individuelle Ausschlusskriterien zugeordnet werden. Die Gesten-Engine stellt zudem sicher, dass die gleichen Informationen, welche von der Tiefenkamera übertragen werden, nicht mehrmals wiederverwendet werden. Da Aktionen in Gesten-Gruppen zueinander gegensätzlich sein können, kann auch spezifiert werden ob mehrere Gesten für beide Hände zur gleichen Zeit erkannt werden können.\\
 
-\textcolor{red}{Todo: Roboter-Gesten-Anwendung UML Hierarchie}\\
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.55\textwidth]{images/loesungsweg/perpendicular_distance_illustration}
+	\caption[Abstandsberechnung für Gestenerkennung]{Abstandsberechnung für Gestenerkennung
+	\\Quelle: \cite{geometry_perpendicular_distance_nodate}}
+	\label{fig:perpendicular_distance_illustration}
+\end{figure}
+\FloatBarrier
 
-Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und nutzt dieses daher als Grundlage. In dieser Anwendung wurden zudem die ausgewählten Gesten mithilfe der Gestenerkennungsalgorithmen des Roboter-Gesten-Frameworks umgesetzt. Hierzu verwendet es die vom Roboter-Gesten-Framework angebotenen Programmierschnittstellen um die Azure Kinect und den \quoteMark{WidowX 200}-Lernroboter, welcher über ROS oder eine direkte Kommunikation angesteuert werden kann, miteinander kommunizieren lassen zu können. Für die direkte Kommunikation musste für den \quoteMark{WidowX 200}-Lernroboter das \quoteMark{InterbotiX}-SDK für die direkte Kommunikation erweitert werden um eine vergleichbare Implementierung der ROS und der direkten Kommunikation gewährleisten zu können. Durch Implementierung der entsprechenden Programmierschnittstellen wäre es neben dem \quoteMark{WidowX 200}-Lernroboter daher auch möglich andere Komponenten mithilfe der Roboter-Gesten-Anwendung zu steuern.\\
+In Abbildung \ref{fig:perpendicular_distance_illustration} wird einer der Gestenerkennungsalgorithmen zur Erkennung der Distanz zwischen einem räumlichen Punkt zu einer Linie visualisiert. Dieser Algorithmus kann z.B. dazu genutzt werden um zu erkennen ob sich eine Hand in einem gewissen Bereich befindet. Dies kann sinnvoll sein um unbeabsichtigte Bewegungen außerhalb eines nicht spezifizierten Bereichs zu unterbinden. Hierzu wird zuerst der Punkt A auf die Linie von Punkt B zu Punkt C projiziert. Dieser neue Punkt P hat die geringste Distanz von Punkt A zur Linie BC und zudem steht die Linie AP lotrecht auf die Linie BC. Der neue Punkt P kann nun dazu genutzt werden um die Distanz zwischen P und A zu berechnen. Diese Distanz kann anschließend dazu genutzt werden um aufgrundlage der maximalen und minimalen Distanz des Bereichs zu entscheiden ob die Geste in einem erlaubten Bereich ausgeführt wurde. In mathematischer Schreibweise kann die Abbildung \ref{fig:perpendicular_distance_illustration} auch verkürzt als $\biggl| \frac{| \overrightarrow{BA} \times \overrightarrow{BC} |}{| \overrightarrow{BC} |} \biggl|$ dargestellt werden.\\
 
-\textcolor{red}{TODO: UML-Diagramm, Regelkreis, Besprechung}\\
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.85\textwidth]{images/loesungsweg/gesture_robot_system_uml}
+	\caption[Modularität der Roboter-Gesten-Anwendung]{Modularität der Roboter-Gesten-Anwendung}
+	\label{fig:gesture_robot_system_uml}
+\end{figure}
+\FloatBarrier
 
-Die Roboter-Gesten-Anwendung kann daher als Steuerungseinheit angesehen werden. Diese regelt wie in Abbildung \ref{} zu sehen ist die Eingaben innerhalb eines Regelkreises und steuert bei einer korrekt erkannten Eingabe die Komponenten auf die entsprechende Art und Weise.\\
+Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und nutzt daher dieses als Grundlage, wie in Abbildung \ref{fig:gesture_robot_system_uml} mithilfe der \quoteMark{gestures}- und \quoteMark{robot\_arm}-Pakete visualisiert wurde. In dieser Anwendung wurden zudem die ausgewählten Gesten mithilfe der Gestenerkennungsalgorithmen des Roboter-Gesten-Frameworks umgesetzt. Hierzu verwendet es die vom Roboter-Gesten-Framework angebotenen Programmierschnittstellen um die Azure Kinect und den \quoteMark{WidowX 200}-Lernroboter, welcher über ROS oder eine direkte Kommunikation angesteuert werden kann, miteinander kommunizieren lassen zu können. Um vergleichbare Kommunikationsimplementierungen für ROS und die direkte Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter gewährleisten zu können, musste für den \quoteMark{WidowX 200}-Lernroboter das \quoteMark{InterbotiX}-SDK um eine direkte Kommunikation erweitert werden. Hierfür wurde die vom Roboter-Gesten-Framework bereitgestellten Programmierschnittstellen, wie z.B. die \quoteMark{GesturesBase}-Klasse und das \quoteMark{GesturesQuery}-Interface, verwendet um die einheitliche Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter zu realisieren. Für den \quoteMark{WidowX 200}-Lernroboter und die Azure Kinect wurden daher die entsprechenden Programmierschnittstellen für die Roboter-Gesten-Anwendung implementiert. Die genannte Klassenhierarchie und Vererbungsmöglichkeiten in Abbildung \ref{fig:gesture_robot_system_uml} ermöglicht jedoch die Unterstützung beliebiger Roboter und Tiefenkameras, solange die entsprechenden Programmierschnittstellen implementiert werden.\\
 
-\textcolor{red}{TODO: ROS-Dependency Tree}\\
+\begin{figure}[!h]
+    \tikzstyle{block} = [draw, fill=blue!20, rectangle, minimum height=3em, minimum width=6em]
+    \tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=2cm]
+    \tikzstyle{input} = [coordinate]
+    \tikzstyle{output} = [coordinate]
+    \tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
+    \centering
+    \begin{tikzpicture}[auto, node distance=4.5cm,>=latex']
+        % We start by placing the blocks
+        \node [input, name=input] {};
+        \node [sum, right of=input] (sum) {};
+        \node [block, right of=sum] (controller) {Operator};
+        \node [block, right of=controller, pin={[pinstyle]above:Störungen},
+                node distance=4.8cm] (system) {Roboter};
+        % We draw an edge between the controller and system block to
+        % calculate the coordinate u. We need it to place the measurement block.
+        \draw [->] (controller) -- node[name=u, align=center] {Posen-\\änderung} (system);
+        \node [output, right of=system] (output) {Ausgabe};
+        \node [block, below of=u] (measurements) {Messungen};
+
+        % Once the nodes are placed, connecting them is easy.
+        \draw [draw,->] (input) -- node {Sollwert} (sum);
+        \draw [->] (sum) -- node[align=center] {Regel-\\abweichung} (controller);
+        \draw [->] (system) -- node [name=y] {Istwert}(output);
+        \draw [->] (y) |- (measurements);
+        \draw [->] (measurements) -| node[pos=0.99] {}
+            node [near end] {} (sum);
+    \end{tikzpicture}\newline
+    \caption[Regelkreis der Roboter-Gesten-Anwendung]{Regelkreis der Roboter-Gesten-Anwendung}
+    \label{fig:regelkreis_tir}
+\end{figure}\FloatBarrier
+
+Der Industrieroboter wird über den Operator, welcher in dieser Arbeit die bedienende Person ist, mithilfe der Roboter-Gesten-Anwendung bewegt. Dies kann mit dem Regelkreis in Abbildung \ref{fig:regelkreis_tir} visualisiert werden. Bei einer korrekt erkannten Eingabe des Operators werden die Gelenke des Industrieroboters auf die notwendige Art und Weise eingestellt um die gewünschte Zielpose zu erreichen. Der Operator korrigiert dabei die Pose des Industrieroboters solange bis die gewünschte Zielpose für den Anwendungsfall präzise genug erreicht wurde. Die Messung der Zielpose kann dabei z.B. über eine Schätzung des Operators oder ein genaues Ablesen in einer Simulationsumgebung erfolgen.\\
+
+\textcolor{red}{TODO: ROS-Dependency Tree \& Sequenzdiagramm}\\
 
 
 \textcolor{red}{TODO:\\
-Roboter-Gesten-Framework mit UML erklären\\
 Klassenhierarchie und Vererbungsmöglichkeiten (Erweiterbar für jede Arte von Roboter \& Tiefenkamera, welche mindestens die folgenden Anforderungen erfüllt ..., ...)\\
-Berechnungen
+Berechnungen\\
+Gestenerkennungsalgorithmen
 }
 
 \section{Messvoraussetzungen}
@@ -283,6 +336,7 @@ Es soll eine einfache Kontur nachgefahren werden, welche in Abbildung \ref{fig:w
 \textcolor{red}{TODO:\\
 Mit Simulationsumgebung durchführen?\\
 Aufbau des Systems: Azure Kinect vor dem Industrieroboter (vielleicht Skizze/Bild?)\\
+Stellung des Industrieroboters -> Endeffektor\\
 Größe der Seiten in Abbildung 3.3 hinzufügen\\
 Weiteres Testbeispiel hinzufügen?
 }
