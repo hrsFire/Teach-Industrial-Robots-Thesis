@@ -223,7 +223,7 @@ Obwohl die implementierten Gesten so ausgelegt wurden, dass reflexartige und unb
 % Notstop-Handgerät: beim Erschrecken zu starkes drücken erkenne und ansonsten etwas bewusst drücken
 
 \section{Aufbau des Roboter-Gesten-Frameworks}
-Die in dieser Arbeit entwickelte Roboter-Gesten-Anwendung baut auf dem Roboter-Gesten-Framework, welches zusätzlich in dieser Arbeit erstellt wurde, auf. Der Vorteil des Roboter-Gesten-Frameworks besteht darin, dass durch dessen Einsatz die Entwicklung von einer Anwendung zur Gestensteuerung vereinfacht und dadurch auch beschleunigt wird. Das Roboter-Gesten-Framework bietet neben der Möglichkeit vordefinierte Gestenerkennungsalgorithmen, welche unter anderem Vektorberechnungen auf Basis der Tiefenkamerainformationen durchführen, zu verwenden, auch die Möglichkeit an um Industrieroboter über eine einheitliche Schnittstelle ansprechen zu können. Die Gestensteuerung kann jedoch unabhängig von einem Roboter und ROS erfolgen, da die Gesten- und Roboterkomponenten lose gekoppelt wurden und so mit verschiedenen Systemkonstellationen zusammenarbeiten können. Die Roboter-Gesten-Anwendung wurde als Demonstrationsanwendung entworfen um eine mögliche Nutzung des Roboter-Gesten-Frameworks vorzuzeigen.\\
+Die in dieser Arbeit entwickelte Roboter-Gesten-Anwendung baut auf dem Roboter-Gesten-Framework, welches zusätzlich in dieser Arbeit erstellt wurde, auf. Der Vorteil des Roboter-Gesten-Frameworks besteht darin, dass durch dessen Einsatz die Entwicklung von einer Anwendung zur Gestensteuerung vereinfacht und dadurch auch beschleunigt wird. Das Roboter-Gesten-Framework bietet neben der Möglichkeit vordefinierte Gestenerkennungsalgorithmen, welche unter anderem Vektorberechnungen auf Basis der Tiefenkamerainformationen durchführen, zu verwenden, auch die Möglichkeit an um Industrieroboter über eine einheitliche Schnittstelle ansprechen zu können. Die Gestensteuerung kann jedoch unabhängig von einem Roboter und ROS erfolgen, da die Gesten- und Roboterkomponenten lose gekoppelt wurden und so mit verschiedenen Systemkonstellationen zusammenarbeiten können. Die Roboter-Gesten-Anwendung wurde als Demonstrationsanwendung entworfen um eine mögliche Nutzung des Roboter-Gesten-Frameworks vorzuzeigen.
 
 \begin{figure}[htb]
 	\centering
@@ -233,7 +233,7 @@ Die in dieser Arbeit entwickelte Roboter-Gesten-Anwendung baut auf dem Roboter-G
 \end{figure}
 \FloatBarrier
 
-Das Gesten-Subsystem, dessen Ablauf in Abbildung \ref{fig:gesture_subsystem_uml} ersichtlich ist, verwaltet die zugewiesenen Gesten und deren auszuführende Aktionen. Die Gesten können dabei in sogenannte Gesten-Gruppen unterteilt werden um die Gesten einer kategorischen Gliederung zu unterwerfen. Zudem bieten die Gesten-Gruppen den Vorteil, dass ähnliche Gesten oder gegensätzliche Aktionen auf unkomplizierte Art und Weise voneinander isoliert werden können. Hierzu können Gesten in Gesten-Gruppe eingegliedert und Gesten und Gesten-Gruppen Prioritäten zugewiesen werden. Neben der Zuweisung von Prioritäten können Gesten auch individuelle Ausschlusskriterien zugeordnet werden. Die Gesten-Engine stellt zudem sicher, dass die gleichen Informationen, welche von der Tiefenkamera übertragen werden, nicht mehrmals wiederverwendet werden. Da Aktionen in Gesten-Gruppen zueinander gegensätzlich sein können, kann auch spezifiert werden ob mehrere Gesten für beide Hände zur gleichen Zeit erkannt werden können.\\
+Das Gesten-Subsystem, dessen Ablauf in Abbildung \ref{fig:gesture_subsystem_uml} ersichtlich ist, verwaltet die zugewiesenen Gesten und deren auszuführende Aktionen. Die Gesten können dabei in sogenannte Gesten-Gruppen unterteilt werden um die Gesten einer kategorischen Gliederung zu unterwerfen. Zudem bieten die Gesten-Gruppen den Vorteil, dass ähnliche Gesten oder gegensätzliche Aktionen auf unkomplizierte Art und Weise voneinander isoliert werden können. Hierzu können Gesten in Gesten-Gruppe eingegliedert und Gesten und Gesten-Gruppen Prioritäten zugewiesen werden. Neben der Zuweisung von Prioritäten können Gesten auch individuelle Ausschlusskriterien zugeordnet werden. Die Gesten-Engine stellt zudem sicher, dass die gleichen Informationen, welche von der Tiefenkamera übertragen werden, nicht mehrmals wiederverwendet werden. Da Aktionen in Gesten-Gruppen zueinander gegensätzlich sein können, kann auch spezifiert werden ob mehrere Gesten für beide Hände zur gleichen Zeit erkannt werden können.
 
 \begin{figure}[htb]
 	\centering
@@ -244,11 +244,11 @@ Das Gesten-Subsystem, dessen Ablauf in Abbildung \ref{fig:gesture_subsystem_uml}
 \end{figure}
 \FloatBarrier
 
-In Abbildung \ref{fig:perpendicular_distance_illustration} wird einer der Gestenerkennungsalgorithmen zur Erkennung der Distanz zwischen einem räumlichen Punkt zu einer Linie visualisiert. Dieser Algorithmus kann z.B. dazu genutzt werden um zu erkennen ob sich eine Hand in einem gewissen Bereich befindet. Dies kann sinnvoll sein um unbeabsichtigte Bewegungen außerhalb eines nicht spezifizierten Bereichs zu unterbinden. Hierzu wird zuerst der Punkt A auf die Linie von Punkt B zu Punkt C projiziert. Dieser neue Punkt P hat die geringste Distanz von Punkt A zur Linie BC und zudem steht die Linie AP lotrecht auf die Linie BC. Der neue Punkt P kann nun dazu genutzt werden um die Distanz zwischen P und A zu berechnen. Diese Distanz kann anschließend dazu genutzt werden um aufgrundlage der maximalen und minimalen Distanz des Bereichs zu entscheiden ob die Geste in einem erlaubten Bereich ausgeführt wurde. In mathematischer Schreibweise kann die Abbildung \ref{fig:perpendicular_distance_illustration} auch verkürzt als $\biggl| \frac{| \overrightarrow{BA} \times \overrightarrow{BC} |}{| \overrightarrow{BC} |} \biggl|$ dargestellt werden.\\
+In Abbildung \ref{fig:perpendicular_distance_illustration} wird einer der Gestenerkennungsalgorithmen zur Erkennung der Distanz zwischen einem räumlichen Punkt zu einer Linie visualisiert. Dieser Algorithmus kann z.B. dazu genutzt werden um zu erkennen ob sich eine Hand in einem gewissen Bereich befindet. Dies kann sinnvoll sein um unbeabsichtigte Bewegungen außerhalb eines nicht spezifizierten Bereichs zu unterbinden. Hierzu wird zuerst der Punkt A auf die Linie von Punkt B zu Punkt C projiziert. Dieser neue Punkt P hat die geringste Distanz von Punkt A zur Linie BC und zudem steht die Linie AP lotrecht auf die Linie BC. Der neue Punkt P kann nun dazu genutzt werden um die Distanz zwischen P und A zu berechnen. Diese Distanz kann anschließend dazu genutzt werden um aufgrundlage der maximalen und minimalen Distanz des Bereichs zu entscheiden ob die Geste in einem erlaubten Bereich ausgeführt wurde. In mathematischer Schreibweise kann die Abbildung \ref{fig:perpendicular_distance_illustration} auch verkürzt als $\biggl| \frac{| \overrightarrow{BA} \times \overrightarrow{BC} |}{| \overrightarrow{BC} |} \biggl|$ dargestellt werden.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.85\textwidth]{images/loesungsweg/gesture_robot_system_uml}
+	\includegraphics[width=0.75\textwidth]{images/loesungsweg/gesture_robot_system_uml}
 	\caption[Modularität der Roboter-Gesten-Anwendung]{Modularität der Roboter-Gesten-Anwendung}
 	\label{fig:gesture_robot_system_uml}
 \end{figure}
@@ -289,16 +289,11 @@ Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und
     \label{fig:regelkreis_tir}
 \end{figure}\FloatBarrier
 
-Der Industrieroboter wird über den Operator, welcher in dieser Arbeit die bedienende Person ist, mithilfe der Roboter-Gesten-Anwendung bewegt. Dies kann mit dem Regelkreis in Abbildung \ref{fig:regelkreis_tir} visualisiert werden. Bei einer korrekt erkannten Eingabe des Operators werden die Gelenke des Industrieroboters auf die notwendige Art und Weise eingestellt um die gewünschte Zielpose zu erreichen. Der Operator korrigiert dabei die Pose des Industrieroboters solange bis die gewünschte Zielpose für den Anwendungsfall präzise genug erreicht wurde. Die Messung der Zielpose kann dabei z.B. über eine Schätzung des Operators oder ein genaues Ablesen in einer Simulationsumgebung erfolgen.\\
+Der Industrieroboter wird über den Operator, welcher in dieser Arbeit die bedienende Person ist, mithilfe der Roboter-Gesten-Anwendung bewegt. Dies kann mit dem Regelkreis in Abbildung \ref{fig:regelkreis_tir} visualisiert werden. Bei einer korrekt erkannten Eingabe des Operators werden die Gelenke des Industrieroboters auf die notwendige Art und Weise eingestellt um die gewünschte Zielpose zu erreichen. Störungen, wie z.B. Gelenkungenauigkeiten, können dazu führen, dass der Roboter die gewünschte Pose nicht wie gewünscht erreicht. Der Operator korrigiert deswegen die Pose des Industrieroboters solange bis die gewünschte Zielpose für den Anwendungsfall präzise genug erreicht wurde. Die Messung der Zielpose kann dabei z.B. über eine Schätzung des Operators oder ein genaues Ablesen in einer Simulationsumgebung erfolgen.
 
-\textcolor{red}{TODO: ROS-Dependency Tree \& Sequenzdiagramm}\\
+\textcolor{red}{TODO: ROS-Dependency Tree}\\
 
-
-\textcolor{red}{TODO:\\
-Klassenhierarchie und Vererbungsmöglichkeiten (Erweiterbar für jede Arte von Roboter \& Tiefenkamera, welche mindestens die folgenden Anforderungen erfüllt ..., ...)\\
-Berechnungen\\
-Gestenerkennungsalgorithmen
-}
+% Tiefenkamera, welche mindestens die folgenden Anforderungen erfüllt
 
 \section{Messvoraussetzungen}
 Zur Messung der Übertragunslatenz bei der Gestensteuerung und zum anderen bei der Anbindung mit oder ohne ROS müssen die Messvoraussetzungen für die Replizierbarkeit zuerst klargestestellt werden. Die Messungen und deren Visualierungen basieren auf den Best Practices, welche im wissenschaftlichen Artikel \quoteMark{Ten Simple Rules for Effective StatisticalPractice} veröffentlicht wurden. Diese Regeln des wissenschaftlichen Artikels lauten wie folgt \cite{kass_ten_2016}:
@@ -327,7 +322,15 @@ Neben der Übertragungslatenz sind die genannten Messvoraussetzungen, aber auch 
 \end{figure}
 \FloatBarrier
 
-Es soll eine einfache Kontur nachgefahren werden, welche in Abbildung \ref{fig:white_page_with_folded_corner} zu sehen ist. Bei den durchzuführenden Messungen startet der \quoteMark{WidowX 200}-Lernroboter immer in seiner Standard-Ausgangsposition. Um die Kontur nachfahren zu können soll der Endeffektor aus der Anfangs schrägen Pose zuerst so positioniert werden, dass wenn ein Stift zum Zeichnen in der Halterung des Endeffektors eingespannt wird, der Endeffektor anschließend mit der Spitze des Stiftes nach unten gerichtet ist. Daraufhin sollen die Mittelpunkte der rot markierten Kreuze mit der Stiftspitze angefahren werden. Die Zeit zum Erreichen der Ziele und die Abweichung zu den Zielen werden über 10 Testläufe hinweg gesammelt und daraufhin ausgewertet.\\
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.65\textwidth]{images/loesungsweg/endeffektor_pose_2}
+	\caption[Endeffektorpose für Testbeispiel]{Endeffektorpose für Testbeispiel}
+	\label{fig:endeffektor_pose}
+\end{figure}
+\FloatBarrier
+
+Es soll eine einfache Kontur nachgefahren werden, welche in Abbildung \ref{fig:white_page_with_folded_corner} zu sehen ist. Bei den durchzuführenden Messungen startet der \quoteMark{WidowX 200}-Lernroboter immer in seiner Standard-Ausgangsposition. Um die Kontur nachfahren zu können soll der Endeffektor aus der Anfangs schrägen Pose zuerst so wie in Abbildung \ref{fig:endeffektor_pose} positioniert werden, dass wenn ein Stift zum Zeichnen in der Halterung des Endeffektors eingespannt wird, der Endeffektor anschließend mit der Spitze des Stiftes nach unten gerichtet ist. Daraufhin sollen die Mittelpunkte der rot markierten Kreuze mit der Stiftspitze angefahren werden. Die Zeit zum Erreichen der Ziele und die Abweichung zu den Zielen werden über 10 Testläufe hinweg gesammelt und daraufhin ausgewertet werden. Die vorraussichtliche Durchlaufzeit für jeden Testlauf wird auf 15 Minuten geschätzt wodurch die Durchführung von 10 Testläufen ca. \num{2,5}-Stunden betragen wird. Diese Zeitdauer sollte ausreichen um zudem die Ergonomie ausreichend testen zu können.
 
 % https://www.svgrepo.com/svg/123582/puzzle-piece
 % https://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.springernature.com%2Flw785%2Fspringer-static%2Fimage%2Fchp%253A10.1007%252F978-3-642-29061-9_8%2FMediaObjects%2F113804_2_De_8_Fig35_HTML.gif&imgrefurl=https%3A%2F%2Flink.springer.com%2Fchapter%2F10.1007%2F978-3-642-29061-9_8&tbnid=1PHAzOMBUCSmGM&vet=10CFcQMyiOAWoXChMImP3I772T6gIVAAAAAB0AAAAAEAI..i&docid=DfzkjkQDAPusiM&w=553&h=245&q=endeffektor%20stift&client=ubuntu&ved=0CFcQMyiOAWoXChMImP3I772T6gIVAAAAAB0AAAAAEAI
@@ -335,8 +338,6 @@ Es soll eine einfache Kontur nachgefahren werden, welche in Abbildung \ref{fig:w
 
 \textcolor{red}{TODO:\\
 Mit Simulationsumgebung durchführen?\\
-Aufbau des Systems: Azure Kinect vor dem Industrieroboter (vielleicht Skizze/Bild?)\\
-Stellung des Industrieroboters -> Endeffektor\\
 Größe der Seiten in Abbildung 3.3 hinzufügen\\
 Weiteres Testbeispiel hinzufügen?
 }

@@ -1,6 +1,6 @@
 @startuml
 
-class GesturesRobotApp
+class RobotGesturesApp
 
 package gestures {
   class GesturesEngine
@@ -8,7 +8,7 @@ package gestures {
   interface GesturesQuery
   GesturesEngine *-- GesturesBase
   GesturesQuery <|.. GesturesBase
-  .GesturesRobotApp *-- GesturesEngine
+  .RobotGesturesApp *-- GesturesEngine
 }
 
 package kinect {
@@ -18,7 +18,7 @@ package kinect {
 
 package robot_arm {
   class RobotArmBase
-  .GesturesRobotApp o-- RobotArmBase
+  .RobotGesturesApp o-- RobotArmBase
 }
 
 package interbotix {
