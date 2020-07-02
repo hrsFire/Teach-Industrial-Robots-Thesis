@@ -613,13 +613,13 @@ Zum Ausführen des Start-Scripts muss im Listing \ref{lst:start_script_for_app} 
 \hline
 -opf & \texttt{-{}-}overwrite-positions-file & Ermöglicht das Überschreiben der Positionsdatei. Zuvor sollte ein Backup der Positionsdatei gemacht werde um Datenverlust zu vermeiden.\\
 \hline
--rrp & \texttt{-{}-}repeat-recorded-positions & Die aufgezeichneten Positionen aus der Positionsdatei wiederholen lassen\\
+-rrp & \texttt{-{}-}repeat-recorded-positions & Die aufgezeichneten Positionen aus der Positionsdatei wiederholen lassen\newline (Default-Positionsdatei: \quoteMark{\~{}/robot\_arm\_positions.json})\\
 \hline
--tp & \texttt{-{}-}teach-positions & Positionen lernen\\
+-tp & \texttt{-{}-}teach-positions & Positionen lernen\newline (Default-Positionsdatei: \quoteMark{\~{}/robot\_arm\_positions.json})\\
 \hline
--rn="\phantom{}<name>" & \texttt{-{}-}robot-name="\phantom{}<name>" & Name des Roboters (Default: "wx200")\\
+-rn="\phantom{}<name>" & \texttt{-{}-}robot-name="\phantom{}<name>" & Name des Roboters\newline (Default: "wx200")\\
 \hline
--rm="\phantom{}<name>" & \texttt{-{}-}robot-model="\phantom{}<name>" & Robotermodell (in der Regel derselbe wie der Name des Roboters; Default: "wx200")\\
+-rm="\phantom{}<name>" & \texttt{-{}-}robot-model="\phantom{}<name>" & Robotermodell\newline (in der Regel der Name des Roboters\newline Default: "wx200")\\
 \hline
 -ur & \texttt{-{}-}use-ros & ROS oder eine direkte Verbindung zum Industrieroboter verwenden\\
 \hline
