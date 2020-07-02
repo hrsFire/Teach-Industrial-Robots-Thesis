@@ -108,7 +108,7 @@ Je nach Religion, Situation, Kultur, sozialer Herkunft, unterschiedlicher Ansich
             node[end] {unbeabsichtigte Bewegungen}
         };
     \end{tikzpicture}\newline
-    \caption[Einteilung der Gesten]{Einteilung der Gesten \\Quelle: \cite[680]{pavlovic_visual_1997}}
+    \caption[Einteilung der Gesten]{Einteilung der Gesten\\Quelle: Eigene Darstellung, in Anlehnung an \cite[680]{pavlovic_visual_1997}}
 	\label{fig:einteilung_der_gesten}
 \end{figure}
 \FloatBarrier
@@ -168,7 +168,7 @@ Aufgrundlage der ermittelten Limitierungen der Azure Kinect und der untersuchten
 \end{figure}
 \FloatBarrier
 
-Wie in Abbildung \ref{fig:joint_hierarchy} zu sehen ist, können bei der linken und rechten Hand unter anderem die Handspitze, der Daumen, ca. die Mitte der Hand und das Gelenk über das Azure Kinect Body Tracking SDK, welches 32 spezifischen Positionen des menschlichen Körpers identifzieren kann, genutzt werden. Die Bestimmung und Nutzung der einzelnen Finger ist aufgrund der Limitierung des Azure Kinect Body Tracking SDKs und der verbauten Tiefenkamera der Azure Kinect nicht möglich. Aus diesem Grund können die einzelnen Finger mit der Azure Kinect nicht zur Gestensteuerung eines Industrieroboters eingesetzt werden. Deswegen wird auf feinmotorische Gesten, welche mit den einzelnen Fingern durchgeführt werden und zu denen z.B. das Skalieren mit zwei Fingern zählt, verzichtet \cite{qm13_azure_joints_nodate}. In der Tabelle \ref{tab:implementierte_gesten} sind die für die Gestensteuerung des Industrieroboters aufgestellten Gesten ersichtlich. Zum besseren Verständnis der Gesten wurden diese zudem mit den in Abbildung \ref{fig:joint_hierarchy} ersichtlichen 32 spezifischen Positionen des menschlichen Körpers, welche durch die Azure Kinect bereitgestellt werden, übersichtlich verknüpft. Bei der Entwicklung der Gesten wurde darauf geachtet, dass die Gesten für sowohl Links- aber auch Rechtshänder über die für das Teachen vorgesehene Zeit eine entspannte Möglichkeit bieten den Industrieroboter zu bedienen. Bei der Entwicklung der Gesten war es zudem sehr wichtig der bedienenden Person bei längeren Bedienungsvorgängen, wie z.B. der Gelenkstellung erhöhen, eine Möglichkeit zum Ablegen der Hände zu bieten um so Ermüdungserscheinungen vorbeugen zu können. Auf der anderen Seite war bei der Entwicklung der Gesten aber auch wichtig, diese in einer gewissen Distanz voneinander anzuordnen um so unbeabsichtigte Betätigungen mehrerer gleichzeitiger Gesten während des Bedienungsvorganges zu minimieren \cite{proff_radikale_2013}. Unbeabsichtigte Gesten können jedoch aber auch durch reflexartige Bewegungen zum Schutz des eigenen Leibes entstehen. Diese reflexartigen und unbeabsichtigten Gesten, wie z.B. das Schützen des Kopfes mit den Händen, \cite[95]{matschnig_korpersprache_2007} wurden bei der Entwicklung der Gesten mitberücksichtigt und werden von der entwickelten Roboter-Gesten-Anwendung größtmöglich herausgefiltert. Die Gesten in der Tabelle \ref{tab:implementierte_gesten} wurden aufgrund dieser Auswahlkriterien entwickelt, wobei deren Ergonomie in dieser Arbeit noch durch praxisnahe Teachvorgänge getestet werden muss. Bei allen in dieser Arbeit entwickelten Gesten ist es entscheident, dass die bedienende Person Sichtkontakt zur Tiefenkamera und daher auch Sichtkontakt zum Industrieroboter hat um eine Aktion mit den entwickelten Gesten ausführen zu können. Bei Sichtunterbrechung zur Tiefenkamera oder bei Bestimmung mehrerer Personen im Blickfeld der Tiefenkamera wird die Bedienung des Industrieroboters mittels der Gesten zur Sicherheit deaktiviert. Ein Weiterarbeiten ist erst dann möglich, wenn die Sicht zur Tiefenkamera wiederhergestellt ist und sich nur noch eine einzige Person im Blickfeld der Tiefenkamera befindet.\newline
+Wie in Abbildung \ref{fig:joint_hierarchy} zu sehen ist, können bei der linken und rechten Hand unter anderem die Handspitze, der Daumen, ca. die Mitte der Hand und das Gelenk über das Azure Kinect Body Tracking SDK, welches 32 spezifischen Positionen des menschlichen Körpers identifzieren kann, genutzt werden. Die Bestimmung und Nutzung der einzelnen Finger ist aufgrund der Limitierung des Azure Kinect Body Tracking SDKs und der verbauten Tiefenkamera der Azure Kinect nicht möglich. Aus diesem Grund können die einzelnen Finger mit der Azure Kinect nicht zur Gestensteuerung eines Industrieroboters eingesetzt werden. Deswegen wird auf feinmotorische Gesten, welche mit den einzelnen Fingern durchgeführt werden und zu denen z.B. das Skalieren mit zwei Fingern zählt, verzichtet \cite{qm13_azure_joints_nodate}. In der Tabelle \ref{tab:implementierte_gesten} sind die für die Gestensteuerung des Industrieroboters aufgestellten Gesten ersichtlich. Zum besseren Verständnis der Gesten wurden diese zudem mit den in Abbildung \ref{fig:joint_hierarchy} ersichtlichen 32 spezifischen Positionen des menschlichen Körpers, welche durch die Azure Kinect bereitgestellt werden, übersichtlich verknüpft. Bei der Entwicklung der Gesten wurde darauf geachtet, dass die Gesten für sowohl Links- aber auch Rechtshänder über die für das Teachen vorgesehene Zeit eine entspannte Möglichkeit bieten den Industrieroboter zu bedienen. Bei der Entwicklung der Gesten war es zudem sehr wichtig der bedienenden Person bei längeren Bedienungsvorgängen, wie z.B. der Gelenkstellung erhöhen, eine Möglichkeit zum Ablegen der Hände zu bieten um so Ermüdungserscheinungen vorbeugen zu können. Auf der anderen Seite war bei der Entwicklung der Gesten aber auch wichtig, diese in einer gewissen Distanz voneinander anzuordnen um so unbeabsichtigte Betätigungen mehrerer gleichzeitiger Gesten während des Bedienungsvorganges zu minimieren \cite{proff_radikale_2013}. Unbeabsichtigte Gesten können jedoch aber auch durch reflexartige Bewegungen zum Schutz des eigenen Leibes entstehen. Diese reflexartigen und unbeabsichtigten Gesten, wie z.B. das Schützen des Kopfes mit den Händen, \cite[95]{matschnig_korpersprache_2007} wurden bei der Entwicklung der Gesten mitberücksichtigt und werden von der entwickelten Roboter-Gesten-Anwendung größtmöglich herausgefiltert. Die Gesten in der Tabelle \ref{tab:implementierte_gesten} wurden aufgrund dieser Auswahlkriterien entwickelt, wobei deren Ergonomie in dieser Arbeit noch durch praxisnahe Teachvorgänge getestet werden muss. Bei allen in dieser Ausarbeitung entwickelten Gesten ist es entscheident, dass die bedienende Person Sichtkontakt zur Tiefenkamera und daher auch Sichtkontakt zum Industrieroboter hat um eine Aktion mit den entwickelten Gesten ausführen zu können. Bei Sichtunterbrechung zur Tiefenkamera oder bei Bestimmung mehrerer Personen im Blickfeld der Tiefenkamera wird die Bedienung des Industrieroboters mittels der Gesten zur Sicherheit deaktiviert. Ein Weiterarbeiten ist erst dann möglich, wenn die Sicht zur Tiefenkamera wiederhergestellt ist und sich nur noch eine einzige Person im Blickfeld der Tiefenkamera befindet.\newline
 
 % ausführliche Begründung der implementierten Gesten für die jeweiligen Aktionen (Joint Mode, ...) und warum diese sinnvoll sind
 
@@ -206,7 +206,7 @@ $\bullet$ präzise (Beschleunigung deaktiviert)\\
 \hline
 Positionen speichern & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz auf die \textbf{linke Hüfthöhe} (\bracketText{HIP\_LEFT}) legen \newline\newline \textbf{ODER} \newline\newline \textbf{rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz auf die \textbf{rechte Hüfthöhe} (\bracketText{HIP\_RIGHT}) legen & \nameref{ast:gesten_anmerkung_2}\\
 \hline
-\caption[Implementierte Gesten]{Implementierte Gesten}
+\caption[Implementierte Gesten]{Implementierte Gesten\\Quelle: Eigene Ausarbeitung}
 \label{tab:implementierte_gesten}
 \end{longtable}
 
@@ -228,7 +228,7 @@ Die in dieser Arbeit entwickelte Roboter-Gesten-Anwendung baut auf dem Roboter-G
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.85\textwidth]{images/loesungsweg/gesture_subsystem_uml}
-	\caption[Gesten-Subsystem (Aktivitätdiagramm)]{Gesten-Subsystem (Aktivitätdiagramm)}
+	\caption[Gesten-Subsystem (Aktivitätdiagramm)]{Gesten-Subsystem (Aktivitätdiagramm)\\Quelle: Eigene Darstellung}
 	\label{fig:gesture_subsystem_uml}
 \end{figure}
 \FloatBarrier
@@ -249,7 +249,7 @@ In Abbildung \ref{fig:perpendicular_distance_illustration} wird einer der Gesten
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.75\textwidth]{images/loesungsweg/gesture_robot_system_uml}
-	\caption[Modularität der Roboter-Gesten-Anwendung]{Modularität der Roboter-Gesten-Anwendung}
+	\caption[Modularität der Roboter-Gesten-Anwendung]{Modularität der Roboter-Gesten-Anwendung\\Quelle: Eigene Darstellung}
 	\label{fig:gesture_robot_system_uml}
 \end{figure}
 \FloatBarrier
@@ -285,7 +285,7 @@ Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und
         \draw [->] (measurements) -| node[pos=0.99] {}
             node [near end] {} (sum);
     \end{tikzpicture}\newline
-    \caption[Regelkreis der Roboter-Gesten-Anwendung]{Regelkreis der Roboter-Gesten-Anwendung}
+    \caption[Regelkreis der Roboter-Gesten-Anwendung]{Regelkreis der Roboter-Gesten-Anwendung\\Quelle: Eigene Darstellung}
     \label{fig:regelkreis_tir}
 \end{figure}\FloatBarrier
 
@@ -317,7 +317,7 @@ Neben der Übertragungslatenz sind die genannten Messvoraussetzungen, aber auch 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.25\textwidth]{images/loesungsweg/white-page-with-folded-corner}
-	\caption[Teachbeispiel: Weiße Seite mit gefalteter Ecke]{Teachbeispiel: Weiße Seite mit gefalteter Ecke}
+	\caption[Teachbeispiel: Weiße Seite mit gefalteter Ecke]{Teachbeispiel: Weiße Seite mit gefalteter Ecke\\Quelle: Eigene Darstellung}
 	\label{fig:white_page_with_folded_corner}
 \end{figure}
 \FloatBarrier
@@ -325,7 +325,7 @@ Neben der Übertragungslatenz sind die genannten Messvoraussetzungen, aber auch 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.65\textwidth]{images/loesungsweg/endeffektor_pose_2}
-	\caption[Endeffektorpose für Testbeispiel]{Endeffektorpose für Testbeispiel}
+	\caption[Endeffektorpose für Testbeispiel]{Endeffektorpose für Testbeispiel\\Quelle: Eigene Darstellung}
 	\label{fig:endeffektor_pose}
 \end{figure}
 \FloatBarrier
