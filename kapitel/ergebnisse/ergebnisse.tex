@@ -7,6 +7,23 @@
 
 % da ein Delay von < 50 ms aufgrund der Gestenerkennung nicht eingehalten werden kann muss die Berechnung des neuronalen Netzwerks der Gestenerkennung noch schneller werden bzw. auf speziell darauf ausgelegter Hardware (FPGA) ausgeführt werden
 
+% Die Orientierung ist meisten nicht so wichtig. Daher kann diese in einigen bestimmten Fällen auf ein paar Grad genau getestet werden mittels optischen Test bzw. im Simulator
+
+% Wie lange benötige ich für das Teachen mittels Gesten? Ist es ein vertretbarer Aufwand? Was ist ein vertretbarer Aufwand?
+
+% Speziell das Echtzeitverhalten ist eher subjektiv zu betrachten, da jeder die Latenz zwischen Ein- und Ausgabe ein klein wenig anders wahrnimmt.
+
+% Hierfür wurde darauf geeinigt, dass die Bewegungsabläufe des Roboters auch nachträglich nachbearbeitet werden können.
+
+%Die Tests erfolgen in einem virtuellen Raum, in welchem die exakten Positionen bereits vordefiniert sind.
+% Die ermittelten Positionen können dann mit den exakten Positionen verglichen werden und wiederum Kennwerte, wie z.B. der Mittelwert, Standardabweichung, Varianz ermittelt werden.
+
+% Wünschenswert, die Bewegungen können jedoch aber im nachhinein auch nachträglich nachbearbeitet werden. Wenige mm wären ideal, aber wenige cm würden auch genügen.
+
+% Bewegen durch Gesten in beliebigen Koordinatensystemen mit unterschiedlichen Orientierungen
+
+% Herkömmliche Eingabegeräte (z.B. ein Teach Pendant) vs. ein NUI-System (z.B. Azure Kinect mit Tiefensensor zur Erkennung von Gesten); Vergleich mit bisherigen Teach-Lösungen, wie z.B. einem Teachpendant; Die Probanden sollten fachkundig sein und wenn möglich bereits Vorerfahrung mit Möglichkeiten zum Teachen von Robotern haben. -> ist schwer möglich ohne die entsprechende Hardware
+
 % ------------
 
 % Azure Kinect: Belichtungszeit: 1,6 ms bis zu 20,3 ms (https://docs.microsoft.com/en-us/azure/kinect-dk/hardware-specification) -> TODO: Passive IR einschalten?
@@ -65,13 +82,24 @@ Visualisierung:\\
 \section{Latenz der Gestenerkennung}
 \textcolor{red}{Azure Kinect im CPU-Modus anstatt mit Grafikkartenbeschleunigung, weil keine Nvidia Grafikkarte vorhanden war und der kleinste gemeinsame Nenner gewählt wird}
 
+
 \section{Latenz der Übertragung mit und ohne ROS-Anbindung}
 \textcolor{red}{TODO:\\
+Praxistest mit zusätzlicher Gestenerkennung oder ohne?\\
 WidowX 200\\
 Verschiedene Netzwerkkonstellationen simulieren? % aus dem Sicherheitsaspekt sollte für ROS 1 ein eigens für den Roboter abgeschottenes Netzwerk verwendet -> dadurch meisten weniger Latenzen, weil weniger über ROS übertragen wird?
 % http://wiki.ros.org/Topics
 % Topic statistics
 }
+
+% für ROS: ein Testnetzwerk aufbauen unterschiedliche Latenzen testen
+% Best Case: keine Latenzen
+% Worst Case: Übertragen von größeren Datenmengen über ROS (z.B. Kamerabilder, …)
+
+% vom Übertragen des Befehls an die Steuerungseinheit bis der Roboter die Bewegung durchführt
+%vom Übertragen des Befehls über TCP/IP bis zur Steuerungseinheit
+%vom Durchführen der Geste bis zum erfolgreichen Erkennen von unterschiedlichen Gesten. Unterschiedliche Gesten können mitunter z.T. mehr oder weniger Zeit beanspruchen je nach Komplexität der Geste.
+
 
 \section{Genauigkeit der Ziele}
 \textcolor{red}{TODO:\\
@@ -79,7 +107,31 @@ Im Vergleich zu einer anderen Eingabemethode\\
 PS3-Controller: https://www.trossenrobotics.com/widowx-200-robot-arm.aspx
 }
 
+% Wie genau kommt man ans gewünschte Ziel? (Einheit: mm)
+% Wie viele Korrekturen braucht ein Proband um am nächsten ans gewünschte Ziel zu kommen?
+
+% In einer realen Umgebung nur mit Ungenauigkeiten messbar
+%In einer Simulationsumgebung (z.B. Gazebo) kann die Distanz genau und automatisiert gemessen werden
+%Visualisierung:
+%  *Diagramme
+%  *    Mittelwert, die Standardabweichung, Varianz, ...
+
+
+\section{Genauigkeit der Gestenerkennung}
+% Wie viele Versuche benötigt ein Proband bis seine Gesten erkannt werden?
+
 \section{Ergonomie \& User Experience}
+% Verbessert dieser Ansatz die Ergonomie des Teachen in eine positive Richtung?
+% Ist es angenehmer diese NUI-Methode zu verwenden als ein herkömmliches Teach Pendant?
+% Kann ich über eine längere Zeitspanne, wie z.B. 30 Minuten, einen Roboter teachen?
+% Wie schnell bin ich erschöpft im Gegensatz zu einem herkömmlichen Teach Pendant?
+% Wie schnell erlernt man die Gesten?
+% Wie einprägsam sind die Gesten?
+% Sind die Gesten gut geeignet um einen Roboter zu steuern oder sind diese zu schwammig oder zu ähnlich und werden daher auch oft verwechselt?
+%   * Können diese im besten Fall nur schwer unbeabsichtigt durchgeführt werden und fälschlicherweise nicht z.B. als kulturelle Geste erkannt werden?
+%   * Gibt es wenige Überschneidungen mit bereits definierten Gesten, sodass diese nicht unbeabsichtigt durchgeführt werden können?
+%   * Sind diese leicht anzuwenden, sodass das System die Geste im besten Fall beim ersten Mal erkennt?
+
 \textcolor{red}{TODO:\\
 Wie gut ist das System einsetzbar? UX\\
 Bewertung der Ergonomie über längere Zeitdauer (sehr subjektiv, jedoch aber versuchen die Ergebnisse auf die Allgemeinheit zu bezienen)\\
@@ -88,3 +140,5 @@ reflexartige und unbeabsichtigte Bewegungen\\
 Beim Teachen steht man normalerweise um den Roboter ordnungsgemäß und vollständig sehen zu können
 % siehe 3.4.3 Auswahl anhand der Ergonomie
 }
+
+% Kann ich über eine längere Zeitspanne, wie z.B. 30 Minuten, einen Roboter teachen? Wie schnell bin ich erschöpft im Gegensatz zu einem herkömmlichen Teachpendant? Wie schnell lernt man die Gesten? Sind die Gesten gut geeignet um einen Roboter zu steuern oder sind diese zu schwammig oder zu ähnlich und werden daher auch oft verwechselt?
