@@ -180,9 +180,9 @@ Wie in Abbildung \ref{fig:joint_hierarchy} zu sehen ist, können bei der linken 
 \hline
 \rowcolor{LightGray} \thead[c]{Aktion} & \thead[c]{Beschreibung\\mit\\spezifischen Geste} & \thead[c]{Anmerkung}\\
 \hline
-Gelenkstellung erhöhen & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz oder länger zwischen das \textbf{rechte Schlüsselbein} (\bracketText{CLAVICLE\_RIGHT}) und die \textbf{rechte Schulter} (\bracketText{SHOULDER\_RIGHT}) legen & \nameref{ast:gesten_anmerkung_1}\\
+Gelenkstellung erhöhen & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) kurz oder länger zwischen das \textbf{rechte Schlüsselbein} (\bracketText{CLAVICLE\_RIGHT}) und die \textbf{rechte Schulter} (\bracketText{SHOULDER\_RIGHT}) legen & \nameref{ast:gesten_anmerkung_1} \nameref{ast:gesten_anmerkung_4}\\
 \hline
-Gelenkstellung verringern & \textbf{Rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz oder länger zwischen das \textbf{linke Schlüsselbein} (\bracketText{CLAVICLE\_LEFT}) und die \textbf{linke Schulter} (\bracketText{SHOULDER\_LEFT}) legen & \nameref{ast:gesten_anmerkung_1}\\
+Gelenkstellung verringern & \textbf{Rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz oder länger zwischen das \textbf{linke Schlüsselbein} (\bracketText{CLAVICLE\_LEFT}) und die \textbf{linke Schulter} (\bracketText{SHOULDER\_LEFT}) legen & \nameref{ast:gesten_anmerkung_1} \nameref{ast:gesten_anmerkung_4}\\
 \hline
 Endeffektor auseinanderfahren & \textbf{Rechte Handspitze} (\bracketText{HANDTIP\_RIGHT}) kurz oder länger in die \textbf{Mitte der Brusthöhe} (\bracketText{SPINE\_CHEST}) legen & \nameref{ast:gesten_anmerkung_1}\\
 \hline
@@ -210,9 +210,10 @@ Positionen speichern & \textbf{Linke Handspitze} (\bracketText{HANDTIP\_LEFT}) k
 \label{tab:implementierte_gesten}
 \end{longtable}
 
-\paragraph*{$^{\ast1}$}\label{ast:gesten_anmerkung_1}\small{Wenn der Präzisionsmodus ausgeschalten ist (Beschleunigung aktiviert), führt ein längeres verharren in dieser Pose zu einer Beschleunigung der jeweiligen Bewegung.}
-\paragraph*{$^{\ast2}$}\label{ast:gesten_anmerkung_2}\small{Längeres verharren in dieser Pose ändert die Einstellung nur einmal. Um die Einstellung mehrmals zu ändern muss die Pose verlassen und anschließend neu initiiert werden.}
-\paragraph*{$^{\ast3}$}\label{ast:gesten_anmerkung_3}\small{Die Anzahl der Gelenke sind vom jeweiligen Industrieroboter abhängig.}
+\paragraph*{$^{\ast1}$}\label{ast:gesten_anmerkung_1}\small{Wenn der Präzisionsmodus ausgeschalten ist (Beschleunigung aktiviert), führt ein längeres verharren in dieser Pose zu einer Beschleunigung der jeweiligen Bewegung.}\vspace{-0.5em}
+\paragraph*{$^{\ast2}$}\label{ast:gesten_anmerkung_2}\small{Längeres verharren in dieser Pose ändert die Einstellung nur einmal. Um die Einstellung mehrmals zu ändern muss die Pose verlassen und anschließend neu initiiert werden.}\vspace{-0.5em}
+\paragraph*{$^{\ast3}$}\label{ast:gesten_anmerkung_3}\small{Die Anzahl der Gelenke sind vom jeweiligen Industrieroboter abhängig.}\vspace{-0.5em}
+\paragraph*{$^{\ast4}$}\label{ast:gesten_anmerkung_4}\small{Die Bewegung ist Abhängig vom Koordinatensystem des ausgewählten Gelenks.}\vspace{-0.5em}
 \newline\newline
 
 In der Tabelle \ref{tab:implementierte_gesten} sind die Aktionen, welche vom Industrieroboter ausgeführt werden können und mit Gesten verknüft wurden, aufgelistet. Bei der Entwicklung der Gesten wurden die erarbeiteten Auswahlkriterien für Gesten beachtet und bei den Gesten miteinbezogen. Bei längeren Aktionen, wie z.B. die Gelenkstellung erhöhen oder verringern, wurde darauf geachtet diese Aktionen mit möglichst angenehmen Gesten zu verknüpfen, welche es erlauben die Hände abzulegen. Dies beugt den Ermüdungserscheinungen von Gestenerkennungen vor, da der bedienenden Person eine Möglichkeit zum Ausruhen zur Verfügung gestellt wird. Zu jeder Geste wird in der Tabelle \ref{tab:implementierte_gesten} eine genaue Beschreibung angegeben um diese ordnungsgemäß nach der Anleitung ausführen zu können. In manchen Fällen, wie z.B. beim Umschalten des Präzisionsmodus, kann dies je nach Präferenz durch die linke oder rechte Hand erfolgen. Hierdurch steht es der Person frei die Geste seiner Wahl für den jeweiligen Anwendungsfall auszuwählen. Zur Erhöhung der Sicherheit wurde des Weiteren eine Möglichkeit implementiert den Endeffektor zu sperren um keine weiteren Aktionen mit ihm ausführen zu können. Z.B. wenn der Endeffektor eine Last transportiert ist es wichtig, dass die Last nicht plötzlich durch ungewolltes Öffnen des Endeffektors fallen gelassen wird. Dies würde ansonsten einen ungewollten Schaden verursachen. Standardmäßig ist der Endeffektor nicht gesperrt, da im Normalfall am Anfang noch keine Last transportiert wird. Der Präzisionsmodus ermöglicht das Wechseln zwischen einem präzisen Modues mit immer gleich bleibender Geschwindigkeit, welche für den jeweiligen Industrieroboter voreingestellt ist, und einem unpräziseren Modus, welcher aber dafür eine Beschleunigung der Bewegung bis zu einem für den Industrieroboter vorgegebenen Schwellwert, ermöglicht.
