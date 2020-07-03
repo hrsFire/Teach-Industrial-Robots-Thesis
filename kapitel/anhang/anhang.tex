@@ -563,7 +563,8 @@ if [ "$USE_ROS_COMMUNICATION" = true ] ; then
     ROS_APP_PARAMETER="--use-ros"
     # Start the InterbotiX node
     lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i -c "nohup\
-     roslaunch interbotix_sdk arm_run.launch robot_name:=wx200 &>/dev/null &"
+     roslaunch interbotix_sdk arm_run.launch robot_name:=wx200 use_default_rviz:\
+    =false &>/dev/null &"
     sleep 3
 else
     # Start roscore
@@ -572,7 +573,8 @@ else
     sleep 3
     # Initialize the parameter server
     lxc exec $LXC_INSTANCE -- sudo -S -u $USER_NAME -i /bin/bash -i -c "nohup\
-     roslaunch interbotix_sdk arm_run.launch robot_name:=wx200 &>/dev/null &"
+     roslaunch interbotix_sdk arm_run.launch robot_name:=wx200 use_default_rviz:\
+    =false &>/dev/null &"
     INTERBOTIX_PID=$(ps aux | grep -i "roslaunch interbotix_sdk" | awk '{print $2}'\
      | head -n -1)
     sleep 3
