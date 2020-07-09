@@ -24,6 +24,9 @@ package robot_arm {
 package interbotix {
   class InterbotixRobotArm
   .RobotArmBase <|-- InterbotixRobotArm
+  InterbotixRobotArm <|-- InterbotixRobotArmDirect
+  InterbotixRobotArm <|-- InterbotixRobotArmROS
+  InterbotixRobotArmROS *-- MoveIt
 }
 
 @enduml
