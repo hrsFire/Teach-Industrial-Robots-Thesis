@@ -452,13 +452,20 @@ k4abt_simple_3d_viewer CPU
 sudo apt install cmake gdb gcc python python-catkin-tools
         \end{lstlisting}
 
-    \item Source Code kompilieren:
+    \item Source Code kompilieren:\\
+        \begin{redbox}{Wichtig:}
+            Die Roboter-Gesten-Anwendung wird mit der Option \quoteMark{Release} kompiliert. Dies ist empfehlenswert, wenn die Roboter-Gesten-Anwendung im Produktivbetrieb eingesetzt werden soll. Die Option \quoteMark{Release} kann durch die Option \quoteMark{Debug} ersetzt werden um eine Entwicklungsversion mit zusätzlicher Ausgabe zu erstellen. Um eine Version zur Durchführung der in dieser Arbeit erläuterten Messungen zu erhalten wird die Option \quoteMark{Release} und zusätzlich die folgende Option verwendet:
+
+            \begin{lstlisting}[style=bash]
+--cmake-args -DCMAKE_CXX_FLAGS="-DMEASUREMENT"
+            \end{lstlisting}
+        \end{redbox}
         \begin{enumerate}[label*=\arabic*.]
             \item InterbotiX SDK kompilieren:
                 \begin{lstlisting}[style=bash]
 cd ~/interbotix_ws
 rm -rf build devel/
-catkin build
+catkin build -DCMAKE_BUILD_TYPE=Release
 source ~/.bashrc
                 \end{lstlisting}
 
@@ -466,7 +473,7 @@ source ~/.bashrc
                 \begin{lstlisting}[style=bash]
 mkdir -p ~/tir_ws/src
 cd ~/tir_ws/
-catkin build
+catkin build -DCMAKE_BUILD_TYPE=Release
 echo "# ROS
 source ~/tir_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
@@ -479,12 +486,12 @@ sudo apt install libglm-dev libeigen3-dev rapidjson-dev libk4a1.3\
 -dev libk4abt1.0-dev
 
 cd ~/tir_ws
-catkin build
+catkin build -DCMAKE_BUILD_TYPE=Release
 source ~/.bashrc
                 \end{lstlisting}
         \end{enumerate}
 
-    \item Entwicklungsumgebung installieren:
+    \item Entwicklungsumgebung installieren (optional):
         \begin{enumerate}[label*=\arabic*.]
             \item Temporärer Ordner erstellen:
                 \begin{lstlisting}[style=bash]
@@ -513,7 +520,7 @@ ext install ms-iot.vscode-ros
                 \end{lstlisting}
         \end{enumerate}
 
-        \item Wenn der Speicherplatz des Linux-Containers zu knapp wird kann der Speicherplatz des Linux-Containers wie folgt auf dem Host-System vergrößert werden:
+        \item Wenn der Speicherplatz des Linux-Containers zu knapp wird, kann der Speicherplatz des Linux-Containers wie folgt auf dem Host-System vergrößert werden:
             \begin{enumerate}[label*=\arabic*.]
                 \item Image des Linux-Containers z.B. um 5 GB vergrößern:
                     \begin{lstlisting}[style=bash]
@@ -652,8 +659,3 @@ Zum Ausführen des Start-Scripts muss im Listing \ref{lst:start_script_for_app} 
 
 
 % https://books.google.at/books?id=vVMoDwAAQBAJ&pg=PA229&lpg=PA229&dq=lxc+realtime&source=bl&ots=6aSRy33GKg&sig=ACfU3U13TeQVx0D1fZ5Z6DxLmKdeHTkXOg&hl=de&sa=X&ved=2ahUKEwj3mrWgyuvpAhUEGuwKHdcmDr8Q6AEwA3oECAoQAQ#v=onepage&q=lxc%20realtime&f=false
-
-\section{Einrichtung der Simulationsumgebung}\label{appendix1:Einrichtung_der_Simulationsumgebung}
-\textcolor{red}{TODO:\\
-Wie kann man die Simulationsumgebung starten und benutzen und grundlegend einrichten
-}
