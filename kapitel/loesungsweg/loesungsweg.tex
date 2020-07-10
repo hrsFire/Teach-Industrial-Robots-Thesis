@@ -334,9 +334,8 @@ Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und
 
 Der Industrieroboter wird über den Operator, welcher in dieser Arbeit die bedienende Person ist, mithilfe der Roboter-Gesten-Anwendung bewegt. Dies kann mit dem Regelkreis in Abbildung \ref{fig:regelkreis_tir} visualisiert werden. Bei einer korrekt erkannten Eingabe des Operators werden die Gelenke des Industrieroboters auf die notwendige Art und Weise eingestellt um die gewünschte Zielpose zu erreichen. Störungen, wie z.B. Gelenkungenauigkeiten, können dazu führen, dass der Roboter die gewünschte Pose nicht wie gewünscht erreicht. Der Operator korrigiert deswegen die Pose des Industrieroboters solange bis die gewünschte Zielpose für den Anwendungsfall präzise genug erreicht wurde. Die Messung der Zielpose kann dabei z.B. über eine Schätzung des Operators oder ein genaues Ablesen in einer Simulationsumgebung erfolgen.
 
-\textcolor{red}{TODO: ROS-Dependency Tree}\\
-
-% Tiefenkamera, welche mindestens die folgenden Anforderungen erfüllt
+% ROS-Dependency Tree
+% Tiefenkamera (Mindestanfordungen)
 
 \section{Messvoraussetzungen}
 Zur Messung der Übertragunslatenz bei der Gestensteuerung und zum anderen bei der Anbindung mit oder ohne ROS müssen die Messvoraussetzungen für die Replizierbarkeit zuerst klargestestellt werden. Die Messungen und deren Visualierungen basieren auf den Best Practices, welche im wissenschaftlichen Artikel \quoteMark{Ten Simple Rules for Effective StatisticalPractice} veröffentlicht wurden. Diese Regeln des wissenschaftlichen Artikels lauten wie folgt \cite{kass_ten_2016}:

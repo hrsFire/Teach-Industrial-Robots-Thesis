@@ -21,12 +21,16 @@ package robot_arm {
   .RobotGesturesApp o-- RobotArmBase
 }
 
+package moveit::planning_interface {
+  class MoveGroupInterface
+}
+
 package interbotix {
   class InterbotixRobotArm
   .RobotArmBase <|-- InterbotixRobotArm
   InterbotixRobotArm <|-- InterbotixRobotArmDirect
   InterbotixRobotArm <|-- InterbotixRobotArmROS
-  InterbotixRobotArmROS *-- MoveIt
+  InterbotixRobotArmROS *-- MoveGroupInterface
 }
 
 @enduml

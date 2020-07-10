@@ -599,7 +599,7 @@ sleep 2
 # Schedule the TIR app for real time usage
 TIR_PID_APP=$(ps aux | grep -i "teach_industrial_robots/teach_\
 industrial_robots_node" | awk '{print $2}' | head -n -1)
-pkexec chrt -d --sched-runtime 1000000 --sched-deadline 5000000 --sched-period\
+pkexec chrt -d --sched-runtime 5000000 --sched-deadline 5000000 --sched-period\
  5000000 -p 0 $TIR_PID_APP
 
 if [ $(chrt -p $TIR_PID_APP | grep -c "SCHED_DEADLINE") -eq 0 ] ; then
