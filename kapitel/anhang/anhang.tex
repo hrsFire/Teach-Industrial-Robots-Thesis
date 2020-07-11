@@ -469,7 +469,7 @@ catkin build -DCMAKE_BUILD_TYPE=Release
 source ~/.bashrc
                 \end{lstlisting}
 
-            \item Die Roboter-Gesten-Anwendung aus dem Ordner \quoteMark{Repositories/Teach-Industrial-Robots} auf der CD/ISO klonen, Abhängigkeiten installieren und anschließend die Roboter-Gesten-Anwendung kompilieren:
+            \item Den Source Code der Roboter-Gesten-Anwendung auf der CD/ISO aus dem Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} klonen, Abhängigkeiten installieren und anschließend die Roboter-Gesten-Anwendung kompilieren:
                 \begin{lstlisting}[style=bash]
 mkdir -p ~/tir_ws/src
 cd ~/tir_ws/
@@ -549,7 +549,7 @@ Für die Roboter-Gesten-Anwendung wird als Scheduler SCHED\_DEADLINE eingesetzt,
 \end{figure}
 \FloatBarrier
 
-Für den \quoteMark{SCHED\_DEADLINE}-Scheduler müssen hierfür die Parameter, welche in Abbildung \ref{fig:sched_deadline} ersichtlich sind, richtig eingestellt werden. Der \quoteMark{Runtime}-Parameter beträgt zur Einhaltung der 50 ms Frist hierbei 50000000 ns, der \quoteMark{Deadline}-Parameter beträgt 50000000 ns und der \quoteMark{Periode}-Parameter beträgt 50000000 ns. Der \quoteMark{Runtime}-Parameter steht hierbei für die maximal benötigte Ausführungszeit der Aufgabe, der \quoteMark{Deadline}-Parameter für wie lange genügend Zeit vorhanden ist um die Aufgabe auszuführen und der \quoteMark{Periode}-Parameter für wann die nächste Periode gestartet werden muss \cite{man_sched7_nodate}.\\
+Für den \quoteMark{SCHED\_DEADLINE}-Scheduler müssen hierfür die Parameter, welche in Abbildung \ref{fig:sched_deadline} ersichtlich sind, richtig eingestellt werden. Der \quoteMark{Runtime}-Parameter beträgt zur Einhaltung der 50 ms Frist hierbei 50000000 ns, der \quoteMark{Deadline}-Parameter beträgt 50000000 ns und der \quoteMark{Periode}-Parameter beträgt 50000000 ns. Der \quoteMark{Runtime}-Parameter steht hierbei für die maximal benötigte Ausführungszeit der Aufgabe, der \quoteMark{Deadline}-Parameter für wie lange genügend Zeit vorhanden ist um die Aufgabe auszuführen und der \quoteMark{Periode}-Parameter für wann die nächste Periode gestartet werden muss \cite{man_sched7_nodate}. Diese Einstellungen wurden im Listing \ref{lst:settings_for_start_script} bei den Bash Variablen \quoteMark{SCHED\_RUNTIME}, \quoteMark{SCHED\_DEADLINE} und \quoteMark{SCHED\_PERIOD} im Start-Script bereits voreingestellt.\\
 
 \begin{lstlisting}[style=bash, caption={Einstellungen des Start-Scripts der Roboter-Gesten-Anwendung}, label={lst:settings_for_start_script}]
 USE_ROS_COMMUNICATION=true
@@ -557,28 +557,32 @@ USE_SIMULATION=true  # Only usable with "USE_ROS_COMMUNICATION=true"
 LXC_USER_NAME="ubuntu"
 LXC_INSTANCE="<container name>"
 ADDITIONAL_APP_PARAMETERS="--move-home-at-exit --move-home-at-error"
-TEACH_POSITIONS=true  # If "true" positions can be teached, Otherwise the positions
-                       # in the file "robot_arm_positions.json" will be executed.
+TEACH_POSITIONS=true  # If "true" positions can be teached. Otherwise the positions
+                        # in the file "robot_arm_positions.json" will be executed.
+CONFIGURATION_FILE_PATH=""  # Empty for the default file path
+                              # ("/home/ubuntu/robot_arm_positions.json")
 SCHED_RUNTIME=50000000
 SCHED_DEADLINE=50000000
 SCHED_PERIOD=50000000
-\end{lstlisting}\leavevmode\newline
+\end{lstlisting}\leavevmode\newline\vspace{-1.0em}
 
-Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh} aus dem Ordner \quoteMark{Repositories/Teach-Industrial-Robots} auf der CD/ISO auf dem Host-System im Linux-Container gestartet und dem \quoteMark{SCHED\_DEADLINE}-Scheduler zugewiesen werden. Die einstellbaren Optionen des Start-Scripts sind im Listing \ref{lst:settings_for_start_script} ersichtlich. Zum Ausführen des Start-Scripts muss im Listing \ref{lst:settings_for_start_script} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\_COMMUNICATION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{TEACH\_POSITIONS} eingesetzt. Mit der Bash-Variable \quoteMark{USE\_SIMULATION} kann eingestellt werden ob die Anwendung im Simulator gestartet werden soll. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anzuwenden kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den folgenden Parametern modifiziert werden.
+Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}, welches sich auf der CD/ISO im Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} befindet, auf dem Host-System im Linux-Container gestartet und dem \quoteMark{SCHED\_DEADLINE}-Scheduler zugewiesen werden. Die einstellbaren Optionen des Start-Scripts sind im Listing \ref{lst:settings_for_start_script} ersichtlich. Zum Ausführen des Start-Scripts muss im Listing \ref{lst:settings_for_start_script} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\_COMMUNICA-\\TION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{TEACH\_POSITIONS} eingesetzt. Zur Auswahl der verwendeten Positionsdatei kann die Bash-Variable \quoteMark{CONFIGURATION\_FILE\_PATH} mit dem Pfad zur Positionsdatei genutzt werden. Mit der Bash-Variable \quoteMark{USE\_SIMULATION} kann eingestellt werden ob die Anwendung im Simulator gestartet werden soll. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anzuwenden kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den folgenden Parametern modifiziert werden.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.2\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|>{\raggedright\arraybackslash}p{0.50\textwidth}|}
 \hline
 \rowcolor{LightGray} \thead[c]{Kurzschreibweise\\des\\Parameters} & \thead[c]{Ausgeschriebener\\Parameter} & \thead[c]{Beschreibung}\\
 \hline
+-pfp="\phantom{}<path>" & \texttt{-{}-}positions-file-path="\phantom{}<path>" & Dateipfad zum Speichern oder Laden der aufgezeichneten Positionen \newline (Default-Positionsdatei: "\~{}/robot\_arm\_positions.json")\\
+\hline
 -opf & \texttt{-{}-}overwrite-positions-file & Ermöglicht das Überschreiben der Positionsdatei. Zuvor sollte ein Backup der Positionsdatei gemacht werde um Datenverlust zu vermeiden.\\
 \hline
--rrp & \texttt{-{}-}repeat-recorded-positions & Die aufgezeichneten Positionen aus der Positionsdatei wiederholen lassen\newline (Default-Positionsdatei: "\~{}/robot\_arm\_positions.json")\\
+-rrp & \texttt{-{}-}repeat-recorded-positions & Die aufgezeichneten Positionen aus der Positionsdatei wiederholen lassen\\
 \hline
--tp & \texttt{-{}-}teach-positions & Positionen lernen\newline (Default-Positionsdatei: "\~{}/robot\_arm\_positions.json")\\
+-tp & \texttt{-{}-}teach-positions & Positionen lernen\\
 \hline
 -rn="\phantom{}<name>" & \texttt{-{}-}robot-name="\phantom{}<name>" & Name des Roboters\newline (Default: "wx200")\\
 \hline
--rm="\phantom{}<name>" & \texttt{-{}-}robot-model="\phantom{}<name>" & Robotermodell\newline (in der Regel der Name des Roboters\newline Default: "wx200")\\
+-rm="\phantom{}<model>" & \texttt{-{}-}robot-model="\phantom{}<model>" & Robotermodell\newline (in der Regel der Name des Roboters\newline Default: "wx200")\\
 \hline
 -ur & \texttt{-{}-}use-ros & ROS oder eine direkte Verbindung zum Industrieroboter verwenden\\
 \hline
