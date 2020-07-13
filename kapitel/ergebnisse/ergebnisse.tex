@@ -1,6 +1,6 @@
 % https://plantuml.com/de/timing-diagram
 
-% Genauigkeit der Tiefeninformation?
+\textcolor{red}{mit MEASUREMENT Flag kompiliert um zu testen}
 
 % Netzwerklatenz & andere Latenzen!!!
 % Implementierung: Roboter wählt seine eigene Bahn
@@ -82,6 +82,16 @@ Visualisierung:\\
 \section{Latenz der Gestenerkennung}
 \textcolor{red}{Azure Kinect im CPU-Modus anstatt mit Grafikkartenbeschleunigung, weil keine Nvidia Grafikkarte vorhanden war und der kleinste gemeinsame Nenner gewählt wird}
 
+Die Datei \quoteMark{gestures\_recognition\_measurement.txt} ist auf der CD/ISO im Verzeichnis \quoteMark{Ergebnisse/} zu finden.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/ergebnisse/dauer_der_gestenerkennung_verlauf}
+	\caption[Zeitlicher Verlauf der Gestenerkennung der Azure Kinect]{Zeitlicher Verlauf der Gestenerkennung der Azure Kinect\\Quelle: Eigene Ausarbeitung}
+	\label{fig:sched_deadline}
+\end{figure}
+\FloatBarrier
+
 
 \section{Latenz der Übertragung mit und ohne ROS-Anbindung}
 \textcolor{red}{TODO:\\
@@ -102,10 +112,10 @@ Verschiedene Netzwerkkonstellationen simulieren? % aus dem Sicherheitsaspekt sol
 
 
 \section{Genauigkeit der Ziele}
-\textcolor{red}{TODO:\\
-Im Vergleich zu einer anderen Eingabemethode\\
-PS3-Controller: https://www.trossenrobotics.com/widowx-200-robot-arm.aspx
-}
+\textcolor{red}{TODO}
+
+%Im Vergleich zu einer anderen Eingabemethode%\\
+%PS3-Controller: https://www.trossenrobotics.com/widowx-200-robot-arm.aspx
 
 % Wie genau kommt man ans gewünschte Ziel? (Einheit: mm)
 % Wie viele Korrekturen braucht ein Proband um am nächsten ans gewünschte Ziel zu kommen?
