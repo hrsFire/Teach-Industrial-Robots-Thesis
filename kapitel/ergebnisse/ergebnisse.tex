@@ -81,12 +81,13 @@ Visualisierung:\\
 
 \section{Latenz der Gestenerkennung}
 \textcolor{red}{Azure Kinect im CPU-Modus anstatt mit Grafikkartenbeschleunigung, weil keine Nvidia Grafikkarte vorhanden war und der kleinste gemeinsame Nenner gewählt wird}
+% --cmake-args -DCMAKE_CXX_FLAGS="-DGESTURE_MEASUREMENT -DMEASUREMENT"
 
-Die Datei \quoteMark{gestures\_recognition\_measurement.txt} ist auf der CD/ISO im Verzeichnis \quoteMark{Ergebnisse/} zu finden.
+Die Datei \quoteMark{gestures\_recognition\_measurement.csv} ist auf der CD/ISO im Verzeichnis \quoteMark{Ergebnisse/} zu finden.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{images/ergebnisse/dauer_der_gestenerkennung_verlauf}
+	\includegraphics[width=1.04\textwidth]{images/ergebnisse/dauer_der_gestenerkennung_verlauf}
 	\caption[Zeitlicher Verlauf der Gestenerkennung der Azure Kinect]{Zeitlicher Verlauf der Gestenerkennung der Azure Kinect\\Quelle: Eigene Ausarbeitung}
 	\label{fig:sched_deadline}
 \end{figure}
