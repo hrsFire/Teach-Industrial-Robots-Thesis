@@ -300,36 +300,42 @@ In Abbildung \ref{fig:perpendicular_distance_illustration} wird einer der Gesten
 Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und nutzt daher dieses als Grundlage, wie in Abbildung \ref{fig:gesture_robot_system_uml} mithilfe der \quoteMark{gestures}- und \quoteMark{robot\_arm}-Pakete visualisiert wurde. In dieser Anwendung wurden zudem die ausgewählten Gesten mithilfe der Gestenerkennungsalgorithmen des Roboter-Gesten-Frameworks umgesetzt. Hierzu verwendet es die vom Roboter-Gesten-Framework angebotenen Programmierschnittstellen um die Azure Kinect und den \quoteMark{WidowX 200}-Lernroboter, welcher über ROS oder eine direkte Kommunikation angesteuert werden kann, miteinander kommunizieren lassen zu können. Um vergleichbare Kommunikationsimplementierungen für ROS und die direkte Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter gewährleisten zu können, musste für den \quoteMark{WidowX 200}-Lernroboter das \quoteMark{InterbotiX}-SDK um eine direkte Kommunikation erweitert werden. Hierfür wurden die vom Roboter-Gesten-Framework bereitgestellten Programmierschnittstellen, wie z.B. die \quoteMark{GesturesBase}-Klasse und das \quoteMark{GesturesQuery}-Interface, verwendet um die einheitliche Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter zu realisieren. Für den \quoteMark{WidowX 200}-Lernroboter und die Azure Kinect wurden daher die entsprechenden Programmierschnittstellen für die Roboter-Gesten-Anwendung implementiert. Die genannte Klassenhierarchie und Vererbungsmöglichkeiten in Abbildung \ref{fig:gesture_robot_system_uml} ermöglicht jedoch die Unterstützung beliebiger Roboter und Tiefenkameras, solange die entsprechenden Programmierschnittstellen implementiert werden.\\
 
 \begin{figure}[!h]
-    \tikzstyle{block} = [draw, fill=green!18, rectangle, minimum height=3em, minimum width=6em]
+    \tikzstyle{block} = [draw, fill=green!18, rectangle, minimum height=3em, minimum width=6em, rounded corners=0.05cm]
     \tikzstyle{sum} = [draw, fill=green!18, circle, node distance=2cm]
     \tikzstyle{input} = [coordinate]
     \tikzstyle{output} = [coordinate]
     \tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
-    \tikzstyle{main} = [rounded corners, fill=yellow!20, minimum width=6.0cm, minimum height=7.1cm, text top]
+    \tikzstyle{peopleMain} = [rounded corners, fill=yellow!20, minimum width=5.97cm, minimum height=7.1cm, text top]
+    \tikzstyle{robotGestureAppMain} = [rounded corners, fill=red!20, minimum width=2.78cm, minimum height=5.5cm, text top]
     \tikzstyle{submain} = [node distance=0.9cm]
+    \tikzstyle{robotGestureAppBlock} = [block, fill=orange!38]
+    \tikzstyle{borderlessBlock} = [fill=green!18, minimum height=3em, minimum width=6em, rounded corners=0.05cm]
 
     \centering
     \begin{tikzpicture}[auto, node distance=4.3cm,>=latex']
-        \node (people)[main, draw, rectangle] {Mensch};
+        \node (peopleMain)[peopleMain, draw, rectangle] {Mensch};
+        \node (robotGestureApp)[robotGestureAppMain, draw, rectangle, xshift=5.55cm, yshift=0.8cm, align=left] {};
 
         % We start by placing the blocks
-        \node [input, submain, above left=-1.6cm and -0.45cm of people, name=input] {};
+        \node [input, submain, above left=-1.6cm and -0.45cm of peopleMain, name=input] {};
         \node [sum, right of=input, submain] (sum) {};
         \node [block, right of=sum, name=u, align=center, xshift=-1.1cm] (controller) {Regler};
-        \node [block, right of=controller, name=u, align=center, xshift=-0.25cm, fill=red!20] (app) {Roboter-\\Gesten-\\Anwendung};
+        \node [borderlessBlock, right of=controller, name=u, align=center, xshift=-0.298cm, fill=red!20, minimum width=6.65em] (app) {Roboter-\\Gesten-\\Anwendung};
         \node [block, right of=app, pin={[pinstyle]above:Störungen},
-                node distance=4.6cm] (system) {Roboter};
+                node distance=4.82cm] (system) {Roboter};
         % We draw an edge between the app and system block to
         % calculate the coordinate u. We need it to place the measurement block.
         \draw [->] (app) -- node[name=u, align=center] {Posen-\\änderungs-\\vorgabe} (system);
         \node [output, right of=system, xshift=-1.8cm] (output) {};
         \node [block, below of=controller] (measurements) {Messsystem};
+        \node [robotGestureAppBlock, submain, below=0.2cm of app, align=center] (gestureSubsystem) {Gesten-\\Subsystem};
+        \node [robotGestureAppBlock, submain, below=0.2cm of gestureSubsystem, align=center] {ROS-\\Anbindung};
 
         % Once the nodes are placed, connecting them is easy.
         \draw [draw,->] (input) -- node {} (sum);
         \draw [->] (sum) -- node[align=center] {e (Differenz\\in mm)} (controller);
-        \draw [->] (controller) -- node[align=center] {Geste} (app);
+        \draw [->] (controller) -- node[align=center] {\phantom{} Geste} (app);
         \draw [-] (system) -- node[name=y, align=center] {Ist-\\pose}(output);
         \draw [->] (output) |- (measurements);
         \draw [->] (measurements) -| node[pos=0.99] {-}
