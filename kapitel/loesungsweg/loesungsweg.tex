@@ -300,39 +300,46 @@ In Abbildung \ref{fig:perpendicular_distance_illustration} wird einer der Gesten
 Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und nutzt daher dieses als Grundlage, wie in Abbildung \ref{fig:gesture_robot_system_uml} mithilfe der \quoteMark{gestures}- und \quoteMark{robot\_arm}-Pakete visualisiert wurde. In dieser Anwendung wurden zudem die ausgewählten Gesten mithilfe der Gestenerkennungsalgorithmen des Roboter-Gesten-Frameworks umgesetzt. Hierzu verwendet es die vom Roboter-Gesten-Framework angebotenen Programmierschnittstellen um die Azure Kinect und den \quoteMark{WidowX 200}-Lernroboter, welcher über ROS oder eine direkte Kommunikation angesteuert werden kann, miteinander kommunizieren lassen zu können. Um vergleichbare Kommunikationsimplementierungen für ROS und die direkte Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter gewährleisten zu können, musste für den \quoteMark{WidowX 200}-Lernroboter das \quoteMark{InterbotiX}-SDK um eine direkte Kommunikation erweitert werden. Hierfür wurden die vom Roboter-Gesten-Framework bereitgestellten Programmierschnittstellen, wie z.B. die \quoteMark{GesturesBase}-Klasse und das \quoteMark{GesturesQuery}-Interface, verwendet um die einheitliche Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter zu realisieren. Für den \quoteMark{WidowX 200}-Lernroboter und die Azure Kinect wurden daher die entsprechenden Programmierschnittstellen für die Roboter-Gesten-Anwendung implementiert. Die genannte Klassenhierarchie und Vererbungsmöglichkeiten in Abbildung \ref{fig:gesture_robot_system_uml} ermöglicht jedoch die Unterstützung beliebiger Roboter und Tiefenkameras, solange die entsprechenden Programmierschnittstellen implementiert werden.\\
 
 \begin{figure}[!h]
-    \tikzstyle{block} = [draw, fill=blue!20, rectangle, minimum height=3em, minimum width=6em]
-    \tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=2cm]
+    \tikzstyle{block} = [draw, fill=green!18, rectangle, minimum height=3em, minimum width=6em]
+    \tikzstyle{sum} = [draw, fill=green!18, circle, node distance=2cm]
     \tikzstyle{input} = [coordinate]
     \tikzstyle{output} = [coordinate]
     \tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
+    \tikzstyle{main} = [rounded corners, fill=yellow!20, minimum width=6.0cm, minimum height=7.1cm, text top]
+    \tikzstyle{submain} = [node distance=0.9cm]
+
     \centering
-    \begin{tikzpicture}[auto, node distance=4.5cm,>=latex']
+    \begin{tikzpicture}[auto, node distance=4.3cm,>=latex']
+        \node (people)[main, draw, rectangle] {Mensch};
+
         % We start by placing the blocks
-        \node [input, name=input] {};
-        \node [sum, right of=input] (sum) {};
-        \node [block, right of=sum] (controller) {Operator};
-        \node [block, right of=controller, pin={[pinstyle]above:Störungen},
-                node distance=4.8cm] (system) {Roboter};
-        % We draw an edge between the controller and system block to
+        \node [input, submain, above left=-1.6cm and -0.45cm of people, name=input] {};
+        \node [sum, right of=input, submain] (sum) {};
+        \node [block, right of=sum, name=u, align=center, xshift=-1.1cm] (controller) {Regler};
+        \node [block, right of=controller, name=u, align=center, xshift=-0.25cm, fill=red!20] (app) {Roboter-\\Gesten-\\Anwendung};
+        \node [block, right of=app, pin={[pinstyle]above:Störungen},
+                node distance=4.6cm] (system) {Roboter};
+        % We draw an edge between the app and system block to
         % calculate the coordinate u. We need it to place the measurement block.
-        \draw [->] (controller) -- node[name=u, align=center] {Posen-\\änderung} (system);
-        \node [output, right of=system] (output) {Ausgabe};
-        \node [block, below of=u] (measurements) {Messungen};
+        \draw [->] (app) -- node[name=u, align=center] {Posen-\\änderungs-\\vorgabe} (system);
+        \node [output, right of=system, xshift=-1.8cm] (output) {};
+        \node [block, below of=controller] (measurements) {Messsystem};
 
         % Once the nodes are placed, connecting them is easy.
-        \draw [draw,->] (input) -- node {Sollwert} (sum);
-        \draw [->] (sum) -- node[align=center] {Regel-\\abweichung} (controller);
-        \draw [->] (system) -- node [name=y] {Istwert}(output);
-        \draw [->] (y) |- (measurements);
-        \draw [->] (measurements) -| node[pos=0.99] {}
+        \draw [draw,->] (input) -- node {} (sum);
+        \draw [->] (sum) -- node[align=center] {e (Differenz\\in mm)} (controller);
+        \draw [->] (controller) -- node[align=center] {Geste} (app);
+        \draw [-] (system) -- node[name=y, align=center] {Ist-\\pose}(output);
+        \draw [->] (output) |- (measurements);
+        \draw [->] (measurements) -| node[pos=0.99] {-}
             node [near end] {} (sum);
     \end{tikzpicture}\newline
     \caption[Regelkreis der Roboter-Gesten-Anwendung]{Regelkreis der Roboter-Gesten-Anwendung\\Quelle: Eigene Darstellung}
     \label{fig:regelkreis_tir}
 \end{figure}\FloatBarrier
 
-Der Industrieroboter wird über den Operator, welcher in dieser Arbeit die bedienende Person ist, mithilfe der Roboter-Gesten-Anwendung bewegt. Dies kann mit dem Regelkreis in Abbildung \ref{fig:regelkreis_tir} visualisiert werden. Bei einer korrekt erkannten Eingabe des Operators werden die Gelenke des Industrieroboters auf die notwendige Art und Weise eingestellt um die gewünschte Zielpose zu erreichen. Störungen, wie z.B. Gelenkungenauigkeiten, können dazu führen, dass der Roboter die gewünschte Pose nicht wie gewünscht erreicht. Der Operator korrigiert deswegen die Pose des Industrieroboters solange bis die gewünschte Zielpose für den Anwendungsfall präzise genug erreicht wurde. Die Messung der Zielpose kann dabei z.B. über eine Schätzung des Operators oder ein genaues Ablesen in einer Simulationsumgebung erfolgen.
+Der Industrieroboter wird über den Mensch, welcher in dieser Arbeit die bedienende Person ist, mithilfe der Roboter-Gesten-Anwendung bewegt. Dieser Datenfluss kann mit dem Regelkreis in Abbildung \ref{fig:regelkreis_tir} visualisiert werden. Bei einer korrekt erkannten Eingabe des Menschen werden die Gelenke des Industrieroboters auf die notwendige Art und Weise eingestellt um die gewünschte Zielpose zu erreichen. Hierbei fungiert der Mensch, wie in Abbildung \ref{fig:regelkreis_tir} zu sehen ist, als Regler und die Roboter-Gesten-Anwendung als Stellsystem. Störungen, wie z.B. Gelenkungenauigkeiten, können dazu führen, dass der Roboter die gewünschte Pose nicht wie gewünscht erreicht. Der Mensch korrigiert deswegen die Pose des Industrieroboters solange bis die gewünschte Zielpose für den Anwendungsfall präzise genug erreicht wurde. Die Messung der Zielpose kann dabei z.B. über eine Schätzung oder ein genaues Ablesen in einer Simulationsumgebung über den Mensch erfolgen.
 
 % ROS-Dependency Tree
 % Tiefenkamera (Mindestanfordungen)
