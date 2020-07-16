@@ -554,19 +554,20 @@ Für den \quoteMark{SCHED\_DEADLINE}-Scheduler müssen hierfür die Parameter, w
 \begin{lstlisting}[style=bash, caption={Einstellungen des Start-Scripts der Roboter-Gesten-Anwendung}, label={lst:settings_for_start_script}]
 USE_ROS_COMMUNICATION=true
 USE_SIMULATION=true  # Only usable with "USE_ROS_COMMUNICATION=true"
+DO_MEASUREMENT=true  # Only usable with "USE_SIMULATION=false"
 LXC_USER_NAME="ubuntu"
 LXC_INSTANCE="<container name>"
 ADDITIONAL_APP_PARAMETERS="--move-home-at-exit --move-home-at-error"
 TEACH_POSITIONS=true  # If "true" positions can be teached. Otherwise the positions
                         # in the file "robot_arm_positions.json" will be executed.
 CONFIGURATION_FILE_PATH=""  # Empty for the default file path
-                              # ("/home/ubuntu/robot_arm_positions.json")
+                              # ("~/robot_arm_positions.json")
 SCHED_RUNTIME=50000000
 SCHED_DEADLINE=50000000
 SCHED_PERIOD=50000000
 \end{lstlisting}\leavevmode\newline\vspace{-1.0em}
 
-Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}, welches sich auf der CD/ISO im Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} befindet, auf dem Host-System im Linux-Container gestartet und dem \quoteMark{SCHED\_DEADLINE}-Scheduler zugewiesen werden. Die einstellbaren Optionen des Start-Scripts sind im Listing \ref{lst:settings_for_start_script} ersichtlich. Zum Ausführen des Start-Scripts muss im Listing \ref{lst:settings_for_start_script} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\_COMMUNICA-\\TION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{TEACH\_POSITIONS} eingesetzt. Zur Auswahl der verwendeten Positionsdatei kann die Bash-Variable \quoteMark{CONFIGURATION\_FILE\_PATH} mit dem Pfad zur Positionsdatei genutzt werden. Mit der Bash-Variable \quoteMark{USE\_SIMULATION} kann eingestellt werden ob die Anwendung im Simulator gestartet werden soll. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anzuwenden kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den folgenden Parametern modifiziert werden.
+Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}, welches sich auf der CD/ISO im Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} befindet, auf dem Host-System im Linux-Container gestartet und dem \quoteMark{SCHED\_DEADLINE}-Scheduler zugewiesen werden. Die einstellbaren Optionen des Start-Scripts sind im Listing \ref{lst:settings_for_start_script} ersichtlich. Zum Ausführen des Start-Scripts muss im Listing \ref{lst:settings_for_start_script} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\_COMMUNICA-\\TION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{TEACH\_POSITIONS} eingesetzt. Zur Auswahl der verwendeten Positionsdatei kann die Bash-Variable \quoteMark{CONFIGURATION\_FILE\_PATH} mit dem Pfad zur Positionsdatei genutzt werden. Mit der Bash-Variable \quoteMark{USE\_SIMULATION} kann eingestellt werden ob die Anwendung im Simulator gestartet werden soll. Die Bash-Variable \quoteMark{DO\_MEASUREMENT} kann bei Verwendung eines echten Industrieroboters dazu verwendet werden um Messvorraussetzungen, wie z.B. ein simuliertes Netzwerk, bereitzustellen. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anzuwenden kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den folgenden Parametern modifiziert werden.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.2\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|>{\raggedright\arraybackslash}p{0.50\textwidth}|}
 \hline
