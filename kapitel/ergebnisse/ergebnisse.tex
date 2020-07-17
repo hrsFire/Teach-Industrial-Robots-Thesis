@@ -83,13 +83,13 @@ Visualisierung:\\
 \textcolor{red}{Azure Kinect im CPU-Modus anstatt mit Grafikkartenbeschleunigung, weil keine Nvidia Grafikkarte vorhanden war und der kleinste gemeinsame Nenner gewählt wird}
 % --cmake-args -DCMAKE_CXX_FLAGS="-DGESTURE_MEASUREMENT -DMEASUREMENT"
 
-Die Datei \quoteMark{gestures\_recognition\_measurement.csv} ist auf der CD/ISO im Verzeichnis \quoteMark{Ergebnisse/} zu finden.
+Die Datei \quoteMark{Messung der Gestenerkennung.csv} ist auf der CD/ISO im Verzeichnis \quoteMark{Testdaten/} zu finden.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1.04\textwidth]{images/ergebnisse/dauer_der_gestenerkennung_verlauf}
-	\caption[Zeitlicher Verlauf der Gestenerkennung der Azure Kinect]{Zeitlicher Verlauf der Gestenerkennung der Azure Kinect\\Quelle: Eigene Ausarbeitung}
-	\label{fig:sched_deadline}
+	\caption[Zeitlicher Latenzverlauf der Gestenerkennung der Azure Kinect]{Zeitlicher Latenzverlauf der Gestenerkennung der Azure Kinect\\Quelle: Eigene Ausarbeitung}
+	\label{fig:measurement_gesture_recognition_azure_kinect}
 \end{figure}
 \FloatBarrier
 
@@ -102,6 +102,38 @@ Verschiedene Netzwerkkonstellationen simulieren? % aus dem Sicherheitsaspekt sol
 % http://wiki.ros.org/Topics
 % Topic statistics
 }
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.04\textwidth]{images/ergebnisse/Messung_der_direkten_Kommunikation}
+	\caption[Zeitlicher Latenzverlauf der direkten Kommunikation des \quoteMark{WidowX 200}-Lernroboters]{Zeitlicher Latenzverlauf der direkten Kommunikation des \quoteMark{WidowX 200}-Lernroboters\\Quelle: Eigene Ausarbeitung}
+	\label{fig:measurement_robot_direct_communication}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.04\textwidth]{images/ergebnisse/Messung_der_ROS_Kommunikation_App_und_keine_Netzwerksimulation}
+	\caption[Zeitlicher Latenzverlauf der ROS-Kommunikation des \quoteMark{WidowX 200}-Lernroboters (ohne Netzwerksimulation)]{Zeitlicher Latenzverlauf der ROS-Kommunikation des \quoteMark{WidowX 200}-Lernroboters (ohne Netzwerksimulation)\\Quelle: Eigene Ausarbeitung}
+	\label{fig:measurement_robot_ros_without_network_simulation}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.04\textwidth]{images/ergebnisse/ROS_App_und_mit_Netzwerksimulation}
+	\caption[Zeitlicher Latenzverlauf der ROS-Kommunikation des \quoteMark{WidowX 200}-Lernroboters (mit Netzwerksimulation, geringe Netzwerkauslastung)]{Zeitlicher Latenzverlauf der ROS-Kommunikation des \quoteMark{WidowX 200}-Lernroboters (mit Netzwerksimulation, geringe Netzwerkauslastung)\\Quelle: Eigene Ausarbeitung}
+	\label{fig:measurement_robot_ros_with_network_simulation_low_network_traffic}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.04\textwidth]{images/ergebnisse/ROS_App_mit_Netzwerksimulation_und_hohe_Auslastung}
+	\caption[Zeitlicher Latenzverlauf der ROS-Kommunikation des \quoteMark{WidowX 200}-Lernroboters (mit Netzwerksimulation, hohe Netzwerkauslastung)]{Zeitlicher Latenzverlauf der ROS-Kommunikation des \quoteMark{WidowX 200}-Lernroboters (mit Netzwerksimulation, hohe Netzwerkauslastung)\\Quelle: Eigene Ausarbeitung}
+	\label{fig:measurement_robot_ros_with_network_simulation_high_network_traffic}
+\end{figure}
+\FloatBarrier
 
 % catkin build -DCMAKE_BUILD_TYPE=Release --cmake-args -DCMAKE_CXX_FLAGS="-DCOMMUNICATION_MEASUREMENT -DMEASUREMENT"
 % interbotix_communication_measurement.csv
