@@ -371,7 +371,7 @@ Neben der Übertragungslatenz sind die genannten Messvoraussetzungen, aber auch 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.25\textwidth]{images/loesungsweg/white-page-with-folded-corner}
+	\includegraphics[width=0.68\textwidth]{images/loesungsweg/white_page_with_folded_corner}
 	\caption[Teachbeispiel: Weiße Seite mit gefalteter Ecke]{Teachbeispiel: Weiße Seite mit gefalteter Ecke\\Quelle: Eigene Darstellung}
 	\label{fig:white_page_with_folded_corner}
 \end{figure}
@@ -379,17 +379,10 @@ Neben der Übertragungslatenz sind die genannten Messvoraussetzungen, aber auch 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.65\textwidth]{images/loesungsweg/endeffektor_pose_2}
+	\includegraphics[width=0.48\textwidth]{images/loesungsweg/endeffektor_pose_2}
 	\caption[Endeffektorpose für Testbeispiel]{Endeffektorpose für Testbeispiel\\Quelle: Eigene Darstellung}
 	\label{fig:endeffektor_pose}
 \end{figure}
 \FloatBarrier
 
-Zum Messen der Genauigkeit der anzufahrenden Ziele und zur Ermittlung der Genauigkeit der Gestenerkennung sollen die mit einem roten Kreuz markierten Positionen, wie in Abbildung \ref{fig:white_page_with_folded_corner} zu sehen sind, in der Simulationsumgebung Gazebo angefahren werden. Bei den durchzuführenden Messungen startet der \quoteMark{WidowX 200}-Lernroboter immer in seiner Standard-Ausgangsposition. Um die Kontur nachfahren zu können soll der Endeffektor aus der Anfangs schrägen Pose zuerst so wie in Abbildung \ref{fig:endeffektor_pose} positioniert werden. Daraufhin sollen die Mittelpunkte der rot markierten Kreuze mit dem Greifer angefahren werden, sodass der Mittelpunkt des Greifers über dem roten Kreuzpunkt liegt. Die Zeit zum Erreichen der Ziele und die Abweichung zu den Zielen werden über 10 Testläufe hinweg gesammelt und daraufhin ausgewertet werden. Die vorraussichtliche Durchlaufzeit für jeden Testlauf wird auf 15 Minuten geschätzt wodurch die Durchführung von 10 Testläufen ca. \num{2,5}-Stunden betragen wird. Diese Zeitdauer sollte ausreichen um zudem die Ergonomie ausreichend testen zu können. Um die Latenz der Gestenerkennung und der Kommunikation mit dem Roboter zu ermitteln und statistisch aussagekräftige Daten zu erhalten werden zudem Tests anhand eines realen \quoteMark{WidowX 200}-Lernroboters durchgeführt. Anzumerken ist, dass aufgrund der 5 DOF des \quoteMark{WidowX 200}-Lernroboters ist ein Teilbereich der Positionen des 3D-Raums nicht ansteuerbar. Hierfür würde wäre ein Industrieroboter mit mindestens 6 DOF notwendig. Im Weltkoordinatensystem-Modus kann es daher aufgrund der 5 DOF des \quoteMark{WidowX 200}-Lernroboters passieren, dass dieser seine Gelenkpositionen mit sehr großen Positionsändernungen, welche in sprunghaften Änderen des Roboters ersichtlich sind, anpassen muss um Positionen im 3D-Raum erreichen zu können.
-
-\textcolor{red}{TODO:\\
-realer Test aufheben von Objekt? wie groß \& wie schwer?\\
-Größe der Seiten in Abbildung 3.3 hinzufügen\\
-Weiteres Testbeispiel hinzufügen? Für Ergonomie Dinge aufheben?
-}
-% https://www.dnsstuff.com/network-latency-test-tools
+Zum Messen der Genauigkeit der anzufahrenden Ziele und zur Ermittlung der Genauigkeit der Gestenerkennung sollen die mit einem roten Kreuz markierten Positionen, wie in Abbildung \ref{fig:white_page_with_folded_corner} zu sehen sind, in der Simulationsumgebung Gazebo angefahren werden. Bei den durchzuführenden Messungen startet der \quoteMark{WidowX 200}-Lernroboter immer in seiner Standard-Ausgangsposition. Der Mittelpunkt des Industrieroboter-Sockels steht auf dem Mittelpunkt des türkisen Kreuzes. Um die Kontur nachfahren zu können soll der Endeffektor aus der Anfangs schrägen Pose zuerst so wie in Abbildung \ref{fig:endeffektor_pose} positioniert werden. Daraufhin sollen die Mittelpunkte der rot markierten Kreuze mit dem Greifer angefahren werden, sodass der Mittelpunkt des Greifers über dem roten Kreuzpunkt liegt. Die Zeit zum Erreichen der Zielpositionen und die Abweichung zu den Zielpositionen werden über einen Testlauf hinweg gesammelt und daraufhin ausgewertet. Die vorraussichtliche Durchlaufzeit für den Testlauf wird auf 15 Minuten geschätzt. Um die Latenz der Gestenerkennung und der Kommunikation mit dem Roboter zu ermitteln und statistisch aussagekräftige Daten zu erhalten werden zudem Latenztests anhand eines realen \quoteMark{WidowX 200}-Lernroboters durchgeführt. Anzumerken ist, dass aufgrund der 5 DOF des \quoteMark{WidowX 200}-Lernroboters nur ein Teilbereich der Positionen des 3D-Raums ansteuerbar ist. Hierfür wäre ein Industrieroboter mit mindestens 6 DOF notwendig. Im Weltkoordinatensystem-Modus kann es daher aufgrund der 5 DOF des \quoteMark{WidowX 200}-Lernroboters passieren, dass dieser seine Gelenkpositionen mit sehr großen Positionsändernungen, welche in sprunghaften Änderen des Roboters ersichtlich sind, anpassen muss um Positionen im 3D-Raum erreichen zu können.
