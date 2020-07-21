@@ -11,9 +11,20 @@ package gestures {
   .RobotGesturesApp *-- GesturesEngine
 }
 
+package k4a {
+  class device
+}
+
+package k4abt {
+  class tracker
+  tracker *-- .device
+}
+
 package kinect {
   class AzureKinectGestures
   .GesturesBase <|-- AzureKinectGestures
+  AzureKinectGestures *-- .device
+  AzureKinectGestures *-- .tracker
 }
 
 package robot_arm {
