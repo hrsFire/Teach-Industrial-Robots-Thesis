@@ -167,7 +167,7 @@ lxc image import ${CONTAINER_NAME}.tar.gz --alias <new-alias>
 \end{enumerate}
 
 
-\subsection{Installation \& Konfiguration der Pakete}
+\subsection{Installation \& Konfiguration der Pakete}\label{appendix1.2:Installation_und_Konfiguration_der_Pakete}
 Mit der zuvor installierten \quoteMark{Ubuntu 20.04 Focal Fossa}-Umgebung können nun die für diese Arbeit benötigten Pakete innerhalb dieser Umgebung installiert und konfiguriert werden.
 
 \begin{enumerate}[label*=\arabic*.]
@@ -454,10 +454,12 @@ sudo apt install cmake gdb gcc python python-catkin-tools
 
     \item Source Code kompilieren:\\
         \begin{redbox}{Wichtig:}
-            Die Roboter-Gesten-Anwendung wird mit der Option \quoteMark{Release} kompiliert. Dies ist empfehlenswert, wenn die Roboter-Gesten-Anwendung im Produktivbetrieb eingesetzt werden soll. Die Option \quoteMark{Release} kann durch die Option \quoteMark{Debug} ersetzt werden um eine Entwicklungsversion mit zusätzlicher Ausgabe zu erstellen. Um eine Version zur Durchführung der in dieser Arbeit erläuterten Messungen zu erhalten wird die Option \quoteMark{Release} und zusätzlich die folgende Option verwendet:
+            Die Roboter-Gesten-Anwendung wird mit der Option \quoteMark{Release} kompiliert. Dies ist empfehlenswert, wenn die Roboter-Gesten-Anwendung im Produktivbetrieb eingesetzt werden soll. Die Option \quoteMark{Release} kann durch die Option \quoteMark{Debug} ersetzt werden um eine Entwicklungsversion mit zusätzlicher Ausgabe zu erstellen. Um eine Version zur Durchführung der in dieser Arbeit erläuterten Messungen zu erhalten wird die Option \quoteMark{Release} und zusätzlich eine der folgenden Optionen für den jeweiligen Testfall verwendet:
 
             \begin{lstlisting}[style=bash]
---cmake-args -DCMAKE_CXX_FLAGS="-DMEASUREMENT"
+--cmake-args -DCMAKE_CXX_FLAGS="-DMEASUREMENT -DGESTURE_MEASUREMENT"
+--cmake-args -DCMAKE_CXX_FLAGS="-DMEASUREMENT -DCOMMUNICATION_MEASUREMENT"
+--cmake-args -DCMAKE_CXX_FLAGS="-DMEASUREMENT -DPOSITION_MEASUREMENT"
             \end{lstlisting}
         \end{redbox}
         \begin{enumerate}[label*=\arabic*.]

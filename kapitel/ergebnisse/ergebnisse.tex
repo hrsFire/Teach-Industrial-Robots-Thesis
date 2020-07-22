@@ -1,28 +1,13 @@
-% https://plantuml.com/de/timing-diagram
+Auf Grundlage der zuvor genannten Messvoraussetzungen konnte die Roboter-Gesten-Anwen-\\dung verschiedenen Tests unterzogen und deren Ergebnisse ausgewertet werden. Zur Durchführung der Tests wurde die Roboter-Gesten-Anwendung mit zusätzlichen \quoteMark{*\_MEASUREMENT}-Flags, zu denen die Flags \quoteMark{GESTURE\_MEASUREMENT}, \quoteMark{COMMUNICATION\_MEASU-\\REMENT} und \quoteMark{POSITION\_MEASUREMENT} zählen, kompiliert um ausführliche Statistikdaten für den jeweils durchgeführten Testfall zu erhalten. Die durchgeführten Tests reichen hierbei von Latenztests der Gestenerkennung mittels der Azure Kinect über Latenztests der Kommunikation mittels ROS und der direkten Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter bis hin zu der Genauigkeit der anzufahrenden Zielpositionen. Die erhobenen statistischen Daten wurden analysiert und werden nachfolgend mittels Diagrammen veranschaulicht und kritisch hinterfragt.
 
-\textcolor{red}{mit MEASUREMENT Flag kompiliert um zu testen}
-
-% Netzwerklatenz & andere Latenzen!!!
 % Implementierung: Roboter wählt seine eigene Bahn
-
-% da ein Delay von < 50 ms aufgrund der Gestenerkennung nicht eingehalten werden kann muss die Berechnung des neuronalen Netzwerks der Gestenerkennung noch schneller werden bzw. auf speziell darauf ausgelegter Hardware (FPGA) ausgeführt werden
-
-% Die Orientierung ist meisten nicht so wichtig. Daher kann diese in einigen bestimmten Fällen auf ein paar Grad genau getestet werden mittels optischen Test bzw. im Simulator
+% Bewegen durch Gesten in beliebigen Koordinatensystemen mit unterschiedlichen Orientierungen
 
 % Wie lange benötige ich für das Teachen mittels Gesten? Ist es ein vertretbarer Aufwand? Was ist ein vertretbarer Aufwand?
 
-% Speziell das Echtzeitverhalten ist eher subjektiv zu betrachten, da jeder die Latenz zwischen Ein- und Ausgabe ein klein wenig anders wahrnimmt.
-
 % Hierfür wurde darauf geeinigt, dass die Bewegungsabläufe des Roboters auch nachträglich nachbearbeitet werden können.
 
-%Die Tests erfolgen in einem virtuellen Raum, in welchem die exakten Positionen bereits vordefiniert sind.
-% Die ermittelten Positionen können dann mit den exakten Positionen verglichen werden und wiederum Kennwerte, wie z.B. der Mittelwert, Standardabweichung, Varianz ermittelt werden.
-
 % Wünschenswert, die Bewegungen können jedoch aber im nachhinein auch nachträglich nachbearbeitet werden. Wenige mm wären ideal, aber wenige cm würden auch genügen.
-
-% Bewegen durch Gesten in beliebigen Koordinatensystemen mit unterschiedlichen Orientierungen
-
-% Herkömmliche Eingabegeräte (z.B. ein Teach Pendant) vs. ein NUI-System (z.B. Azure Kinect mit Tiefensensor zur Erkennung von Gesten); Vergleich mit bisherigen Teach-Lösungen, wie z.B. einem Teachpendant; Die Probanden sollten fachkundig sein und wenn möglich bereits Vorerfahrung mit Möglichkeiten zum Teachen von Robotern haben. -> ist schwer möglich ohne die entsprechende Hardware
 
 % ------------
 
@@ -43,7 +28,7 @@
 
 
 
-%-----------\\
+%-----------
 % konkrete Aussage zur Performanz, Stabilität, Modularität, Hohe Skalierbarkeit,
 % Erweiterbarkeit
 
@@ -56,34 +41,15 @@
 % Entwicklungswerkzeuge
 
 
-% --------------\\
-
-% Andere Vergleiche in der Literatur
-
-
-\textcolor{red}{TODO:\\
-Was wird in diesem Kapitel beschrieben?\\
-Visualisierung:\\
-* Diagramme\\
-* Mittelwert, Standardabweichung, Varianz, ...
-}
+% --------------
 
 % weiche Echtzeitfähigkeit
 % Durchsatz, Latenzen, ...
 
 % Die Gestensteuerung des WidowX 200, welches auf dem für diese Arbeit erstellten Roboter-Gesten-Framework basiert und als Basis für andere gestengesteuerte Roboter dienen kann, wird auf die Ergonomie, Echtzeitfähigkeit, Genauigkeit der Gestenerkennung und Genauigkeit der Zielpositionen hin überprüft. Zudem wird ROS 1 auf die Netzwerklatenz hin überprüft um darauf basierend eine Einschätzung zu gegeben ob sich ROS 1 für echtzeitfähige Systeme eignet.
 
-
-% Durchsatz, Latenzen, ...\\
-% Zeit zur Erkennung von Gesten (Azure Kinect Body Tracking SDK: beinhaltet Latenz von Aussenden des Infrarot-Lichtimpuls bis zum Empfang zur Absorption des Lichtimpuls, durch Belichtungszeit bis hin zur Latenz über das \quoteMark{USB 2.0}-Kabel)?\\
-
-
-
 \section{Latenz der Gestenerkennung}
-\textcolor{red}{Azure Kinect im CPU-Modus anstatt mit Grafikkartenbeschleunigung, weil keine Nvidia Grafikkarte vorhanden war und der kleinste gemeinsame Nenner gewählt wird}
-% --cmake-args -DCMAKE_CXX_FLAGS="-DGESTURE_MEASUREMENT -DMEASUREMENT"
-
-Die Datei \quoteMark{Messung der Gestenerkennung.csv} ist auf der CD/ISO im Verzeichnis \quoteMark{Testdaten/} zu finden.
+Zum Testen der Latenz der Gestenerkennung wurde das Azure Kinect Body Tracking SDK im CPU-Modus anstatt mit der Grafikkartenbeschleunigung gestartet. Dies war notwendig, da eine Grafikkarte von AMD statt einer Nvidia Grafikkarte im Testsystem eingesetzt wird. Zudem kann hiermit der kleinste gemeinsame Nenner der im Umlauf befindlicher Systeme widergespiegelt werden, welche keine propritären Features, wie z.B. CUDA, von Nvidia Grafikkarten verwenden. Als alternative und platformunabhängige Programmierschnittstelle zu CUDA wäre hier z.B. OpenCL oder Vulkan anzumerken \cite{vulkan_api_2020}. Die Latenz der Gestenerkennung beinhaltet die Zeit vom Aussenden des Infrarot-Lichtimpuls bis zum Empfang und Absorption des Lichtimpuls bis hin zur Latenz über das \quoteMark{USB 3.0}-Kabel und der Verarbietung der Daten durch das Azure Kinect Body Tracking SDK. Zum Testen der Latenz der Gestenerkennung wurde die Roboter-Gesten-Anwendung und deren Abhängigkeiten mittels der Flags \quoteMark{MEASUREMENT} und \quoteMark{GESTURE\_MEASUREMENT}, welche im Anhang \ref{appendix1.2:Installation_und_Konfiguration_der_Pakete} aufgezeigt werden, kompiliert. Die Datei \quoteMark{Messung der Gestenerkennung.csv}, welche bei der Durchführung des Tests von der Roboter-Gesten-Anwendung erstellt wurde, ist auf der CD/ISO im Verzeichnis \quoteMark{Testdaten/} zu finden.
 
 \begin{figure}[htb]
 	\centering
@@ -93,8 +59,10 @@ Die Datei \quoteMark{Messung der Gestenerkennung.csv} ist auf der CD/ISO im Verz
 \end{figure}
 \FloatBarrier
 
+In Abbildung \ref{fig:measurement_gesture_recognition_azure_kinect} ist zu sehen, dass der Mittelwert der Gestenerkennungsdauer, welcher durch die hellrote Linie visualisiert wird, in Richtung \num{326,29} ms tendiert. Die minimale Dauer der Gestenerkennung, welche durch die untere orange Linie visualisiert wird, beträgt \num{291} ms. Die maximale Dauer der Gestenerkennung, welche durch die obere orange Linie visualisiert wird, beträgt hingegen \num{366} ms. Die violette Linie stellt die Tendenz der Gestenerkennungsdauer dar, welche jedoch gleich zu bleiben scheint. Anzumerken ist, dass die Gestenerkennungsdauer sich im Durchschnitt stabil im Bereich zwischen \num{314,02} ms und \num{338,55} ms bewegt. Die annähernd gleich bleibende Gestenerkennungsdauer kann auf das DNN des Azure Kinect Body Tracking SDKs und den eingesetzten Prozess-Scheduler zurückgeführt werden. Eine nichtdeterministische Berechnung würde hierbei vermehrt Spikes und unvorhersagbarere Änderungen bei der Gestenerkennungsdauer bewirken. Nichtsdestotrotz liegen diese Werte weit über den 50 ms, welches für ein Teach Pendant empfohlen wird \cite[55]{prassler_advances_2004}. Zudem ist eine Verzögerung der Gestenerkennung bei über 100 ms für die bedienende Person bereits deutlich spürbar \cite{miller_response_1968}.
 
-\section{Latenz der Übertragung mit und ohne ROS-Anbindung}
+\section{Latenz der Roboter-Kommunikation mit und ohne ROS-Anbindung}
+Für diesen Testfall wurde die Roboter-Gesten-Anwendung und deren Abhängigkeiten mittels der Flags \quoteMark{MEASUREMENT} und \quoteMark{COMMUNICATION\_MEASUREMENT}, welche im Anhang \ref{appendix1.2:Installation_und_Konfiguration_der_Pakete} aufgezeigt werden, kompiliert.
 \textcolor{red}{TODO:\\
 Praxistest mit zusätzlicher Gestenerkennung oder ohne?\\
 WidowX 200\\
@@ -147,7 +115,11 @@ Verschiedene Netzwerkkonstellationen simulieren? % aus dem Sicherheitsaspekt sol
 %vom Durchführen der Geste bis zum erfolgreichen Erkennen von unterschiedlichen Gesten. Unterschiedliche Gesten können mitunter z.T. mehr oder weniger Zeit beanspruchen je nach Komplexität der Geste.
 
 
-\section{Genauigkeit der Ziele}
+\section{Genauigkeit der Zielpositionen}
+Zur Genauigkeitsmessung der Zielpositionen werden diese im Simulator Gazebo durchgeführt. In der Simulationsumgebung wurde ein virtueller Raum erschaffen, in welchem die Zielpositionen bereits genau vordefiniert sind. Die ermittelten Positionen können daraufhin mit den exakten Positionen verglichen werden um so genaue Differenzen bestimmen zu können.
+
+Für diesen Testfall wurde die Roboter-Gesten-Anwendung und deren Abhängigkeiten mittels der Flags \quoteMark{MEASUREMENT} und \quoteMark{POSITION\_MEASUREMENT}, welche im Anhang \ref{appendix1.2:Installation_und_Konfiguration_der_Pakete} aufgezeigt werden, kompiliert.
+
 \textcolor{red}{TODO}
 
 %Im Vergleich zu einer anderen Eingabemethode%\\
