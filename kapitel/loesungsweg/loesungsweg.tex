@@ -256,6 +256,61 @@ In Abbildung \ref{fig:perpendicular_distance_illustration} wird einer der Gesten
 
 Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und nutzt daher dieses als Grundlage, wie in Abbildung \ref{fig:gesture_robot_system_uml} mithilfe der \quoteMark{gestures}- und \quoteMark{robot\_arm}-Pakete visualisiert wurde. In dieser Anwendung wurden zudem die ausgewählten Gesten mithilfe der Gestenerkennungsalgorithmen des Roboter-Gesten-Frameworks umgesetzt. Hierzu verwendet es die vom Roboter-Gesten-Framework angebotenen Programmierschnittstellen um die Azure Kinect und den \quoteMark{WidowX 200}-Lernroboter, welcher über ROS mittels MoveIt oder eine direkte Kommunikation angesteuert werden kann, miteinander kommunizieren lassen zu können. Die \quoteMark{AzureKinectGestures}-Klasse verwendet hierbei die von Microsoft bereitgestellte Klasse \quoteMark{tracker}, welches für das Body Tracking zuständig ist, und \quoteMark{device}, welches ein \quoteMark{Azure Kinect}-Gerät verwaltet. Um vergleichbare Kommunikationsimplementierungen für ROS und die direkte Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter gewährleisten zu können, musste für den \quoteMark{WidowX 200}-Lernroboter das \quoteMark{InterbotiX}-SDK um eine direkte Kommunikation erweitert werden. Hierfür wurden die vom Roboter-Gesten-Framework bereitgestellten Programmierschnittstellen, wie z.B. die \quoteMark{GesturesBase}-Klasse und das \quoteMark{GesturesQuery}-Interface, verwendet um die einheitliche Kommunikation mit dem \quoteMark{WidowX 200}-Lernroboter zu realisieren. Für den \quoteMark{WidowX 200}-Lernroboter und die Azure Kinect wurden daher die entsprechenden Programmierschnittstellen für die Roboter-Gesten-Anwendung implementiert. Die genannte Klassenhierarchie und Vererbungsmöglichkeiten in Abbildung \ref{fig:gesture_robot_system_uml} ermöglicht jedoch die Unterstützung beliebiger Roboter und Tiefenkameras, solange die entsprechenden Programmierschnittstellen implementiert werden.\\
 
+\begin{lstlisting}[language=C++, caption={\quoteMark{GesturesQuery}- und \quoteMark{GesturesBase}-Programmierschnittstelle zur Anbindung eines Industrieroboters}, label={lst:gesutes_query_and_gestures_base_interface}]
+class GesturesQuery {
+public:
+    virtual bool IsGesture(uint32_t startJointIndex, uint32_t
+      endJointIndex, uint32_t jointIndex, double minDistance,
+      double maxDistance) const = 0;
+    virtual bool IsGesture(uint32_t jointIndex1, uint32_t
+      jointIndex2, double minDistance, double maxDistance) const
+      = 0;
+    virtual bool IsJointVisible(uint32_t jointIndex) const = 0;
+};
+
+class GesturesBase : public GesturesQuery {
+public:
+    virtual void NextCycle() = 0;
+    virtual bool IsNewDataAvailable() = 0;
+};
+\end{lstlisting}\leavevmode\newline\vspace{-1.0em}
+
+In Listing \ref{lst:gesutes_query_and_gestures_base_interface} sind die in Abbildung \ref{fig:gesture_robot_system_uml} ersichtlichen Basisklassen \quoteMark{GesturesBase} und \quoteMark{GesturesQuery} ersichtlich. Diese zweit sind notwendig um eine beliebige Tiefenkamera anbinden zu können. Eine Referenzimplementierung wurde bereits für die Azure Kinect implementiert. Die Klasse \quoteMark{GesturesQuery} ist dafür vorgesehen um die Implementierung einer Geste unabhängig von der Tiefenkamera zu machen. Der Vorteil besteht darin, dass hierdurch die Geste vom Entwickler nur einmal definiert werden muss und stattdessen die Implementierung der jeweilige Tiefenkamera übernimmt. Hiedurch wird der Zugriff auf die Funktionalitäten der Tiefenkamera abstrahiert und ein einfaches Austauschen der Tiefenkamera ohne aufwändige Anpassungen ermöglicht. Die \quoteMark{GesturesQuery}-Klasse kann mit der Methode \quoteMark{IsGesture} abfragen ob zwei oder drei Punkte eines erkannten Körperbereichs in einem bestimmten Bereich zwische minimaler und maximaler Distanz liegt. Z.B. kann hierdurch abgefragt werden ob der Zeigefinger zwischen dem Schlüsselbein und der Schulter liegt. Zudem kann abgefragt werden ob ein Körperbereich sichtbar ist und daher von der Tiefenkamera erkannt wurde. Dies ist unter anderem sinnvoll um zu erkennen ob die bedienende Person während der Durchführung der Gesten zur Tiefenkamera schaut. Mit der \quoteMark{GesturesBase}-Klasse können mit der Methode \quoteMark{NextCycle} neue Tiefeninformationen verarbeitet und mit der Methode \quoteMark{IsNewDataAvailable} überprüft werden ob neue bereits verarbeitete Tiefeninformationen bereitstehen.\\
+
+\begin{lstlisting}[language=C++, caption={\quoteMark{RobotArmBase}-Programmierschnittstelle zur Anbindung einer Tiefenkamera}, label={lst:robot_arm_base_interface}]
+class RobotArmBase {
+public:
+    virtual std::unordered_map<JointNameImpl, JointState>
+      GetJointStates() = 0;
+    virtual bool GetCurrentPose(const JointName&
+      endEffectorJointName, geometry_msgs::Pose& pose) = 0;
+    virtual void SendJointCommand(const JointName& jointName,
+      double value) = 0;
+    virtual void SendJointCommands(const std::unordered_map<
+      JointNameImpl, double>& jointValues) = 0;
+    virtual void SendJointTrajectory(const std::unordered_map<
+      JointNameImpl, JointTrajectoryPoint>& jointTrajectoryPoints)
+      = 0;
+    virtual void SendGripperCommand(double value) = 0;
+    virtual void SendGripperTrajectory(const std::unordered_map<
+      JointNameImpl, JointTrajectoryPoint>& jointTrajectoryPoints)
+      = 0;
+    virtual void SendPose(const geometry_msgs::Pose& pose, const
+      JointName& endEffectorJointName) = 0;
+    virtual void SetOperatingMode(const OperatingMode&
+      operatingMode, const AffectedJoints& affectedJoints, const
+      JointName& jointName, bool useCustomProfiles, int
+      profileVelocity, int profileAcceleration) = 0;
+    virtual std::shared_ptr<RobotInfo> GetRobotInfo() = 0;
+    virtual double CalculateAccelerationDistance(const JointName&
+      jointName, const std::chrono::milliseconds& duration) = 0;
+    virtual double CalculateAccelerationDistance(const std::chrono::
+      milliseconds& duration) = 0;
+};
+\end{lstlisting}\leavevmode\newline\vspace{-1.0em}
+
+Aufgrund des Sicherheitsaspekts muss zudem die \quoteMark{RobotArmBase}-Klasse, welche als Programmierschnittstelle zum Industrieroboter dient und in Listing \ref{lst:robot_arm_base_interface} ersichtlich ist, zur Anbindung eines Industrieroboters an das Roboter-Gesten-Framework für einen spezifischen Industrieroboter separat implementiert werden. Dies ist notwendig, da jeder Industrieroboter unterschiedliche Anforderungen an die Gelenkbeschleunigung stellt, wobei jedoch eine zu hohe Gelenkbeschleunigung zu lebensbedrohlichen Situationen führen kann. Daher ist es sinnvoll die Verantwortung einer geeigneten Gelenkbeschleunigung an die Entwickler des spezifischen Roboters abzugeben. Eine Referenzimplementierung wurde bereits für den \quoteMark{WidowX 200}-Lernroboter implementiert. Die \quoteMark{RobotArmBase}-Klasse bietet verschiedene Methoden an um Gelenkpositionen und 3D-Positionen zu setzen und Informationen über den Industrieroboter zu erhalten. Mit der Methode \quoteMark{GetJointStates} können aller derzeitgen Gelenpositionen des Industrieroboters abgefragt und mit der Methode \quoteMark{GetCurrentPose} die 3D-Position spezifischer Gelenke ermittelt werden. Die Methode \quoteMark{SendJointCommand} erlaubt es für ein spezifisches Gelenk die Gelenkposition zu setzen und mit der Methode \quoteMark{SendJointCommands} können die Gelenkpositionen aller vorhandener Gelenke zugleich eingestellt werden. Mit den Methoden \quoteMark{SendJointTrajectory} und \quoteMark{SendGripperTrajectory} können Bewegungsbahnen für spezifische Gelenke oder den TCP an den Industrieroboter gesendet werden. Zur Steuerung des TCP kann die Methode \quoteMark{SendGripperCommand} verwendet werden. Die Methode \quoteMark{SendPose} setzt die 3D-Position eines spezifischen Gelenks und die Methode \quoteMark{SetOperatingMode} ermöglicht unter anderem das Wechseln zwischen Positions-, Spannungs- und Pulsweitenmodulations-Modus sowie weiteren Modis. Mit der Methode \quoteMark{CalculateAccelerationDistance} kann mit der für den Industrieroboter zulässigen Gelenkbeschleunigung und Zeitdauer die zulässige Distanz der Gelenkposition ermittelt werden. Abschließend ist noch die Methode \quoteMark{GetRobotInfo} zu erwähnen, welche es ermöglicht detaillierte Informationen, wie z.B. die Anzahl der Gelenke, die Schlafposition, die Startposition oder die Verfügbarkeit eines TCPs des jeweiligen Industrieroboters, zu ermitteln.
+
 \begin{figure}[!h]
     \tikzstyle{block} = [draw, fill=green!18, rectangle, minimum height=3em, minimum width=6em, rounded corners=0.05cm]
     \tikzstyle{sum} = [draw, fill=green!18, circle, node distance=2cm]
@@ -302,7 +357,17 @@ Die Roboter-Gesten-Anwendung wurde mit dem Roboter-Gesten-Framework erstellt und
     \label{fig:regelkreis_tir}
 \end{figure}\FloatBarrier
 
-Der Industrieroboter wird über den Mensch, welcher in dieser Arbeit die bedienende Person ist, mithilfe der Roboter-Gesten-Anwendung bewegt. Dieser Datenfluss kann mit dem Regelkreis in Abbildung \ref{fig:regelkreis_tir} visualisiert werden. Bei einer durch das Gesten-Subsystem korrekt erkannten Eingabe des Menschen werden die Gelenke des Industrieroboters auf die notwendige Art und Weise eingestellt um die gewünschte Zielpose zu erreichen. Hierbei fungiert der Mensch, wie in Abbildung \ref{fig:regelkreis_tir} zu sehen ist, als Regler und die Roboter-Gesten-Anwendung als Stellsystem. Die ROS-Anbindung ermöglicht es zudem die Steuerbefehle neben der direkten Kommunikation auch über ROS zu versenden. Störungen, wie z.B. Gelenkungenauigkeiten, können dazu führen, dass der Roboter die gewünschte Pose nicht wie gewünscht erreicht. Der Mensch korrigiert deswegen die Pose des Industrieroboters solange bis die gewünschte Zielpose für den Anwendungsfall präzise genug erreicht wurde. Die Messung der Zielpose kann dabei z.B. über eine Schätzung oder ein genaues Ablesen in einer Simulationsumgebung über den Mensch erfolgen.
+Der Industrieroboter wird über den Mensch, welcher in dieser Arbeit die bedienende Person ist, mithilfe der Roboter-Gesten-Anwendung bewegt. Dieser Datenfluss kann mit dem Regelkreis in Abbildung \ref{fig:regelkreis_tir} visualisiert werden. Bei einer durch das Gesten-Subsystem korrekt erkannten Eingabe des Menschen werden die Gelenke des Industrieroboters auf die notwendige Art und Weise eingestellt um die gewünschte Zielpose zu erreichen. Hierbei fungiert der Mensch, wie in Abbildung \ref{fig:regelkreis_tir} zu sehen ist, als Regler und die Roboter-Gesten-Anwendung als Stellsystem. Die ROS-Anbindung ermöglicht es zudem die Steuerbefehle neben der direkten Kommunikation auch über ROS zu versenden. Störungen, wie z.B. Gelenkungenauigkeiten, können dazu führen, dass der Roboter die gewünschte Pose nicht wie gewünscht erreicht. Der Mensch korrigiert deswegen die Pose des Industrieroboters solange bis die gewünschte Zielpose für den Anwendungsfall präzise genug erreicht wurde. Die Messung der Zielpose kann dabei z.B. über eine Schätzung oder ein genaues Ablesen in einer Simulationsumgebung über den Mensch erfolgen. In der derzeitgen Implementation der Roboter-Gesten-Anwendung ist es nicht möglich die aufgezeichneten Gelenkpositionen mit unterschiedlicher Geschwindigkeit abzufahren und zudem wählt der Industrieroboter seine eigene Bahn im PTP-Modus anstatt die Zwischenpunkte zwischen den aufgezeichneten Positionen anhand einer vorgegebenen Bahn, wie z.B. einer Kurve oder einer Gerade, zu interpolieren.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.95\textwidth]{images/loesungsweg/moveit_flowchart}
+	\caption[Interaktion von MoveIt mit InterbotiX-Node]{Interaktion von MoveIt mit InterbotiX-Node\\Eigene Darstellung, in Anlehnung an \cite{interbotixinterbotix_ros_arms_github_image_nodate}}
+	\label{fig:interbotixinterbotix_ros_arms_github_image_nodate}
+\end{figure}
+\FloatBarrier
+
+In Abbildung \ref{fig:interbotixinterbotix_ros_arms_github_image_nodate} ist die ROS-Kommunikaton von MoveIt mit dem verwendeten InterbotiX-Node, welcher mit dem \quoteMark{WidowX 200}-Lernroboter kommuniziert, visualisiert. Hierbei ist anzumerken, dass der InterbotiX-Node durch MoveIt gesteuert werden kann und so die Steuerungsbefehle zuerst an MoveIt und anschließend an den InterbotiX-Node gesendet werden. MoveIt kann daher auf die Informationen der Gelenke mithilfe des \quoteMark{robot\_state\_publisher}-Nodes lesend darauf zugreifen und zudem mithilfe des \quoteMark{moveit\_ros\_move\_group}-Nodes Steuerungsbefehle an den InterbotiX-Node senden um die Gelenkpositionen vom InterbotiX-Node anpassen zu lassen.
 
 \section{Messvoraussetzungen}
 Zur Messung der Übertragunslatenz bei der Gestensteuerung und zum anderen bei der Anbindung mit oder ohne ROS müssen die Messvoraussetzungen für die Replizierbarkeit zuerst klargestestellt werden. Die Messungen und deren Visualierungen basieren auf den Best Practices, welche im wissenschaftlichen Artikel \quoteMark{Ten Simple Rules for Effective StatisticalPractice} veröffentlicht wurden. Diese Regeln des wissenschaftlichen Artikels lauten wie folgt \cite{kass_ten_2016}:
@@ -333,7 +398,7 @@ Neben der Übertragungslatenz sind die genannten Messvoraussetzungen, aber auch 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.48\textwidth]{images/loesungsweg/endeffektor_pose_2}
+	\includegraphics[width=0.50\textwidth]{images/loesungsweg/endeffektor_pose_2}
 	\caption[Endeffektorpose für Testbeispiel]{Endeffektorpose für Testbeispiel\\Quelle: Eigene Darstellung}
 	\label{fig:endeffektor_pose}
 \end{figure}
