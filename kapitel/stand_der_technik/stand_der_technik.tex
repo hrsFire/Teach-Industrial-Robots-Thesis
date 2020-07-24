@@ -63,39 +63,6 @@ Bei einer großen Abweichung der Absolutgenauigkeit führt dies jedoch zu einem 
 
 Wie in Abbildung \ref{fig:wiederholgenauigkeit} zu sehen ist, kann daraus geschlossen werden, dass keine hohe Präzision durch eine schlechte Wiederholgenauigkeit möglich ist. Aus diesem Grund kann auch gesagt werden, dass die Wiederholgenauigkeit entscheidenter als die Absolutgenauigkeit zum erreichen der Zielposition ist, da umgekehrt nicht gesagt werden kann, dass eine hohe Präzision durch eine gute Wiederholgenauigkeit erreicht wird \cite{genauigkeit_nodate}.
 
-
-%"Die genaue Definition findest Du in der EN ISO 29283 (ehemals ISO 9283). Dort wird auch beschrieben, wie man die Genauigkeiten ermittelt." (https://www.roboternetz.de/community/threads/35643-absolutgenauigkeit)
-
-
-
-% ----------------------
-
-% S. 25 pott_industrielle_2019   kinematische Transformation (direkte & indirekte Transformation)
-% cBei seriellen Robotern ist die direkte Kinema- tik stets eindeutig, während es für eine gewünschte Position des Endeffektors häufig mehr als eine Lösung gibt. Bei Knickarmrobotern kann es je nach Position bis zu acht mögliche Achsstellungen für eine vorgegebene Position des Endeffektors geben.``
-
-
-
-% S. 54 - 56 pott_industrielle_2019
-
-%\subsection{Bewegungsdynamik}
-%\subsection{Steifigkeit}
-
-
-
-
-% https://www.youtube.com/watch?v=wKiJaK-RDKI
-% https://www.youtube.com/watch?v=GNrU2zviRpc
-% https://www.youtube.com/watch?v=A9M1zX3GzX0
-% https://www.youtube.com/watch?v=9iCLK__7ymY
-
-
-
-% https://de.wikipedia.org/wiki/Industrieroboter
-% https://link.springer.com/chapter/10.1007%2F3-540-34823-9_27
-
-% Wie schnell können diese reagieren? (Zeitverhalten) je nach Roboterarm verschieden
-
-
 \section{Teachen von Industrierobotern}
 Teachen, welches auch als Teach-In bezeichnet wird, ist eine von mehreren möglichen Varianten einem Industrieroboter gewünschte Posen beizubringen, damit dieser seine Arbeitsaufgabe autonom durchführen kann.
 
@@ -117,17 +84,7 @@ Zur Programmierung mit dem Teach-In-Verfahren werden Teach Pendants, wie in Abbi
 
 Weitere Tasten wie z.B. Menü, Funktionen, Bewegung und Navigation, wie in Abbildung \ref{fig:teach_pendant} zu sehen ist, sind herstellerspezifisch und daher optional. Aus diesem Grund kann ein Teach Pendant je nach Hersteller unterschiedliche herstellerspezifischen Funktionstasten aufweisen, welche zumeist Zugriff auf die am häufigsten verwendeten Funktionalitäten des Teach Pendants bieten \cite{dinwiddie_basic_2015}. Neben diesen Sicherheitsfeatures gibt es auch herstellerübergreifende Features um den Industrieroboter zu steuern. Eines dieser Features ist das Wechseln zwischen unterschiedlichen Bewegungsmodi. Zu diesen Bewegungsmodi zählen der Gelenk-, Welt-Koordinatensystem- und Tool-Koordinatensystem-Modus. Der Gelenk-Modus erlaubt es die Position der Gelenke mithilfe des Teach Pendants jeweils einzeln oder alle Gelenke zusammen zu bewegen. Dieser Modus ermöglicht es daher die volle Kontrolle über alle Gelenke des Industrieroboters zu erlangen und diese an die jeweiligen Gegebenheiten der Umgebung anzupassen. Der Gelenk-Modus wird daher häufig zum Erreichen von schwer zugänglichen Stellen eingesetzt. Im Gegensatz zum Gelenk-Modus erlaubt es der Welt-Koordinatensystem-Modus den Mittelpunkt des Endeffektors (TCP) in der x-, y- oder z-Achse zu bewegen und Rotationen um die x-, y- oder z-Achse im Weltkoordinatensystem durchzuführen. Der Sockel des Industrieroboters stellt den Mittelpunkt des Weltkoordinatensystems dar. Für diesen Modus werden die Positionen der Gelenke über die inverse Kinematik, ermittelt und automatisch vom Teach Pendant eingestellt \cite{jogging_2017}. Wenn bei Knickarmrobotern die Pose des Endeffektors bei der Berechnung der inversen Kinematik berücksichtigt wird, kann es je nach gewählter Pose des Endeffektors bis zu acht mögliche Gelenksstellungen für den Knickarmroboter geben, wordurch die inverse Kinematik für diesen Fall nicht mehr eindeutig für die gewählte Pose ist \cite[25]{pott_industrielle_2019}. Die letzte Möglichkeit den Industrieroboter einzustellen besteht darin, den TCP des Industrieroboters im Tool-Koordinatensystem-Modus einzustellen. Der Tool-Koordinatensystem-Modus besitzt die gleichen Möglichkeiten, wie der Welt-Koordinatensystem-Modus, verwendet jedoch aber als Referenzkoordinatensystem den TCP \cite{jogging_2017}.
 
-% Genauigkeit % TODO: Welche Genauigkeit ist mit einem Teach Pendant möglich?
-
-
 % Überschleifen: https://www.xplore-dna.net/mod/page/view.php?id=451
-
-% Robotersteuerung (Bewegungsbahn): https://wiki.induux.de/Robotersteuerung
-
-% Point-to-point: https://www.youtube.com/watch?v=Fd7wjZDoh7g
-
-% https://www.computerwoche.de/a/mikroprozessoren-machen-programmierung-erst-effektiv,1160823
-
 
 \section{Arten von Echtzeitverhalten}
 Im Umgang mit Industrierobotern ist es notwendig Echtzeitsysteme einzusetzen, welche für den jeweiligen spezifischen Anwendungsfall die Anforderung an die Reaktionszeit des Systems sicherstellen. Die Anforderung an das Echtzeitsystem können vielseitig sein. Diese können bei sehr zeitkritischen und sicherheitsrelevanten Systemem wenige Millisekunden und bei weniger relevanten Aufgaben, wie z.B. das Speichern von Daten auf eine Festplatte, bis hin zu mehreren Minuten, Stunden, Tagen oder sogar länger in Anspruch nehmen. Die entscheidente Herausforderung für das Echtzeitsystem ist es deshalb zu garantieren, dass das Ergebnis in dem für den Anwendungsfall erforderlichen Zeitintervall geliefert wird. Die möglichen Zeitintervalle werden durch die Hardware limitiert, wordurch eine für den Anwendungsfall entsprechend schnelle Hardware erforderlich ist. Anwendungsfälle mit genügend kleinen Zeitinvervallen können daher nur mit entsprechend schneller Hardware realisiert werden \cite{echtzeitsystem_2020}.
@@ -140,23 +97,6 @@ Um die harte, feste oder weiche Echtzeitanforderungen auf konventionellen Comput
 \subsection{Implementationen gängiger Betriebssysteme} % Implementierungen herkömmlicher Betriebssysteme
 Die gängigen Kernel für Betriebssysteme, zu denen XNU für macOS \cite{xnu_2019}, Windows NT für Windows, Linux für linuxbasierte Distributionen und der FreeBSD-Kernel für das FreeBSD-Betriebssystem zählen, verfügen nur über eingeschränkte weiche Echtzeitfähigkeit, welche nur nicht-deterministisches Verhalten garantieren können. Dies ist dem Umstand geschuldet, dass Normalanwender kein echtzeitfähiges System benötigen und hingegen ein energiesparsames System fordern, welches als Mehrzweck-Betriebssystem für ein breites Aufgabenspektrum eingesetzt werden kann. Echtzeitfähigkeit und Energiesparsam stehen im direkten Konflikt zueinander, da das Echtzeitsystem jederzeit Ressourcen für anfallende Aufgaben bereithalten muss \cite{what_is_an_rtos_nodate}. Linux bietet im Vergleich zu XNU, Windows NT oder dem FreeBSD-Kernel integrierte Prozess-Scheduler an um weiche und feste Echtzeitfähigkeit für Anwendungen zu garantieren. Die echtzeitfähigen Prozess-Scheduler müssen jedoch zuerst aktiviert werden, da standardmäßig der Completely Fair Scheduler eingesetzt wird. Die auswählbaren echtzeitfähigen Prozess-Scheduler sind SCHED\_FIFO, welches auf dem \quoteMark{First In - First out}-Prinzip basiert, SCHED\_RR, welches ein echtzeitbasiertes \quoteMark{Round Robin}-Verfahren realisiert und SCHED\_DEADLINE, welches auf dem \quoteMark{Earliest Deadline First}-Prinzip basiert und eine Weiterentwicklung von SCHED\_FIFO und SCHED\_RR darstellt \cite{sched_deadline_2020}. Zudem soll in Zukunft durch Integration der Real-Time-Patches in den Hauptzweig von Linux der Kernel von Haus aus über harte Echtzeifähigkeit verfügen. Hierzu wurden bereits weitreichende Änderungen in Linux 5.3 übernommen, welches den Weg in diese Richtung ebnen soll \cite{leemhuis_linux_nodate}. Abseits von Linux mit seinen Real-Time-Patches verfügt auch der Windows-CE-Kernel über harte Echtzeitfähigkeit \cite{chattopadhyay_embedded_2013}. Der Windows-CE-Kernel wurde speziell für Embedded Systeme, Thin Clients und eine Vielzahl von mobilen Geräten entwickelt \cite{hall_windows_ce_2005}. Anzumerken ist jedoch, dass der Windows-CE-Kernel nicht mit dem Windows NT Kernel verwechselt werden sollte und zuletzt im Juni 2013 aktualisiert wurde \cite{microsoft_windows_ce_2019}. Der Windows NT Kernel kann aber wie Linux mit einer Echtzeit-Erweiterung, wie z.B. Real Time eXtensions for Windows oder durch iNtime, um harte Echtzeitfähigkeiten erweitert werden \cite{marchesin_using_2004}. Im Normalfall verfügen abgespeckte Echtzeitbetriebssystem im Vergleich zu Linux oder Windows mit Echtzeiterweiterung über eingeschränkte Funktionalität, wodurch die Entwicklungszeit von Anwendungen drastisch ansteigt. Es ist daher empfehlenswert ein Echtzeitbetriebssystem mit zusätzlichen Funktionalität, wie z.B. Linux oder Windows mit Echtzeiterweiterung, zu verwenden um die Entwicklungszeit drastisch zu verkürzen \cite[433]{echtzeitsystem_2020}.
 
-
-
-%--------------------
-
-% Deadlock verhindern: https://de.wikipedia.org/wiki/Deadlock_(Informatik)
-
-% https://books.google.at/books?id=llghBAAAQBAJ&pg=PA182&lpg=PA182&dq=zeitverhalten+echtzeitverhalten&source=bl&ots=hVS6os93-J&sig=ACfU3U3Yt0ChDwoIIZzmuAYv63MRfg-Y6Q&hl=de&sa=X&ved=2ahUKEwj8qvuqzerpAhVp5KYKHZTBA0AQ6AEwBHoECAgQAQ#v=onepage&q=zeitverhalten%20echtzeitverhalten&f=false
-% --> downloaded
-% S. 1 - 4
-
-%"zeitunkritische Übertragung von TCP/UDP/IP
-% x Soft Real Time (SRT) für zeitkritische Übertragung mit 5–10 ms Zykluszeit
-% x Isochronous Real Time (IRT) für Echtzeitübertragung mit Zykluszeiten von
-% 1 ms (150 Teilnehmer) bis zu 0,25 ms (35 Teilnehmer) und einem Jitter von
-% kleiner 1 Ps."
-% S. 309
-
 \section{Sicherheitsanforderungen im Umgang mit Industrierobotern}
 Die Sicherheitsanforderungen im Umgang mit Industrierobotern sind den Maschinenrichtlinien zu entnehmen, welche auch Industrieroboter miteinschließen. Hierzu gibt es unter anderem die europäische Richtlinie, welche in 2006/42/EG definiert ist, und eine internationale Norm, welche in der ISO EN 10218 festgehalten wurde \cite{industrieroboter_2020}. Die wichtigsten Aspekte der \quoteMark{ISO EN 10218}-Norm sind das Einhalten von einem ausreichenden Sicherheitsabstand zur Maschine, wenn möglich das räumliche Trennen von Mensch und Maschine und die Verringerung der Beschleunigung und Geschwindigkeit der Maschine auf ein für den Menschen ungefährliches Niveau, wenn ein Mensch die Maschine bedient oder sich sogar in unmittelbarer Nähe befindet. Die räumliche Trennung kann mittels Schutzgitter sichergestellt werden. Das Schutzgitter darf nur über eine Schutztüre betretten werden können. Wenn die Türe geöffnet oder eine Lichtschranke unterbrochen wird, muss sichergestellt werden, dass der Industrieroboter sofort anhält. Zudem muss das Handbediengerät eine Notstop-Funktion aufweisen und ein unabsichtliches Betätigen eines Schalters auf dem Handbediengerät, welches den Industrieroboter zu unvorhergesehenen Manövern bewegen würde, augeschlossern werden können. Für den Menschen sollte es zudem ersichtlich sein in welchem Zustand sich die Maschine befindet um gefährliche Situationen zu vermeiden. Es muss zudem sichergestellt werden, dass die Notstop-Funktion und weitere personenbezogene Sicherheitsfunktionen durch redundante Steuerkreise jederzeit funktionsfähig bleiben \cite{behnisch_iso_2008}. Um mit der Maschinenrichtlinien 2006/42/EG und der \quoteMark{ISO EN 10218}-Norm im Einklang zu stehen muss aber auch sichergestellt werden, dass das Handeingabegerät, welches auch kabellos betrieben werden kann, eine deterministische Eingabemöglichkeit bietet. Die Latenz des Kommunikationskanals des Eingabegerätes muss daher weniger als 50 ms betragen und ein deterministisches Verhalten aufweisen, damit die personenbezogenen Sicherheitsfunktionen auch jederzeit funktionsfähig bleiben. Hierzu eignet sich ein Echtzeitbetriebssystem, welches diese geringe Latenz von unter 50 ms mit einem deterministischen Verhalten sicherstellen kann \cite[55]{prassler_advances_2004}.
 
@@ -164,8 +104,6 @@ Die Sicherheitsanforderungen im Umgang mit Industrierobotern sind den Maschinenr
 Das Robot Operating System, welches auch kurz ROS genannt wird, ist kein Betriebssystem im eigentlichen Sinne. Es ist vielmehr ein Framework, welches es ermöglicht die Roboterentwicklung zu vereinfachen und modularer zu gestalten. Vor allem die Modularität ist die größte Stärke von ROS, da hierdurch wiederverwendbare Packages entstanden sind. Packages reichen hierbei von GUI-Tools bis hin zu wiederverwendaren Algorithmen, welche früher für jeden Roboter aufwendig von Grund auf neuprogrammiert werden mussten. Dadurch stieg das Bedürfnis nach wiederverwendaren Softwarebausteinen um die Roboterentwicklung zu vereinfachen \cite[517]{worn_echtzeitsysteme_2006}. ROS verwendet für die Roboterentwicklung hierzu die Stärke des \quoteMark{Open Source}-Ökosystems, welche es ermöglicht ein komplexes System mit vielen über die Welt verteilten und unabhängigen Entwicklern, welche von ROS profitieren können, zu gestalten und durch die Arbeiten der ROS-Community hohe Entwicklungskosten zu sparen. Die Offenheit und die lebendendige ROS-Community sind daher entscheidente Gründe warum ROS so erfolgreich wurde \cite[411\psq]{koubaa_robot_operating_system_2019}.\\
 
 Zurzeit ist ROS in Version 2 verfügbar, jedoch aber aufgrund vieler noch nicht auf ROS 2 portierter Packages sehr eingeschränkt nutzbar. Es wird daher von der offiziellen ROS-Seite\footnote{\href{https://www.ros.org/}{https://www.ros.org/}} empfohlen ROS 1 zu verwenden, da es von ROS 2 nur Vorabversionen gibt und daher noch inkompatible Änderungen stattfinden können \cite{ros_distributions_nodate}. Zudem ist es empfehlenswert auf die LTS-Version Melodic Morenia zu setzen, welche bis April 2023 offiziell Langzeitunterstützung erhält \cite{robot_operating_system_2020}. In Zukunft soll ROS 2 im Gegensatz zu ROS 1 Echtzeitunterstützung und Sicherheitsfeatures, welche es verhindern sollen ROS-Messages zu manipulieren und womöglich von einem Angreifer ausgenützt werden könnten um Menschen in gefährliche Situationen zu bringen, erhalten \cite[613\psqq]{koubaa_robot_operating_system_2019}. Derzeit wird  aufgrund des sehr Sicherheitslücken behafteten Softwaredesigns von ROS 1 empfohlen ein speziell für einen Roboter erstelltes Netzwerk für ROS 1 zu verwenden um Manipulationen von einem Angreifer ausschließen zu können \cite{pohl_robot_operating_system_2014}. Wie schon erwähnt unterstützt ROS 1 keine Echtzeitfähigkeit, kann jedoch aber mit echtzeifähigen Komponenten zusammenarbeiten \cite{robot_operating_system_2020}.\clearpage
-
-% https://www.ros.org/is-ros-for-me/
 
 \subsection{Softwarearchitektur}
 \begin{figure}[htb]
@@ -189,11 +127,6 @@ Der aktive Tiefensensor verwendet zur Ermittlung der Distanzen einen in regelmä
 
 \subsection{Azure Kinect}
 Die Azure Kinect ist als Entwicklerkit verfügbar und integriert eine 12-Megapixel-RGB-Kamera, eine 1-Megapixel-Tiefenkamera, ein räumliches Mikrofon, welches aus sieben in Verbund geschaltenen Mikrofonen besteht, welche in einem Kreis hexagonal und in dessem Mittelpunkt angeordnet sind, und einem Orientierungssensor um Aufgaben in unterschiedlichen industriellen Bereichen, wie z.B. Robotik, Verkauf, Logistik und Gesundheitswesen, durchführen zu können. Aus diesem Grund bietet die Azure Kinect auch die Möglichkeit an, mehrere Azure Kinects über Synchronisationspins miteinander zu verbinden. Im Gegensatz zu den vorherigen Iterationen der Kinect, welche die Kinect 1 und Kinect 2 miteinschließen, bietet die Azure Kinect einen höher aufgelösten Tiefensensor und eine höher aufgelöste RGB-Kamera. Zudem richtet sich die Azure Kinect im Gegensatz zu den vorherigen Iterationen vielmehr an industrielle Anforderungen anstatt an die Anforderungen der Spielebranche, wie auch die Anbindung an die Azure Cloud darauf schließen lässt. Die Azure Cloud kann optional mit der Azure Kinect verwendet werden und bietet vor allem die Möglichkeit an, AI-Aufgaben in die Azure Cloud auszulagern \cite{azure_kinect_2020}. Die Azure Kinect benötigt zwingend einen Rechner mit Windows 10 oder mindestens Ubuntu 18.04 als Betriebssystem und eine Hardwareausstattung mit mindestens einem \quoteMark{Intel Core i3}-Prozesser der siebten Generation, einen USB 3.0 Port und 4 GB Arbeitsspeicher um in der Basiskonfiguration ohne zusätzliche Features, wie z.B. Body Tracking, funktionsfähig zu sein. Ein Betrieb ohne einen Rechner ist nicht vorgesehen \cite{azure_kinect_dk_nodate}. Die Azure Kinect kann in einem Temperaturbereich von 10 - 20 °C und im Bereich von 8 bis 90\% der relativen Luftfeuchtigkeit betrieben werden, wobei jedoch keine Kondensation stattfinden darf. Der Tiefensensor kann in einer Distanz von \num{0,25} bis maximal \num{5,46} m je nach verwendetem Tiefensensor-Modus eingesetzt werden, wobei jedoch immer die Reflexionsfähigkeit von Objekten beachtet werden muss. Daher können je nach Objekt auch geringere oder größere Distanzen möglich sein. Der Blickwinkel variiert zudem je nach verwendetem Tiefensensor-Modus zwischen 75°x65° bis hin zu 120°x120°. Im aktiven Modus benötigt die Tiefenkamera für die Belichtungszeit je nach Tiefensensor-Modus zwischen \num{12,8} und \num{20,3} ms. Im passiven Modus hingegen beträgt die Belichtungszeit des Tiefenkamera nur \num{1,2} ms \cite{tesych_azure_nodate}.
-
-% Mixed Reality Headsets (erste und zweite Generation)
-% https://www.microsoft.com/de-de/hololens
-
-% https://mindsquare.de/knowhow/azure-kinect/
 
 \section{Vorhandene Gestenerkennungssysteme}
 An der FH Vorarlberg wurden bereits zwei wissenschaftliche Arbeiten zur Gestenerkennung erstellt. Eine dieser Arbeiten wird derzeit in einem laufenden Forschungsprojekt an der FH Vorarlberg weiterentwickelt. Das genannte Forschungsprojekt ermöglicht die Steuerung eines Industrieroboters mithilfe einer touchfähigen, 50 Zoll großen und senkrecht vor dem Industrieroboter stehende Glasscheibe. Mithilfe dieses Touchpanels können Bewegungen für den Industrieroboter mit den Fingern vorgegebenen werden, welche wiederum vom Industrieroboter direkt nachgefahren werden. Ein weiteres Forschungsprojekt an der FH Vorarlberg beschäftigt sich mit der Handsteuerung des Industrieroboters Fanuc. Dieses Forschungsprojekt wird mithilfe einer Kamera realisert. Ein Nachteil dieses Ansatzes besteht jedoch darin, dass die Kamera für ein ordnungsgemäßes funktionieren der Gestensteuerung auf die Körpergröße der jeweiligen Person eingestellt werden muss. Dies ist einmalig vor der Benutzen der Gestensteuerung notwendig, solange die Einstellungen auf die jeweilige Körpergröße nicht durch andere Personen geändert werden \cite{werth_konferenz_2019}.\\

@@ -1055,3 +1055,42 @@ Ein Beispiel: Der Datendurchsatz eines 11-Mbit/s-WLANs beträgt ca. 50 \% der Ü
 	note = {Library Catalog: www.fiberopticshare.com
 Section: switch}
 }
+
+@misc{azure_kinect_legacy_nodate,
+	title = {Legacy {Body} {Tracking} (like {Kinect} v2!!)},
+	url = {https://feedback.azure.com/forums/920053-azure-kinect-dk/suggestions/39945454-legacy-body-tracking-like-kinect-v2},
+	abstract = {Lets face it.. using machine learning for body tracking is cool and exciting, but we all miss the speed, efficiency, and reliability of the good old Kinect v2 body tracking. 
+
+You don’t need an expensive gaming rig to run Kinect v2 body tracking, it isn’t riddled with latency, it runs way faster and is often more accurate.
+
+Azure Kinect body tracking currently uses a DNN model to derive the skeleton, the Kinect v2 uses a ‘random forest’ model.  
+
+Here are 7 reasons why we need a legacy ‘random forest’ body tracking option on the Azure Kinect:
+
+1) SPEED
+ When you have a powerful Nvidia GPU the Azure Kinect body tracking runs around 15FPS… way too slow for most use cases. The Kinect v2 body tracking runs at 30FPS on pretty much any machine.. but with a few tweaks in the code it could easily run at 60FPS on modern hardware. Imagine 60FPS body tracking, this would be awesome.
+
+2) LATENCY
+There is simply way too much latency with the DNN body tracking, the latency on the Kinect v2 body tracking is barely noticeable. 
+
+3) COMPATIBILITY
+The Azure Kinect body tracking only works on systems with powerful Nvidia GPUs. Kinect v2 body tracking doesn't lock you into one GPU manufacturer, it processes everything on the CPU in real time, allowing you to use many different types of computers, including small form factor arduino-type systems.  The Azure Kinect is so small, light weight and power efficient, why would you want it to only work with big hulking gaming rigs that most people can’t afford?
+
+4) FREEING UP THE GPU
+Random forest (Kinect v2) body tracking isn't processed on the GPU which frees it up to do heavy lifting on visuals - the Azure Kinect DNN model takes up a lot of cycles on the GPU which doesn’t leave you with much to work with. Many Kinect developers use the Kinect to generate real-time visuals, so keeping the GPU free is important.
+
+5) ACCURACY (DYNAMIC MOVEMENT)
+Random forest body tracking generates a more precise index map. DNN may be good for static/individual frame analysis, but the Kinect v2 random forest model is better for dynamic movement. It's better for running/jumping gestures where performance is paramount and way more critical than individual frame accuracy. 
+
+6) POWER EFFICIENCY / ENVIRONMENT
+Efficient body tracking is crucial to Microsoft's vision of Azure Kinect being an industrial tool. Most industrial applications rely on small efficient computers running passively all day. Imagine how wasteful and terrible for the environment it is to have a bunch of RTX 2080's running full-tilt in a warehouse all day. The DNN body tracking is simply too power hungry.
+
+7) BEST OF BOTH WORLDS
+Implementing a “Legacy” option, would allow developers to take a hybrid approach to development. Switching between the different methods could be very useful for many scenarios, would give us best of both worlds and we’d ultimately create better software.
+
+Machine learning/DNN body tracking is an exciting direction forward, but it's important to have something solid while the DNN body tracking is still being developed. Porting the code over from the Kinect v2 api should be relatively simple and it would open up the Kinect Azure to so many more users and developers.},
+	language = {de},
+	urldate = {2020-07-24},
+	journal = {Customer Feedback for ACE Community Tooling},
+	note = {Library Catalog: feedback.azure.com}
+}

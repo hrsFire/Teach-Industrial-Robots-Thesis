@@ -1,5 +1,5 @@
 \section{Einrichtung des Testsystems}\label{appendix1:Einrichtung_des_Testsystems}
-Zur Einrichtung des Testsystems wird zuallererst ein Linux-Container erstellt, welcher ein einfaches und schnelles Deployen auf unterschiedlichen Linux-Distributionen ermöglicht. Zum Hosten des Linux-Containers wird in dieser Installationsanleitung Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu darstellt. Nach der Einrichten des Linux-Containers können die benötigten Pakete in dieser neu erstellten Umgebung installiert und daraufhin entsprechend konfiguriert werden. Der vorkonfigurierte Linux-Container ist auch auf der CD/ISO im Verzeichnis \quoteMark{Linux-Container/} vorzufinden. Dabei ist jedoch zu beachten, dass auf dem Host-System dennoch ein paar wenige Konfigurationsschritte für das Host-System durchgeführt werden müssen. Die Schritte für den Linux-Container können hingegen mit dem vorkonfigurierten Linux-Container übersprungen werden.
+Zur Einrichtung des Testsystems wird zuallererst ein Linux-Container erstellt, welcher ein einfaches und schnelles Deployen auf unterschiedlichen Linux-Distributionen ermöglicht. Zum Hosten des Linux-Containers wird in dieser Installationsanleitung Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu darstellt. Nach der Einrichten des Linux-Containers können die benötigten Pakete in dieser neu erstellten Umgebung installiert und daraufhin entsprechend konfiguriert werden. Der vorkonfigurierte Linux-Container ist als Datei \quoteMark{ros-tir.tar.gz} auch auf dem Beilagemedium im Verzeichnis \quoteMark{Linux-Container/} vorzufinden. Dabei ist jedoch zu beachten, dass auf dem Host-System dennoch ein paar wenige Konfigurationsschritte für das Host-System durchgeführt werden müssen. Die Schritte für den Linux-Container können hingegen mit dem vorkonfigurierten Linux-Container übersprungen werden.
 
 \subsection{Erstellen des Linux-Containers}
 Für die Installation der Linux-Container-Tools werden Administratorrechte auf dem Zielsystem benötigt. Die benötigten Installationsschritte zum Einrichten des Linux-Containers sind wie folgt \cite{lxd_blog_nodate}.
@@ -190,7 +190,7 @@ melodic-rqt-plot ros-melodic-joy
             \item Anschließend müssen die auf der Webseite \href{https://github.com/Interbotix/interbotix_ros_arms#quickstart}{https://github.com/Interbotix/interbotix\\\_ros\_arms\#quickstart} beschriebenen Schritte 1 bis 6 durchgeführt werden:
 
             \begin{redbox}{Wichtig:}
-                Anstelle des \quoteMark{https://github.com/Interbotix/interbotix\_ros\_arms.git}-Repositories muss, dass für diese Arbeit modifizierte Repository, welches auf der CD/ISO im Verzeichnis \quoteMark{Repositories/interbotix\_ros\_arms} beigelegt ist, verwendet werden. Zum Klonen des modifizierten Repositories muss hierzu der folgende Befehl verwendet werden:
+                Anstelle des \quoteMark{https://github.com/Interbotix/interbotix\_ros\_arms.git}-Repositories muss, dass für diese Arbeit modifizierte Repository, welches auf dem Beilagemedium im Verzeichnis \quoteMark{Repositories/interbotix\_ros\_arms} beigelegt ist, verwendet werden. Zum Klonen des modifizierten Repositories muss hierzu der folgende Befehl verwendet werden:
 
                 \begin{lstlisting}[style=bash]
 git clone <path to repository on cd or iso/Repositories/interbotix\
@@ -471,7 +471,7 @@ catkin build -DCMAKE_BUILD_TYPE=Release
 source ~/.bashrc
                 \end{lstlisting}
 
-            \item Den Source Code der Roboter-Gesten-Anwendung auf der CD/ISO aus dem Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} klonen, Abhängigkeiten installieren und anschließend die Roboter-Gesten-Anwendung kompilieren:
+            \item Den Source Code der Roboter-Gesten-Anwendung auf dem Beilagemedium aus dem Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} klonen, Abhängigkeiten installieren und anschließend die Roboter-Gesten-Anwendung kompilieren:
                 \begin{lstlisting}[style=bash]
 mkdir -p ~/tir_ws/src
 cd ~/tir_ws/
@@ -572,7 +572,7 @@ SCHED_DEADLINE=50000000
 SCHED_PERIOD=50000000
 \end{lstlisting}\leavevmode\newline\vspace{-1.0em}
 
-Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}, welches sich auf der CD/ISO im Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} befindet, auf dem Host-System im Linux-Container gestartet und dem \quoteMark{SCHED\_DEADLINE}-Scheduler zugewiesen werden. Die einstellbaren Optionen des Start-Scripts sind im Listing \ref{lst:settings_for_start_script} ersichtlich. Zum Ausführen des Start-Scripts muss im Listing \ref{lst:settings_for_start_script} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\_COMMUNICA-\\TION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{TEACH\_POSITIONS} eingesetzt. Zur Auswahl der verwendeten Positionsdatei kann die Bash-Variable \quoteMark{CONFIGURATION\_FILE\_PATH} mit dem Pfad zur Positionsdatei genutzt werden. Mit der Bash-Variable \quoteMark{USE\_SIMULATION} kann eingestellt werden ob die Anwendung im Simulator gestartet werden soll. Die Bash-Variable \quoteMark{DO\_MEASUREMENT} kann bei Verwendung eines echten Industrieroboters dazu verwendet werden um Messvorraussetzungen, wie z.B. ein simuliertes Netzwerk, bereitzustellen. Zudem kann bei aktivierter \quoteMark{DO\_MEASUREMENT}-Bash-Variable die Bash-Variable \quoteMark{SIMULATE\_ADDITIONAL\_ROS\\\_NODES} aktiviert werden um zusätzlichen Netzwerktraffic zu generieren. Mit der Bash-Variable \quoteMark{ADDITIONAL\_ROS\_NODES\_COUNT} kann bei aktivierter \quoteMark{SIMULATE\_ADD-\\ITIONAL\_ROS\_NODES}-Bash-Variable auch die Anzahl der zu simulierenden ROS-Nodes angegeben werden. Es werden Kamera-ROS-Nodes simuliert, welche jeweils 4K-Bilder mit 60 FPS per UDP über die Netzwerkschnittstelle transferieren. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anwenden zu können, kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den nachstehenden Parametern modifiziert werden.
+Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}, welches sich auf dem Beilagemedium im Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} befindet, auf dem Host-System im Linux-Container gestartet und dem \quoteMark{SCHED\_DEADLINE}-Scheduler zugewiesen werden. Die einstellbaren Optionen des Start-Scripts sind im Listing \ref{lst:settings_for_start_script} ersichtlich. Zum Ausführen des Start-Scripts muss im Listing \ref{lst:settings_for_start_script} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\_COMMUNICA-\\TION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{TEACH\_POSITIONS} eingesetzt. Zur Auswahl der verwendeten Positionsdatei kann die Bash-Variable \quoteMark{CONFIGURATION\_FILE\_PATH} mit dem Pfad zur Positionsdatei genutzt werden. Mit der Bash-Variable \quoteMark{USE\_SIMULATION} kann eingestellt werden ob die Anwendung im Simulator gestartet werden soll. Die Bash-Variable \quoteMark{DO\_MEASUREMENT} kann bei Verwendung eines echten Industrieroboters dazu verwendet werden um Messvorraussetzungen, wie z.B. ein simuliertes Netzwerk, bereitzustellen. Zudem kann bei aktivierter \quoteMark{DO\_MEASUREMENT}-Bash-Variable die Bash-Variable \quoteMark{SIMULATE\_ADDITIONAL\_ROS\\\_NODES} aktiviert werden um zusätzlichen Netzwerktraffic zu generieren. Mit der Bash-Variable \quoteMark{ADDITIONAL\_ROS\_NODES\_COUNT} kann bei aktivierter \quoteMark{SIMULATE\_ADD-\\ITIONAL\_ROS\_NODES}-Bash-Variable auch die Anzahl der zu simulierenden ROS-Nodes angegeben werden. Es werden Kamera-ROS-Nodes simuliert, welche jeweils 4K-Bilder mit 60 FPS per UDP über die Netzwerkschnittstelle transferieren. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anwenden zu können, kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den nachstehenden Parametern modifiziert werden.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.2\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|>{\raggedright\arraybackslash}p{0.50\textwidth}|}
 \hline
@@ -599,23 +599,3 @@ Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}
  & --help & Zeigt die Hilfe\\
 \hline
 \end{longtable}
-
-%-----------------------------------------------
-
-% Scheduler wechseln:
-% cat /sys/block/sda/queue/scheduler
-
-%-------------
-
-% https://www.researchgate.net/publication/331290349_The_real-time_linux_kernel_A_survey_on_Preempt_RT
-
-% -----------
-
-% verwendeter Tiefensensor-Modus -> warum?
-
-% Intel Real Sense Camera ZR300
-
-%-------------------
-
-
-% https://books.google.at/books?id=vVMoDwAAQBAJ&pg=PA229&lpg=PA229&dq=lxc+realtime&source=bl&ots=6aSRy33GKg&sig=ACfU3U13TeQVx0D1fZ5Z6DxLmKdeHTkXOg&hl=de&sa=X&ved=2ahUKEwj3mrWgyuvpAhUEGuwKHdcmDr8Q6AEwA3oECAoQAQ#v=onepage&q=lxc%20realtime&f=false
