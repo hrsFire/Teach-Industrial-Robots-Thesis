@@ -6,17 +6,6 @@
 % Problem: immer in Richtung der Azure Kinect schauen -> diese ist statisch
 
 
-Da die Zeit von unter 50 ms, welches für ein Teach Pendant empfohlen wird \cite[55]{prassler_advances_2004}, nicht eingehalten werden kann  muss die Berechnung des neuronalen Netzwerks der Gestenerkennung noch schneller werden bzw. auf speziell darauf ausgelegter Hardware, wie z.B. FPGAs, ausgeführt werden.
-
-\section{Ausblick}
-\textcolor{red}{TODO}
-
-% ROS ist nicht das Allheilmittel sonder eine mögliche Implementierung die sich erst noch im industriellen Einsatz behaupten muss über die Jahre \cite{noauthor_why_dont_we_use_ros_nodate}
-
-% Was könnte in Zukunft besser gemacht werden?
-
-% Gibt es bessere Alternativen? HoloLens 2 da näher? -> ungenauigkeit auf längere Distanz; Datenhandschuh -> mobiler
-
 % Auch bezüglich der bisher erzielten Erkennungsratensind  noch  Verbesserungen  notwendig,  damit  eine  ausreichende  Akzeptanz  bei  den  Benutzern  erreichtwird.
 
 % ROS den Ansprüchen von Industrierobotern gerecht wird.
@@ -24,7 +13,17 @@ Da die Zeit von unter 50 ms, welches für ein Teach Pendant empfohlen wird \cite
 % Erkennungsrate der Gestenerkennung
 
 % Gibt es weiterführende Themen, welche behandelt werden könnten?
-Der CPU-Modus des Azure Kinect Body Tracking SDKs ist mit einer gemessenen Latenz von 300 ms nutzbar, jedoch aber zeitkritisch aus sicherheitstechnischer Sicht. Aus diesem Grund ist zu hoffen, dass das Azure Kinect Body Tracking SDK neben der CUDA basierten Grafikkartenbeschleunigung, welche nur auf Nvidia basierten Grafikkarten verfügbar ist \cite{encausse_body_nodate}, eine herstellerunabhängige Implementierung erhält. Dies würde vor allem die Performanz der Gestenerkennung, die freie Wahl der Rechnerkomponenten ermöglichen und zudem den Wettbewerb zwischen den Herstellern fördern.\\
+
+% ROS ist nicht das Allheilmittel sonder eine mögliche Implementierung die sich erst noch im industriellen Einsatz behaupten muss über die Jahre \cite{noauthor_why_dont_we_use_ros_nodate}
+
+Da die Zeit von unter 50 ms, welches für ein Teach Pendant empfohlen wird \cite[55]{prassler_advances_2004}, nicht eingehalten werden kann  muss die Berechnung des neuronalen Netzwerks der Gestenerkennung noch schneller werden bzw. auf speziell darauf ausgelegter Hardware, wie z.B. FPGAs, ausgeführt werden.
+
+\section{Ausblick}
+% Was könnte in Zukunft besser gemacht werden?
+
+% Gibt es bessere Alternativen? HoloLens 2 da näher? -> ungenauigkeit auf längere Distanz; Datenhandschuh -> mobiler
+
+Der CPU-Modus des Azure Kinect Body Tracking SDKs ist mit einer gemessenen Latenz von um die 300 ms nutzbar, jedoch aber zeitkritisch aus sicherheitstechnischer Sicht. Aus diesem Grund ist zu hoffen, dass das Azure Kinect Body Tracking SDK neben der CUDA basierten Grafikkartenbeschleunigung, welche nur auf Nvidia basierten Grafikkarten verfügbar ist \cite{encausse_body_nodate}, eine herstellerunabhängige Implementierung erhält. Als alternative und platformunabhängige Programmierschnittstelle zu CUDA wäre hier z.B. OpenCL oder Vulkan anzumerken \cite{vulkan_api_2020}. Dies würde vor allem die Performanz der Gestenerkennung, die freie Wahl der Rechnerkomponenten ermöglichen und zudem den Wettbewerb zwischen den Herstellern fördern.\\
 
 Im Vergleich zur Kinect 2, welche eine \num{0,3}-Megapixel-Tiefenkamera verbaut hat, ist die Azure Kinect, welche eine 1-Megapixel-Tiefenkamera besitzt, bereits eine deutliche Weiterentwicklung zu ihrem Vorgängermodell. Nichtsdestotrotz ist hier jedoch durch den großen Spring von einer \num{0,3}- auf eine 1-Megapixel-Auflösung noch genügend Verbesserungspotenziall vorhanden um noch höhere Auflösungen erreichen zu können \cite{bamji__2018}. Mit einer höheren Auflösung der Tiefenkamera wäre es möglich die Gesten noch genauer zu erkennen und die False-Positive-Rate noch weiter zu verringern. Mittels Eye-Tracking, welches z.B. in der HoloLens 2 verbaut ist \cite{hololens2_hardware_nodate}, könnte man die Sicherheit der bedienenden Person zusätzlich erhöhen und die Gestenerkennung noch zuverlässiger gestalten. Hiermit könnte man unter anderem erkennen ob die bedienende Person Ermüdungserscheinungen aufweist und daher besser eine Pause einlegen sollte oder sogar nicht mehr bei Bewusstsein ist, da die bedienende Person z.B. ungewollt auf dem Boden liegt.\\
 
