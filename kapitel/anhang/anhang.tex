@@ -1,5 +1,5 @@
 \section{Einrichtung des Testsystems}\label{appendix1:Einrichtung_des_Testsystems}
-Zur Einrichtung des Testsystems wird zuallererst ein Linux-Container erstellt, welcher ein einfaches und schnelles Deployen auf unterschiedlichen Linux-Distributionen ermöglicht. Zum Hosten des Linux-Containers wird in dieser Installationsanleitung Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu darstellt. Nach der Einrichten des Linux-Containers können die benötigten Pakete in dieser neu erstellten Umgebung installiert und daraufhin entsprechend konfiguriert werden. Der vorkonfigurierte Linux-Container ist als Datei \quoteMark{ros-tir.tar.gz} auch auf dem Beilagemedium im Verzeichnis \quoteMark{Linux-Container/} vorzufinden. Dabei ist jedoch zu beachten, dass auf dem Host-System dennoch ein paar wenige Konfigurationsschritte für das Host-System durchgeführt werden müssen. Die Schritte für den Linux-Container können hingegen mit dem vorkonfigurierten Linux-Container übersprungen werden.
+Zur Einrichtung des Testsystems wird zuallererst ein Linux-Container erstellt, welcher ein einfaches und schnelles Deployen auf unterschiedlichen Linux-Distributionen ermöglicht. Zum Hosten des Linux-Containers wird in dieser Installationsanleitung Ubuntu 20.04 Focal Fossa verwendet, welches eine LTS-Version von Ubuntu darstellt. Nach der Einrichten des Linux-Containers können die benötigten Pakete in dieser neu erstellten Umgebung installiert und daraufhin entsprechend konfiguriert werden. Der vorkonfigurierte Linux-Container ist als Datei \quoteMark{ros-tir.tar.gz} auch auf dem Begleitmedium im Verzeichnis \quoteMark{Linux-Container/} vorzufinden. Dabei ist jedoch zu beachten, dass auf dem Host-System dennoch ein paar wenige Konfigurationsschritte für das Host-System durchgeführt werden müssen. Die Schritte für den Linux-Container können hingegen mit dem vorkonfigurierten Linux-Container übersprungen werden.
 
 \subsection{Erstellen des Linux-Containers}
 Für die Installation der Linux-Container-Tools werden Administratorrechte auf dem Zielsystem benötigt. Die benötigten Installationsschritte zum Einrichten des Linux-Containers sind wie folgt \cite{lxd_blog_nodate}.
@@ -172,7 +172,7 @@ Mit der zuvor installierten \quoteMark{Ubuntu 20.04 Focal Fossa}-Umgebung könne
 
 \begin{enumerate}[label*=\arabic*.]
     \item Installation von ROS 1:\\
-    Zur Nutzung von ROS 1 muss ROS Melodic installiert werden. Die Installationsanleitung kann der offiziellen ROS-Webseite (\href{http://wiki.ros.org/melodic/Installation/Ubuntu}{http://wiki.ros.org/melodic/Installation/Ubuntu}) entnommen werden. Bei der Installation des ROS-Pakets muss das \quoteMark{ros-melodic-desktop-full}-Paket mit dem folgenden Befehl installiert werden.
+    Zur Nutzung von ROS 1 muss ROS Melodic Morenia installiert werden. Die Installationsanleitung kann man hierzu der offiziellen ROS-Webseite (\href{http://wiki.ros.org/melodic/Installation/Ubuntu}{http://wiki.ros.org/melodic/\\Installation/Ubuntu}) entnehmen. Bei der Installation des ROS-Pakets muss das \quoteMark{ros-melodic-desktop-full}-Paket mit dem folgenden Befehl installiert werden.
 
         \begin{lstlisting}[style=bash]
 sudo apt install ros-melodic-desktop-full
@@ -187,14 +187,13 @@ sudo apt install ros-melodic-robot-state-publisher ros-\
 melodic-rqt-plot ros-melodic-joy
                 \end{lstlisting}
 
-            \item Anschließend müssen die auf der Webseite \href{https://github.com/Interbotix/interbotix_ros_arms#quickstart}{https://github.com/Interbotix/interbotix\\\_ros\_arms\#quickstart} beschriebenen Schritte 1 bis 6 durchgeführt werden:
+            \item Anschließend müssen die auf der Webseite \href{https://github.com/Interbotix/interbotix_ros_arms#quickstart}{https://github.com/Interbotix/interbotix\\\_ros\_arms\#quickstart} beschriebenen Schritte 1 bis 6 durchgeführt werden.
 
             \begin{redbox}{Wichtig:}
-                Anstelle des \quoteMark{https://github.com/Interbotix/interbotix\_ros\_arms.git}-Repositories muss, dass für diese Arbeit modifizierte Repository, welches auf dem Beilagemedium im Verzeichnis \quoteMark{Repositories/interbotix\_ros\_arms} beigelegt ist, verwendet werden. Zum Klonen des modifizierten Repositories muss hierzu der folgende Befehl verwendet werden:
+                Anstelle des \quoteMark{https://github.com/Interbotix/interbotix\_ros\_arms.git}-Repositories muss, dass für diese Arbeit modifizierte Repository, welches auf dem Begleitmedium im Verzeichnis \quoteMark{Repositories/interbotix\_ros\_arms} beigelegt ist, verwendet werden. Zum Klonen des modifizierten Repositories kann man hierzu den folgenden Befehl verwenden:
 
                 \begin{lstlisting}[style=bash]
-git clone <path to repository on cd or iso/Repositories/interbotix\
-_ros_arms>
+git clone <Pfad zum Begleitmedium>/Repositories/interbotix_ros_arms/
                 \end{lstlisting}
             \end{redbox}
 
@@ -205,10 +204,7 @@ wget https://raw.githubusercontent.com/Interbotix/interbotix_ros_arms/\
 master/interbotix_sdk/10-interbotix-udev.rules
 sudo cp 10-interbotix-udev.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
-                \end{lstlisting}
 
-            \item Außerhalb des Linux-Containers müssen folgende Einstellungen erfolgen, damit der unprivilegierte Linux-Container Zugriff auf den Dynamixel U2D2 erhält:
-                \begin{lstlisting}[style=bash]
 lxc config device add $CONTAINER_NAME dynamixel_u2d2_ttydxl unix-char path\
 =/dev/ttyDXL required=false
                 \end{lstlisting}
@@ -216,7 +212,7 @@ lxc config device add $CONTAINER_NAME dynamixel_u2d2_ttydxl unix-char path\
             \item Innerhalb des Linux-Containers muss zudem der folgende Befehl ausgeführt werden, um als normaler User auf den Dynamixel U2D2 zugreifen zu können:
                 \begin{lstlisting}[style=bash]
 echo "# Interbotix WidowX 200
-sudo chown ubuntu /dev/ttyDXL" >> ~/.bashrc
+sudo chown $(whoami) /dev/ttyDXL" >> ~/.bashrc
 source ~/.bashrc
                 \end{lstlisting}
         \end{enumerate}
@@ -277,7 +273,10 @@ lxc config device add $CONTAINER_NAME azure_kinect_microphone_\
 array usb vendorid=045e productid=097e
                 \end{lstlisting}
 
-            \item Den Linux-Container neustarten.
+            \item Den Linux-Container neustarten:
+                \begin{lstlisting}[style=bash]
+lxc restart $CONTAINER_NAME
+                \end{lstlisting}
         \end{enumerate}
 
     \item Azure Kinect SDKs installieren:
@@ -289,20 +288,20 @@ curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 sudo apt-add-repository https://packages.microsoft.com/ubuntu/18.04/prod
                 \end{lstlisting}
 
-            \item Installieren der Azure Kinect SDKs:
+            \item Installieren des Azure Kinect SDKs:
                 \begin{lstlisting}[style=bash]
 sudo apt install k4a-tools=1.3.*
 sudo apt install libk4a1.3-dev
                 \end{lstlisting}
 
                 \begin{redbox}{Wichtig:}
-                    Zur installierten Version vom \quoteMark{k4a-tools}-Paket muss die jeweilige Development-Version vom \quoteMark{libk4a}-Paket installiert werden.
+                    Zur installierten Version des \quoteMark{k4a-tools}-Pakets muss zudem die jeweilige Development-Version des \quoteMark{libk4a}-Pakets installiert werden:
 
                     \begin{lstlisting}[style=bash]
 sudo apt install libk4a<major>.<minor>-dev
                     \end{lstlisting}
 
-                    z.B.
+                    Der Befehl könnte z.B. wie folgt aussehen:
 
                     \begin{lstlisting}[style=bash]
 sudo apt install libk4a1.3-dev
@@ -335,13 +334,13 @@ Found 1 connected devices:
 1: Device "000846393812"
                 \end{lstlisting}
 
-            \item Die jeweilige Firmware von \href{https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#msis}{https://github.com/microsoft/Azure-Kinect-Sensor-SDK\\/blob/develop/docs/usage.md\#msis} herunterladen und flashen
+            \item Die jeweilige Version der Azure Kinect Firmware von der Webseite \href{https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#msis}{https://github.\\com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md\#msis} herunterladen:
                 \begin{lstlisting}[style=bash]
 wget https://download.microsoft.com/download/1/9/8/198048e8-63f2-45c6-\
 8f96-1fd541d1b4bc/AzureKinectDK_Fw_1.6.102075014.bin
                 \end{lstlisting}
 
-            \item Die heruntergeladene Firmware flashen:
+            \item Die heruntergeladene Azure Kinect Firmware daraufhin flashen:
                 \begin{lstlisting}[style=bash]
 AzureKinectFirmwareTool -u AzureKinectDK_Fw_1.6.102075014.bin
                 \end{lstlisting}
@@ -372,7 +371,7 @@ OpenGL version string: 4.6 (Compatibility Profile) Mesa 20.2.0-devel (git\
                 \begin{redbox}{Wichtig:}
                     Für das Body Tracking wird ein Grafikkartentreiber mit mindestens \quoteMark{OpenGL 4.4}- und \quoteMark{OpenGL Compatibility Context}-Unterstützung benötigt. Bei den Open-Source-Mesa-Treibern tritt lauf Stand 29. März 2020 mit dem \quoteMark{k4a-tools}-Paket in der Version 1.3 oder niedriger der Fehler\newline\newline
                     \quoteMark{Shader Error: 0:2(38): error: `gl\_FragColor' undeclared\\0:2(38): error: value of type vec4 cannot be assigned to variable of type error}\newline\newline
-                    auf, welcher das Starten der \quoteMark{k4abt\_simple\_3d\_viewer}-Anwendung verhindert.
+                    auf, welcher das Starten der \quoteMark{k4abt\_simple\_3d\_viewer}-Anwendung verhindert.\\
 
                     Hierzu muss die \quoteMark{simple\_3d\_viewer}-Anwendung mit dem in dieser Arbeit erstellten GLSL-Patch\footnote{\href{https://github.com/microsoft/Azure-Kinect-Samples/commit/15c303fb9a3a6b3a2c54a57cb11996823389595a}{https://github.com/microsoft/Azure-Kinect-Samples/commit/15c303fb9a3a6b3a\\2c54a57cb11996823389595a}}, welcher bereits in den Hauptzweig des \quoteMark{Azure-Kinect-Samples}-Repositories eingepflegt wurde, neukompiliert werden. Getestet wurde das Kompilieren mit der Commit-Version \quoteMark{ac696e4015648dd82dd019e59d94ba169f3c81aa}. Wenn ein Fehler beim Kompilieren auftritt, kann nach dem Klonen des Repositories explizit mit dem folgenden Befehl auf den in dieser Arbeit verwendeten Stand des Repositories zugegriffen werden.
                     \begin{lstlisting}[style=bash]
@@ -447,14 +446,14 @@ k4abt_simple_3d_viewer CPU
                 \end{lstlisting}
         \end{enumerate}
 
-    \item Zum Builden der Roboter-Gesten-Anwendung müssen die folgenden Pakete installiert werden:
+    \item Zum Kompilieren der Roboter-Gesten-Anwendung müssen die folgenden Pakete installiert werden:
         \begin{lstlisting}[style=bash]
 sudo apt install cmake gdb gcc python python-catkin-tools
         \end{lstlisting}
 
     \item Source Code kompilieren:\\
         \begin{redbox}{Wichtig:}
-            Die Roboter-Gesten-Anwendung wird mit der Option \quoteMark{Release} kompiliert. Dies ist empfehlenswert, wenn die Roboter-Gesten-Anwendung im Produktivbetrieb eingesetzt werden soll. Die Option \quoteMark{Release} kann durch die Option \quoteMark{Debug} ersetzt werden um eine Entwicklungsversion mit zusätzlicher Ausgabe zu erstellen. Um eine Version zur Durchführung der in dieser Arbeit erläuterten Messungen zu erhalten wird die Option \quoteMark{Release} und zusätzlich eine der folgenden Optionen für den jeweiligen Testfall verwendet:
+            Die Roboter-Gesten-Anwendung wird mit der Option \quoteMark{Release} kompiliert. Dies ist empfehlenswert, wenn die Roboter-Gesten-Anwendung im Produktivbetrieb eingesetzt werden soll. Die Option \quoteMark{Release} kann durch die Option \quoteMark{Debug} ersetzt werden um eine Entwicklerversion mit zusätzlicher Ausgabe zu erhalten. Um eine Version zur Durchführung der in dieser Arbeit erläuterten Messungen zu erhalten wird die Option \quoteMark{Release} und zusätzlich eine der folgenden Optionen für den jeweiligen Testfall verwendet:
 
             \begin{lstlisting}[style=bash]
 --cmake-args -DCMAKE_CXX_FLAGS="-DMEASUREMENT -DGESTURE_MEASUREMENT"
@@ -471,7 +470,7 @@ catkin build -DCMAKE_BUILD_TYPE=Release
 source ~/.bashrc
                 \end{lstlisting}
 
-            \item Den Source Code der Roboter-Gesten-Anwendung auf dem Beilagemedium aus dem Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} klonen, Abhängigkeiten installieren und anschließend die Roboter-Gesten-Anwendung kompilieren:
+            \item Den Source Code der Roboter-Gesten-Anwendung auf dem Begleitmedium aus dem Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} klonen, Abhängigkeiten installieren und anschließend die Roboter-Gesten-Anwendung kompilieren:
                 \begin{lstlisting}[style=bash]
 mkdir -p ~/tir_ws/src
 cd ~/tir_ws/
@@ -481,8 +480,7 @@ source ~/tir_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
 cd ~/tir_ws/src
-git clone <path to repository on cd or iso/Repositories/Teach-Industrial\
--Robots>
+git clone <Pfad zum Begleitmedium>/Repositories/Teach-Industrial-Robots/
 
 sudo apt install libglm-dev libeigen3-dev rapidjson-dev libk4a1.3\
 -dev libk4abt1.0-dev
@@ -531,7 +529,7 @@ sudo truncate -s +5G /var/snap/lxd/common/lxd/disks/default.img
 
                 \item Host-System neustarten
 
-                \item Anschließend das Image des Linux-Containers einhängen und daraufhin die neue Größe des Images eingeben:
+                \item Anschließend das Image des Linux-Containers im zuvor erstellten Ordnerpfad \quoteMark{/<mount point>} einhängen und daraufhin die neue Größe des Images eingeben:
                     \begin{lstlisting}[style=bash]
 sudo mount /var/snap/lxd/common/lxd/disks/default.img /<mount point>
 sudo btrfs filesystem resize maxG /<mount point>
@@ -541,7 +539,7 @@ sudo btrfs filesystem resize maxG /<mount point>
 
 
 \subsection{Starten der Roboter-Gesten-Anwendung}
-Für die Roboter-Gesten-Anwendung wird als Scheduler SCHED\_DEADLINE eingesetzt, welcher für diese Arbeit feste Echtzeitfähigkeit im 50 ms Bereich garantieren kann.
+Für die Roboter-Gesten-Anwendung wird der \quoteMark{SCHED\_DEADLINE}-Scheduler eingesetzt, welcher für diese Arbeit feste Echtzeitfähigkeit im 50 ms Bereich garantieren kann.
 
 \begin{figure}[htb]
 	\centering
@@ -551,7 +549,7 @@ Für die Roboter-Gesten-Anwendung wird als Scheduler SCHED\_DEADLINE eingesetzt,
 \end{figure}
 \FloatBarrier
 
-Für den \quoteMark{SCHED\_DEADLINE}-Scheduler müssen hierfür die Parameter, welche in Abbildung \ref{fig:sched_deadline} ersichtlich sind, richtig eingestellt werden. Der \quoteMark{Runtime}-Parameter beträgt zur Einhaltung der 50 ms Frist hierbei 50000000 ns, der \quoteMark{Deadline}-Parameter beträgt 50000000 ns und der \quoteMark{Periode}-Parameter beträgt 50000000 ns. Der \quoteMark{Runtime}-Parameter steht hierbei für die maximal benötigte Ausführungszeit der Aufgabe, der \quoteMark{Deadline}-Parameter für wie lange genügend Zeit vorhanden ist um die Aufgabe auszuführen und der \quoteMark{Periode}-Parameter für wann die nächste Periode gestartet werden muss \cite{man_sched7_nodate}. Diese Einstellungen wurden im Listing \ref{lst:settings_for_start_script} bei den Bash Variablen \quoteMark{SCHED\_RUNTIME}, \quoteMark{SCHED\_DEADLINE} und \quoteMark{SCHED\_PERIOD} im Start-Script bereits voreingestellt.\\
+Für den \quoteMark{SCHED\_DEADLINE}-Scheduler müssen hierfür die Parameter, welche in Abbildung \ref{fig:sched_deadline} ersichtlich sind, ordnungsgemäß eingestellt werden. Der \quoteMark{Runtime}-Parameter beträgt zur Einhaltung der 50 ms Frist hierbei 50000000 ns, der \quoteMark{Deadline}-Parameter beträgt 50000000 ns und der \quoteMark{Periode}-Parameter beträgt 50000000 ns. Der \quoteMark{Runtime}-Parameter steht hierbei für die maximal benötigte Ausführungszeit der Aufgabe, der \quoteMark{Deadline}-Parameter für die Zeit die die Aufgabe mit überzogener Ausführungszeit maximal benötigen darf und der \quoteMark{Periode}-Parameter für wann die nächste Periode gestartet werden muss \cite{man_sched7_nodate}. Diese Einstellungen wurden im Listing \ref{lst:settings_for_start_script} bei den Bash Variablen \quoteMark{SCHED\_RUNTIME}, \quoteMark{SCHED\_DEADLINE} und \quoteMark{SCHED\_PERIOD} im Start-Script bereits voreingestellt.\\
 
 \begin{lstlisting}[style=bash, caption={Einstellungen des Start-Scripts der Roboter-Gesten-Anwendung}, label={lst:settings_for_start_script}]
 USE_ROS_COMMUNICATION=true
@@ -572,7 +570,7 @@ SCHED_DEADLINE=50000000
 SCHED_PERIOD=50000000
 \end{lstlisting}\leavevmode\newline\vspace{-1.0em}
 
-Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}, welches sich auf dem Beilagemedium im Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} befindet, auf dem Host-System im Linux-Container gestartet und dem \quoteMark{SCHED\_DEADLINE}-Scheduler zugewiesen werden. Die einstellbaren Optionen des Start-Scripts sind im Listing \ref{lst:settings_for_start_script} ersichtlich. Zum Ausführen des Start-Scripts muss im Listing \ref{lst:settings_for_start_script} die Bash-Variable \quoteMark{LXC\_INSTANCE} mit dem Namen des Linux-Containers ersetzt werden. Die Bash-Variable \quoteMark{USE\_ROS\_COMMUNICA-\\TION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{TEACH\_POSITIONS} eingesetzt. Zur Auswahl der verwendeten Positionsdatei kann die Bash-Variable \quoteMark{CONFIGURATION\_FILE\_PATH} mit dem Pfad zur Positionsdatei genutzt werden. Mit der Bash-Variable \quoteMark{USE\_SIMULATION} kann eingestellt werden ob die Anwendung im Simulator gestartet werden soll. Die Bash-Variable \quoteMark{DO\_MEASUREMENT} kann bei Verwendung eines echten Industrieroboters dazu verwendet werden um Messvorraussetzungen, wie z.B. ein simuliertes Netzwerk, bereitzustellen. Zudem kann bei aktivierter \quoteMark{DO\_MEASUREMENT}-Bash-Variable die Bash-Variable \quoteMark{SIMULATE\_ADDITIONAL\_ROS\\\_NODES} aktiviert werden um zusätzlichen Netzwerktraffic zu generieren. Mit der Bash-Variable \quoteMark{ADDITIONAL\_ROS\_NODES\_COUNT} kann bei aktivierter \quoteMark{SIMULATE\_ADD-\\ITIONAL\_ROS\_NODES}-Bash-Variable auch die Anzahl der zu simulierenden ROS-Nodes angegeben werden. Es werden Kamera-ROS-Nodes simuliert, welche jeweils 4K-Bilder mit 60 FPS per UDP über die Netzwerkschnittstelle transferieren. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anwenden zu können, kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den nachstehenden Parametern modifiziert werden.
+Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}, welches sich auf dem Begleitmedium im Verzeichnis \quoteMark{Repositories/Teach-Industrial-Robots} befindet, durch das Host-System im Linux-Container gestartet und dem \quoteMark{SCHED\_DEADLINE}-Scheduler zugewiesen werden. Die einstellbaren Optionen des Start-Scripts sind im Listing \ref{lst:settings_for_start_script} ersichtlich. Zum Ausführen des Start-Scripts muss im Listing \ref{lst:settings_for_start_script} der Bash-Variable \quoteMark{LXC\_INSTANCE} der Name des Linux-Containers zugewiesen werden. Die Bash-Variable \quoteMark{USE\_ROS\_COMMUNICA-\\TION} steuert ob die Roboter-Gesten-Anwendung über ROS kommunizieren oder eine direkt Verbindung mit dem Industrieroboter aufbauen soll. Um der Roboter-Gesten-Anwendung mitteilen zu können ob diese im Lern- oder Abspielmodus gestartet werden soll, wird die Bash-Variable \quoteMark{TEACH\_POSITIONS} eingesetzt. Zur Auswahl der verwendeten Positionsdatei kann die Bash-Variable \quoteMark{CONFIGURATION\_FILE\_PATH} mit dem Pfad zur Positionsdatei genutzt werden. Mit der Bash-Variable \quoteMark{USE\_SIMULATION} kann eingestellt werden ob die Anwendung im Simulator gestartet werden soll. Die Bash-Variable \quoteMark{DO\_MEASUREMENT} kann bei Verwendung eines realen Industrieroboters dazu verwendet werden um Messvorraussetzungen, wie z.B. ein simuliertes Netzwerk, bereitzustellen. Zudem kann bei aktivierter \quoteMark{DO\_MEASUREMENT}-Bash-Variable die Bash-Variable \quoteMark{SIMULATE\_ADDITIONAL\_ROS\\\_NODES} aktiviert werden um zusätzlichen Netzwerktraffic zu generieren. Mit der Bash-Variable \quoteMark{ADDITIONAL\_ROS\_NODES\_COUNT} kann bei aktivierter \quoteMark{SIMULATE\_ADD-\\ITIONAL\_ROS\_NODES}-Bash-Variable auch die Anzahl der zu simulierenden ROS-Nodes angegeben werden. Es werden 4K-Kamera-ROS-Nodes simuliert, welche jeweils 4K-Bilder mit 60 FPS per UDP über die Netzwerkschnittstelle transferieren. Um weitere von der Roboter-Gesten-Anwendung unterstützte Parameter anwenden zu können, kann die Bash-Variable \quoteMark{ADDITIONAL\_APP\_PARAMETERS} mit den nachstehenden Parametern modifiziert werden.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.2\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|>{\raggedright\arraybackslash}p{0.50\textwidth}|}
 \hline
@@ -588,14 +586,14 @@ Die Roboter-Gesten-Anwendung kann mit dem Start-Script \quoteMark{start\_tir.sh}
 \hline
 -rn="\phantom{}<name>" & \texttt{-{}-}robot-name="\phantom{}<name>" & Name des Roboters\newline (Default: "wx200")\\
 \hline
--rm="\phantom{}<model>" & \texttt{-{}-}robot-model="\phantom{}<model>" & Robotermodell\newline (in der Regel der Name des Roboters\newline Default: "wx200")\\
+-rm="\phantom{}<model>" & \texttt{-{}-}robot-model="\phantom{}<model>" & Robotermodell\newline (In der Regel der Name des Roboters\newline Default: "wx200")\\
 \hline
--ur & \texttt{-{}-}use-ros & ROS oder eine direkte Verbindung zum Industrieroboter verwenden\\
+-ur & \texttt{-{}-}use-ros & Mittels ROS oder einer direkten Verbindung mit dem Industrieroboter kommunizieren\\
 \hline
 -mhaex & \texttt{-{}-}move-home-at-exit & Beim Beenden der Anwendung in die Ausgangsposition zurückfahren\\
 \hline
 -mhaer & \texttt{-{}-}move-home-at-error & Bei einem Fehler der Anwendung in die Ausgangsposition zurückfahren\\
 \hline
- & --help & Zeigt die Hilfe\\
+ & \texttt{-{}-}help & Zeigt die Hilfe\\
 \hline
 \end{longtable}
